@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>		
+</head>
+<body>
+	<div data-role="page" id="page-1" data-theme="a">
+		<div data-role="panel" id="panel-1" data-theme="b">
+			<ul data-role="listview" id="listview-1">
+				<li><a href="item1.html">Menu One</a></li>
+				<li><a href="item2.html">Settings</a></li>
+				<li><a href="#page-2">Help</a></li>
+				<li><a href="index.html">Log Out</a></li>				
+			</ul>
+		</div>
+	
+		<div data-role="header" data-theme="b">
+			<a href="#panel-1" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MEnu</a>
+			<h1>Welcome to SSTS</h1>
+			<a href="#dialog-1" id="button-2" data-rel="dialog" class="ui-btn ui-icon-info ui-btn-icon-notext ui-corner-all ui-btn-b">About</a>
+		</div>
+		<div data-role="content">
+			<p>Page content goes here.</p>
+			<div class="ui-field-contain">
+				<label for="text-1">Name</label>
+				<input name="text-1" id="text-1" data-clear-btn="true" value="" placeholder="First Name Last Name" type="text"/>
+			</div>
+			<div class="ui-field-contain">
+				<label for="email-1">Email</label>
+				<input name="email-1" id="email-1" data-clear-btn="true" value="" type="email"/>
+			</div>
+			<div class="ui-field-contain">
+				<label for="tel-1">Phone</label>
+				<input name="tel-1" id="tel-1" data-clear-btn="true" value="" type="tel"/>
+			</div>
+			<div class="ui-field-contain">
+				<label for="date-1">BirthDate</label>
+				<input name="date-1" id="date-1" data-clear-btn="true" value="" type="date"/>
+			</div>
+		</div>
+		<div data-role="footer" data-theme="b">
+			<h4>Contacts</h4>
+		</div>
+	</div>
+	<div data-role="page" data-dialog="true" id="dialog-1" data-theme="b">
+		<div data-role="header">
+			<h1>About</h1>
+		</div>
+		<div data-role="content" data-theme="a">
+			<h6>About us (Details).</h6>
+			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+		</div>
+	</div>
+	
+	<div data-role="page" id="page-2" data-theme="b">
+		<div data-role="header" data-theme="b">
+			<a href="#" data-role="button" data-rel="back" data-icon="back">Back</a>
+			<h1>Second Page</h1>
+		</div>
+		<div data-role="content" >
+			<p>Page content goes here.</p>
+			<div data-role="collapsible-set" id="collapsible-set-1" data-theme="a">
+				<div data-role="collapsible">
+					<h4>Registration</h4>
+					<p>Getting registered with SSTS is simple. You just have to provide your email address and a preffered password. Or else you can sign in with your existing google account.</p>
+				</div>
+				<div data-role="collapsible">
+					<h4>Key Contacts</h4>
+					<p>Collapsible content.</p>
+				</div>
+				<div data-role="collapsible">
+					<h4>Locations</h4>
+					<p>Collapsible content.</p>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div data-role="footer" data-theme="b">
+			<h4>Second Page</h4>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Speech Therapist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <!-- Set the tab, home page, shortcut icons -->
+    <link rel="Shortcut Icon" href="img/ssts_icon_16x.png">
+    <link rel="apple-touch-icon" href="img/ssts_logo_for_apple_48px.png"/>
+
+    <!-- For minification, comment out this link -->
+    <!-- Shared styles -->
+    <link rel="stylesheet" href="css/screen.css"/>
+
+    <!-- Set viewport scaling and zoom features -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript" src="js/libs/modernizr-2.6.2.min.js"></script>
+
+    <script type="text/javascript">
+        Modernizr.load([{
+            //Load CDN hosted jQuery or fall back to local file.
+            /*--------Note-----------
+             This approach should only be used if you trust the source of where the resource (JavaScript) is located.
+             In this case, use of the google CDN is much faster if your user's browser already has this file cached.
+             If they don't have it cached, try to load it from the CDN as this will be faster if the user is
+             located closer to a CDN than you currently hosted server.
+             */
+            load: [
+		"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js",
+                "js/libs/lodash-1.3.1.js",
+                // "js/libs/lodash-1.3.1.min.js",
+                // Minification - See Readme for details
+                // For minification, comment out this file
+                "js/app.js"
+                // For minification, uncomment this file
+                // "js/app.min.js"
+            ],
+            complete: function() {
+                if ( !window.jQuery ) {
+                    //In production, you would want to fall back to a minified file.
+                    //the full version is used because Eclipse reports false errors in some minified JavaScript files.
+                    yepnope( "js/libs/jquery-1.9.1.js" );
+                }
+            }
+        },{
+            //device detection and asynchronous script loading
+            /*--------Note-----------
+             Here the yepnope framework is used which gives us the ability to load scripts dynamically, based on
+             Modernizr's results.
+             With Modernizr, media queries and touch detection are used to see if user is on a mobile, touch based device
+             or if user is at anything less than 480px.. this gives us a mobile ui on desktop browsers when resized to <480px
+             width for testing.
+             */
+            test: Modernizr.mq( "only all and (max-width: 640px)" ),
+            yep: {
+                //assign labeled callbacks for later execution after script loads.
+                //User is on mobile device so load appropriate CSS
+                "jqmcss": "css/jquery.mobile-1.3.1.min.css",
+                // For minification, uncomment this line
+                //"mcss": "css/m.screen.min.css"
+                // For minification, comment out this line
+                "mcss": "css/m.screen.css"
+            },
+            nope: {
+                //User is on desktop
+                // For minification, uncomment this line
+                //"scss": "css/d.screen.min.css"
+                // For minification, comment out this line
+                "scss": "css/d.screen.css"
+            },
+            callback: {
+                //use the labeled callbacks from above, and load jQuery Mobile
+                "jqmcss": function( url, result, key ) {
+                    yepnope({
+                        load: "js/libs/jquery.mobile-1.3.1.min.js",
+                        complete: function() {
+                            console.log( "jQuery Mobile Loaded" );
+                        }
+                    });
+                },
+                "scss": function( url, result, key ) {
+                    $( document ).ready( function() {
+                        //here content are moved around based on the browser/device.
+                        $( "aside" ).insertAfter( $( "section" ) );
+                    });
+                }
+            },
+            complete: function() {
+                $( document ).ready( function() {
+                    //setup the app after all scripts have loaded
+
+                    $( "#container" ).show();
+                    //Fetches the initial member data and populates the table using lodash templates
+                    updateMemberTable();
+
+                    //Register an event listener on the sumbit action
+                    $('#reg').submit(function(event) {
+                        event.preventDefault();
+
+                        var memberData = $(this).serializeObject();
+
+                        registerMember(memberData);
+                    });
+
+                    //Register the cancel listener
+                    $('#cancel').click(function(event) {
+                        //clear input fields
+                        $('#reg')[0].reset();
+
+                        //clear existing msgs
+                        $('span.invalid').remove();
+                        $('span.success').remove();
+                    });
+
+                    $("#refreshButtonD, #refreshButtonM").click(function(event) {
+                        updateMemberTable();
+                    });
+
+                    //Clear member registration and error messages on page change
+                    $("#container").delegate("#register-art", "pagebeforeshow", function(event) {
+                        $("#formMsgs").empty();
+                        $('span.invalid').remove();
+                    });
+                });
+
+                $.fn.serializeObject = function() {
+                    var o = {};
+                    var a = this.serializeArray();
+                    $.each(a, function() {
+                        if (o[this.name]) {
+                            if (!o[this.name].push) {
+                                o[this.name] = [o[this.name]];
+                            }
+                            o[this.name].push(this.value || '');
+                        } else {
+                            o[this.name] = this.value || '';
+                        }
+                    });
+                    return o;
+                };
+            }
+        }]);
+    </script>
+</head>
+<body>
+<div id="container" style="">
+    <div class="logo">
+        <img src="img/ssts_logo_150px.png"/>
+    </div>
+    <div class="dualbrand">
+        <img src="img/university_logo.png"/>
+    </div>
+    <section>
+        <h1>Smart Speech Therapist for Stammer (SSTS)</h1>
+        <article id="intro-art" data-role="page" data-theme="a">
+            <!-- Header -->
+            <div data-role="header" class="header">
+                
+                <h3>
+                <img class="header_logo" src="img/icon_medium.png"/>
+                SSTS Home</h3>
+				<a href="#panel-1" id="button-1" data-rel="dialog" data-role="button" data-icon="ui-btn ui-icon-bars" data-iconpos="notext">About</a>
+				<a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>                
+            </div>
+<div data-role="panel" id="panel-1" data-theme="b" class="header">
+			<ul data-role="listview" id="listview-1">
+				<li><a href="login.html">LogIn</a></li>
+				<li><a href="item2.html">Settings</a></li>
+				<li><a href="item3.html">Help</a></li>
+				<li><input type="button" value="Exit" onclick="self.close()"></li>				
+			</ul>
+		</div>            
+            <!-- /Header -->
+            	
+            <div data-role="content" >
+            
+                <p><i>Your most dedicated and intelligent virtual speech therapist for Stammer, <strong>Smart Speech Therapist for Stammer(SSTS)</strong>.</i></p>
+                <h3>SSTS is available on:</h3>
+                <img src="img/dualbrand_icbt_cmu.png" class="max-width-100"/>
+                <p>Following is a step by step demonstration on how to use the Smart Speech Therapist application.</p>
+                <div class="highlights">
+                    <ul>
+                        <li>Register as a user</li>
+                        <li>Login to your account &amp; click on 'Listen to me' button</li>
+                    </ul>
+                </div>
+                <div class="highlights">
+                    <ul>
+                        <li>Read out loud the paragraph displayed</li>
+                        <li>Click on 'I am done' button &amp; you will see your score</li>
+                    </ul>
+                </div>
+
+                <ul id="features">
+                    <li class="feature">Register as a user</li>
+                    <li class="feature">Login to your account</li>
+                    <li class="feature">Click on 'Listen to me' button</li>
+                    <li class="feature">Read out loud the paragraph displayed</li>
+                    <li class="feature">Click on 'I am done' button</li>
+                    <li class="feature">You will see your score</li>
+                </ul>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer" data-role="footer" data-position="fixed">
+                <div class="footer_left">
+                    <a href="#intro-art" data-role="button" data-icon="home">Home</a>
+                </div>
+                <div class="footer_right">
+                    <span class="footer_txt">Member:</span>
+                    <a href="#register-art" data-role="button" data-inline="true" data-icon="plus">Add</a>
+                    <a href="#member-art" data-role="button" data-inline="true" data-icon="grid">List</a>
+                </div>
+            </div>
+            <!-- /Footer -->
+        </article>
+
+        <!-- New HTML5 article tag -->
+        <article id="register-art" data-role="page" data-theme="a">
+            <!-- Header -->
+            <div data-role="header" class="header">
+                <img class="header_logo" src="img/icon_medium.png"/>
+                <h3>User Registration</h3>
+                <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
+            </div>
+            <!-- /Header -->
+
+            <div data-role="content">
+
+                <!-- For now mapping bean validation constraints from server side model is a manual task -->
+                <form name="reg" id="reg" data-ajax="false">
+                    <fieldset>
+                        <legend>Register as a member:</legend>
+                        <div>
+                            <label for="name">Name:</label>
+                            <input type="text" name="name" id="name" placeholder="FirstName LastName" required autofocus/>
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" id="email" placeholder="example@email.com" required/>
+                        </div>
+                        <div>
+                            <label for="phoneNumber">Phone #:</label>
+                            <input type="tel" name="phoneNumber" id="phoneNumber" pattern="[0-9]{10,12}" placeholder="Your Phone #" required/>
+                        </div>
+                        <div id="formMsgs"></div>
+                        <div data-role="controlgroup" data-type="horizontal">
+                            <input type="submit" id="register" value="Register"/>
+                            <input type="button" name="cancel" id="cancel" value="Cancel"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer" data-role="footer" data-position="fixed">
+                <div class="footer_left">
+                    <a href="#intro-art" data-role="button" data-icon="home">Home</a>
+                </div>
+                <div class="footer_right">
+                    <span class="footer_txt">Member:</span>
+                    <a href="#register-art" data-role="button" data-inline="true" data-icon="plus">Add</a>
+                    <a href="#member-art" data-role="button" data-inline="true" data-icon="grid">List</a>
+                </div>
+            </div>
+            <!-- /Footer -->
+        </article>
+
+        <!-- New HTML5 article tag -->
+        <article id="member-art" data-role="page" data-theme="a">
+            <!-- Header -->
+            <div data-role="header" class="header" data-position="fixed">
+                <img class="header_logo" src="img/icon_medium.png"/>
+                <h3>Contact Speech Therapists</h3>
+                <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
+            </div>
+            <!-- /Header -->
+            <h2>Current Members</h2>
+
+            <div data-role="content">
+                <button id="refreshButtonM" data-role="button" data-inline="true" data-icon="refresh">Refresh Members</button>
+                <div id="members"></div>
+                <div class="member-foot">
+                    <!-- Sets the JAX-RS URLs to retrieve all members either as XML or JSON data.-->
+                    REST URL for all members:
+                    <a href="rest/members" target="_blank" rel="external">JSON</a>
+                    <button id="refreshButtonD">Refresh Members</button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer" data-role="footer" data-position="fixed">
+                <div class="footer_left">
+                    <a href="#intro-art" data-role="button" data-icon="home">Home</a>
+                </div>
+                <div class="footer_right">
+                    <span class="footer_txt">Member:</span>
+                    <a href="#register-art" data-role="button" data-inline="true" data-icon="plus">Add</a>
+                    <a href="#member-art" data-role="button" data-inline="true" data-icon="grid">List</a>
+                </div>
+            </div>
+            <!-- /Footer -->
+        </article>
+
+        <!-- New HTML5 aside tag -->
+        <aside id="info-aside" data-role="page" data-theme="a">
+            <!-- Header -->
+            <div data-role="header">
+                <h3>Features of SSTS</h3>
+            </div>
+            <!-- /Header -->
+
+            <div data-role="content">
+                <p>Followings are some features of the Smart Speech Therapis for Stammer.</p>
+                <ul>
+                    <li>Voice Recognition</li>
+                    <li>Speech Graph</li>
+                    <li>Delayed Auditory Feedback</li>
+                </ul>
+                <p>Why SSTS is <strong>Unique ?</strong></p>
+                <ul>
+                    <li><strong>Adaptive Paragraph Generation</strong></li>
+						<p>-Smart Speech Therapist for Stammer uses an Intelligent System to auto-generate user oriented paragraphs.</p>
+						<li><strong>Scoring of Speech Lessons</strong></li>
+						<p>-Smart Speech Therapist for Stammer analyzes the displayed paragraph with the user's speech and generates a score per each paragraph inorder to indicate the accuracy of speech.</p>
+                </ul>
+            </div>
+        </aside>
+    </section>
+
+    <!-- New HTML5 footer tag -->
+    <footer>
+        <!--<img src="img/logo.png" alt="HTML5"/>-->
+        <p>This is a Final Year Software Development Project which will be submitted to the Cardiff Metropolitan University - Wales, UK.</p>
+        <p>This product is still in it's first development stage. Appreciate your generous feedback to be sent on myasas@gmail.com<br/></p>
+    </footer>
+</div>
+<script type="text/template" id="member-tmpl">
+    <% var addHeader = true;
+    _.each(members, function(member) {
+    if ( Modernizr.mq( "only all and (max-width: 640px)" ) ) {
+    addHeader = true;
+    }
+    %>
+    <div class="row member">
+        <div class="col"><% if ( addHeader ) { %><div class="head">Id</div><% } %><div class="data"><%=member.id%></div></div>
+        <div class="col"><% if ( addHeader ) { %><div class="head">Name</div><% } %><div class="data"><%=member.name%></div></div>
+        <div class="col"><% if ( addHeader ) { %><div class="head">Email</div><% } %><div class="data"><%=member.email%></div></div>
+        <div class="col"><% if ( addHeader ) { %><div class="head">Phone #</div><% } %><div class="data"><%=member.phoneNumber%></div></div>
+        <div class="col"><% if ( addHeader ) { %><div class="head">REST URL</div><% } %><div class="data"><a href="rest/members/<%=member.id%>" rel="external" target="_blank" class="resturl ui-link">JSON</a></div></div>
+    </div>
+    <% addHeader = false;
+    }); %>
+</script>
+</body>
+</html>
