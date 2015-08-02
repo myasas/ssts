@@ -20,11 +20,11 @@
 
     <groupId>org.icbt.projects.ssts</groupId>
     <artifactId>smart-speech-therapist-for-stammer</artifactId>
-    <version>01.00.00.00.015-SNAPSHOT</version>
+    <version>01.00.00.00.015</version>
     <packaging>war</packaging>
 
     <name>smart-speech-therapist-for-stammer</name>
-    <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
+    <description>A Java EE 6, HTML5, mobile and web application.</description>
 
     <url>http://devssts-yasasd.rhcloud.com</url>
 
