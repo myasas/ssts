@@ -157,9 +157,7 @@
 				<!-- Header -->
 				<div data-role="header" class="header">
 
-					<h3>
-						<img class="header_logo" src="img/icon_medium.png" /> SSTS Home
-					</h3>
+					<h3><img class="header_logo" src="img/icon_medium.png" />Home</h3>
 					<a href="#panel-1" id="button-1" data-rel="dialog"
 						data-role="button" data-icon="ui-btn ui-icon-bars"
 						data-iconpos="notext">About</a> <a href="#info-aside"
@@ -218,10 +216,8 @@
 						<a href="#intro-art" data-role="button" data-icon="home">Home</a>
 					</div>
 					<div class="footer_right">
-						<span class="footer_txt">Member:</span> <a href="#register-art"
-							data-role="button" data-inline="true" data-icon="plus">Add</a> <a
-							href="#member-art" data-role="button" data-inline="true"
-							data-icon="grid">List</a>
+						<a href="#register-art"	data-role="button" data-inline="true" data-icon="plus">SignUp</a> 
+						<a href="" onclick="location.href='login.html'" data-role="button" data-inline="true"	data-icon="grid">SignIn</a>
 					</div>
 				</div>
 				<!-- /Footer -->
@@ -232,7 +228,7 @@
 				<!-- Header -->
 				<div data-role="header" class="header">
 					<img class="header_logo" src="img/icon_medium.png" />
-					<h3>User Registration</h3>
+					<h3>Sign Up for SSTS Account</h3>
 					<a href="#info-aside" data-role="button" data-icon="info"
 						class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
 				</div>
@@ -254,15 +250,29 @@
 									required />
 							</div>
 							<div>
-								<label for="phoneNumber">Phone #:</label> <input type="tel"
-									name="phoneNumber" id="phoneNumber" pattern="[0-9]{10,12}"
-									placeholder="Your Phone #" required />
+								<label for="password">Password:</label> <input type="password"
+									name="password" id="password" placeholder="New Password" required />
 							</div>
+							<div>
+								<label for="passwordReEntered">Re-Enter Password:</label> <input type="password"
+									name="passwordReEntered" id="passwordReEntered" placeholder="Re-enter Password" required />
+							</div>		
+												
+							<div>
+								<label for="birthday">Birth Day:</label> 
+								<input type="date" name="birthday" id="birthday" value="" placeholder="Please select" required />
+							</div>															
+							<div>
+								<p>By clicking Sign Up, you agree to SSTS Terms and that you have read SSTS <a href="terms.html"> Terms and Conditions<a>.</p>
+							</div>	
 							<div id="formMsgs"></div>
 							<div data-role="controlgroup" data-type="horizontal">
-								<input type="submit" id="register" value="Register" /> <input
-									type="button" name="cancel" id="cancel" value="Cancel" />
+								<input type="submit" id="register" value="Sign Up" /> <input
+									type="button" name="clear" id="cancel" value="Clear" />
 							</div>
+							<div data-role="controlgroup" data-type="horizontal">
+								<input type="button" id="signin" value="Sign In" onclick="location.href='login.html'"/>
+							</div>							
 						</fieldset>
 					</form>
 				</div>
@@ -272,12 +282,7 @@
 					<div class="footer_left">
 						<a href="#intro-art" data-role="button" data-icon="home">Home</a>
 					</div>
-					<div class="footer_right">
-						<span class="footer_txt">Member:</span> <a href="#register-art"
-							data-role="button" data-inline="true" data-icon="plus">Add</a> <a
-							href="#member-art" data-role="button" data-inline="true"
-							data-icon="grid">List</a>
-					</div>
+	
 				</div>
 				<!-- /Footer -->
 			</article>
@@ -312,10 +317,8 @@
 						<a href="#intro-art" data-role="button" data-icon="home">Home</a>
 					</div>
 					<div class="footer_right">
-						<span class="footer_txt">Member:</span> <a href="#register-art"
-							data-role="button" data-inline="true" data-icon="plus">Add</a> <a
-							href="#member-art" data-role="button" data-inline="true"
-							data-icon="grid">List</a>
+						<a href="#register-art"	data-role="button" data-inline="true" data-icon="plus">Add</a> 
+						<a href="#member-art" data-role="button" data-inline="true"	data-icon="grid">List</a>
 					</div>
 				</div>
 				<!-- /Footer -->
