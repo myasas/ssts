@@ -1,4 +1,4 @@
-package org.jboss.tools.example.html5.rest;
+package rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

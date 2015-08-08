@@ -1,6 +1,4 @@
-package org.jboss.tools.example.html5.data;
-
-import org.jboss.tools.example.html5.model.Member;
+package data;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -8,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import model.Member;
+
 import java.util.List;
 
 @ApplicationScoped

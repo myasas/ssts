@@ -1,4 +1,4 @@
-package org.jboss.tools.example.html5.test;
+package serviceTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,9 +12,6 @@ import javax.ws.rs.core.Response;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-import org.jboss.tools.example.html5.data.MemberRepository;
-import org.jboss.tools.example.html5.rest.MemberService;
-import org.jboss.tools.example.html5.service.MemberRegistration;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -22,8 +19,11 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.jboss.tools.example.html5.model.Member;
-import org.jboss.tools.example.html5.util.Resources;
+import data.MemberRepository;
+import model.Member;
+import rest.MemberService;
+import service.MemberRegistration;
+import util.Resources;
 
 /**
  * Uses Arquilian to test the JAX-RS processing class for member registration.

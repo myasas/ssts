@@ -1,4 +1,4 @@
-package org.jboss.tools.example.html5.rest;
+package rest;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,9 +25,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.jboss.tools.example.html5.data.MemberRepository;
-import org.jboss.tools.example.html5.model.Member;
-import org.jboss.tools.example.html5.service.MemberRegistration;
+import data.MemberRepository;
+import model.Member;
+import service.MemberRegistration;
 
 /**
  * JAX-RS Example

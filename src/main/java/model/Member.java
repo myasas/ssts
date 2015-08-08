@@ -1,4 +1,4 @@
-package org.jboss.tools.example.html5.model;
+package model;
 
 import java.io.Serializable;
 

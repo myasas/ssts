@@ -1,4 +1,4 @@
-package org.jboss.tools.example.html5.util;
+package util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

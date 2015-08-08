@@ -1,11 +1,12 @@
-package org.jboss.tools.example.html5.service;
-
-import org.jboss.tools.example.html5.model.Member;
+package service;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
+import model.Member;
+
 import java.util.logging.Logger;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
