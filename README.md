@@ -1,4 +1,4 @@
-smart-speech-therapist-for-stammer-html5-mobile: Application Using Multiple HTML5,Javascript, Mobile & JAX-RS Technologies 
+smart-speech-therapist-for-stammer: Application Using JSP,Java,HTML5,Javascript, Mobile & JAX-RS Technologies 
 =========================================================================================================
 Author: Yasas De Silva
 Level: Beginner 

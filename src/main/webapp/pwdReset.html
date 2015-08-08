@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Login</title>
+<title>Password Request</title>
 
 <!-- Bootstrap core CSS -->
 <link href="http://getbootstrap.com/dist/css/bootstrap.min.css"
@@ -41,40 +41,16 @@
 
 		<form class="form-signin" role="form">
 			<div id="status"></div>
-			<h2 class="form-signin-heading">Log in to SSTS</h2>
+			<h2 class="form-signin-heading">Password Request</h2>
 
-			<label for="inputFname" class="sr-only">Login Name</label> 
-			<input type="text" id="loginName" class="form-control" placeholder="Eg: Dilan" required autofocus> 
-<!-- 			<label for="inputEmail" class="sr-only">Email address</label>  -->
-<!-- 			<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>  -->
-			<label for="inputPassword" class="sr-only">Password</label> <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-					<p align="right"><a href= pwdReset.html>Forgot Password?</a></p>
-					<p></p>		
-			<div class="row">
-				<div class="col-md-6">
-					<button class="btn btn-sm btn-primary btn-block" type="submit">Sign	In</button>
-				</div>			
-				<div class="col-md-6">
-					<button class="g-signin "
-						data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
-						data-requestvisibleactions="http://schemas.google.com/AddActivity"
-						data-clientId="759166832534-kb3han5neb6t4urbe9vecd7jns42ca9i.apps.googleusercontent.com"
-						data-accesstype="offline" data-callback="mycoddeSignIn"
-						data-theme="dark" data-cookiepolicy="single_host_origin">
-					</button>
-				</div>
-			</div>
-			
-
-			
-			<div class="row" align="center"> 
+	 
+			<label for="inputEmail" class="sr-only">Email address</label> 
+			<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required> 
 			<p></p>
-			Do not have an Account yet?
+			<p>It is strongly adviced to change the password once you receive it !</p>
 			<p></p>
-			</div>
-			
 			<div align="center">
-		<button class="btn btn-sm btn-primary btn-block" type="button" onclick="location.href='register.html'">SignUp</button>			
+		<button class="btn btn-sm btn-primary btn-block" type="submit">Request Password</button>			
 			</div> 
 				
 

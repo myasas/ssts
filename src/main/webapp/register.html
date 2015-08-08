@@ -6,47 +6,44 @@
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>		
+<title>Registration</title>		
 </head>
 <body>
 	<div data-role="page" id="page-1" data-theme="a">
 		<div data-role="panel" id="panel-1" data-theme="b">
 			<ul data-role="listview" id="listview-1">
-				<li><a href="login.html">Login</a></li>
-				<li><a href="speech.html">Lessons</a></li>
-				<li><a href="item2.html">Settings</a></li>
-				<li><a href="#page-2">Help</a></li>
-				<li><a href="item4.html">About</a></li>		
-				<li><a href="http://devssts-yasasd.rhcloud.com/">Log Out</a></li>				
+				<li><a href="index.html">Home</a></li>
+				<li><a href="XXX.html">Settings</a></li>
+				<li><a href="#page-2">Help</a></li>		
 			</ul>
 		</div>
 	
 		<div data-role="header" data-theme="b">
 			<a href="#panel-1" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MEnu</a>
-			<h1>Welcome to SSTS</h1>
+			<h1>Registration Form</h1>
 			<a href="#dialog-1" id="button-2" data-rel="dialog" class="ui-btn ui-icon-info ui-btn-icon-notext ui-corner-all ui-btn-b">About</a>
 		</div>
 		<div data-role="content">
-			<p>Page content goes here.</p>
+			<p>Please fill the following details.</p>
 			<div class="ui-field-contain">
-				<label for="text-1">Name</label>
-				<input name="text-1" id="text-1" data-clear-btn="true" value="" placeholder="First Name Last Name" type="text"/>
+				<label for="text-1">Login Name</label>
+				<input name="text-1" id="text-1" data-clear-btn="true" value="" placeholder="Preferred Login name" type="text"/>
 			</div>
 			<div class="ui-field-contain">
 				<label for="email-1">Email</label>
-				<input name="email-1" id="email-1" data-clear-btn="true" value="" type="email"/>
+				<input name="email-1" id="email-1" data-clear-btn="true" value="" placeholder="example@email.com" type="email"/>
 			</div>
 			<div class="ui-field-contain">
 				<label for="tel-1">Phone</label>
-				<input name="tel-1" id="tel-1" data-clear-btn="true" value="" type="tel"/>
+				<input name="tel-1" id="tel-1" data-clear-btn="true" value="" placeholder="XXXXXXXXXX (10 Digit Phone Number)" type="tel"/>
 			</div>
 			<div class="ui-field-contain">
 				<label for="date-1">BirthDate</label>
-				<input name="date-1" id="date-1" data-clear-btn="true" value="" type="date"/>
+				<input name="date-1" id="date-1" data-clear-btn="true" value="" placeholder="Please select from Date Picker" type="date"/>
 			</div>
 		</div>
 		<div data-role="footer" data-theme="b">
-			<h4>Contacts</h4>
+			<h4>-</h4>
 		</div>
 	</div>
 	<div data-role="page" data-dialog="true" id="dialog-1" data-theme="b">
