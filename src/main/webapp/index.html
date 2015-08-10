@@ -241,11 +241,11 @@
 				<div data-role="content">
 
 					<!-- For now mapping bean validation constraints from server side model is a manual task -->
-					<form name="reg" id="reg" data-ajax="false">
+					<form method="post" action="registration.jsp" data-ajax="false">
 						<fieldset>
 							<legend>Sign Up (It's Free and always will be):</legend>
 							<div>
-								<label for="name">Name:</label> <input type="text" name="name"
+								<label for="name">Name:</label> <input type="text" name="uname"
 									id="name" placeholder="FirstName LastName" required autofocus />
 							</div>
 							<div>
@@ -255,23 +255,23 @@
 							</div>
 							<div>
 								<label for="password">Password:</label> <input type="password"
-									name="password" id="password" placeholder="New Password" required />
+									name="pass" id="password" placeholder="New Password" required />
 							</div>
 							<div>
 								<label for="passwordReEntered">Re-Enter Password:</label> <input type="password"
-									name="passwordReEntered" id="passwordReEntered" placeholder="Re-enter Password" required />
+									name="passReEntered" id="passReEntered" placeholder="Re-enter Password" required />
 							</div>		
 												
 							<div>
 								<label for="birthday">Birth Day:</label> 
-								<input type="date" name="birthday" id="birthday" value="" placeholder="Please select" required />
+								<input type="date" name="bday" id="bday" value="" placeholder="Please select" required />
 							</div>															
 							<div>
 								<p>By clicking Sign Up, you agree to the <a href="terms.html"> Terms and Conditions</a> of SSTS.</p>
 							</div>	
 							<div id="formMsgs"></div>
 							<div data-role="controlgroup" data-type="horizontal">
-								<input type="submit" id="register" value="Sign Up" /> 
+								<input type="submit" value="Submit" /> 
 								<input type="button" name="clear" id="cancel" value="Clear" />
 							</div>
 							<div data-role="controlgroup" data-type="horizontal">
