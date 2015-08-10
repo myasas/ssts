@@ -35,12 +35,7 @@
 //         session.setAttribute("userid", userid);
 //         response.sendRedirect("success.jsp");
     } else {
-//     	ResultSet rs2= st.executeQuery("select * from users where user_login='" + userid +"'");    	
-//         if(rs2.next()){
-//         	out.println("Invalid password <a href='login.html'>try again</a>");
-//         }else{
+
         	out.println("No such user account ! <a href='login.html'>try again</a>");
-//         }
-    	
     }
 %>
