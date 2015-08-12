@@ -19,4 +19,5 @@ public class StaticReferences {
 	public static final String uTypeMember = "member";
 	public static final String uStatusDeactivated = "deact";
 	public static final String uStatusActivated = "act";	
+	public static final String uStatusRestricted = "rest";	
 }

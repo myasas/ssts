@@ -37,20 +37,37 @@ public class AccountActivation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		PrintWriter writer = response.getWriter();
 		String secretkey = request.getParameter("secretkey");
 //		String userID = request.getParameter("email");
 		final String userstatus=StaticReferences.uStatusActivated;
-		
-		String SQL="UPDATE ssts.users SET user_status='"+userstatus+"' where user_id="+secretkey+"";
-		
-		try{
-	    DatabaseConnection.getInstance().updateValues(SQL);
+	    
+		String SQL = "select * from users where user_id=" + secretkey + "";		
+		String SQLUpdate="UPDATE ssts.users SET user_status='"+userstatus+"' where user_id="+secretkey+"";
+    
+	    try {
+		    ResultSet rs;	    	
+			rs= DatabaseConnection.getInstance().getValues(SQL);
+			
+			//If email is already registered in the database
+		    if (rs.next()) {
+		        String dbUserstatus=rs.getString("user_status");		
+		        if(dbUserstatus.equalsIgnoreCase(StaticReferences.uStatusActivated)){
+		    		writer.println("Account is already activated. Please proceed with signing in to SSTS.");		        	
+		        }else if(dbUserstatus.equalsIgnoreCase(StaticReferences.uStatusDeactivated)){
+		    	    DatabaseConnection.getInstance().updateValues(SQLUpdate);	
+		    		writer.println("Account activation sucessful.");		    	    
+		        }else if(dbUserstatus.equalsIgnoreCase(StaticReferences.uStatusRestricted)){
+		    		writer.println("This account is currently restricted. Kindly request access from the SSTS administrator by sending an email. Thank you!");		        	
+		        }
+		    }else{
+				writer.println("User account does not exist in the database.");		    	
+		    }    
 		}catch(Exception e){
 			writer.println("There was an exception. Which is: "+e);
 		}
-		writer.println("Account activation sucessful.");
+
 	}
 
 }
