@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import configuration.StaticReferences;
+import data.DatabaseConnection;
+
 /**
  * 
  * @author Yasas De Silva
  * Servlet implementation class AccountActivation
- * This class allows users to acvivate there user accounts through this url
+ * This class allows users to activate there user accounts through this URL
  * http://localhost:8080/LyndaDynamics/AccountActivation?secretkey=9
  *
  */
@@ -38,21 +41,12 @@ public class AccountActivation extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		String secretkey = request.getParameter("secretkey");
 //		String userID = request.getParameter("email");
+		final String userstatus=StaticReferences.uStatusActivated;
 		
-//AAAA-These type of variables are to put in a single class
-		final String userstatus="act";
-//AAAA
-		String sql="UPDATE ssts.users SET user_status='"+userstatus+"' where user_id="+secretkey+"";
+		String SQL="UPDATE ssts.users SET user_status='"+userstatus+"' where user_id="+secretkey+"";
+		
 		try{
-	    Class.forName("com.mysql.jdbc.Driver");
-
-	    
-	    Connection con = DriverManager.getConnection("jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts",
-	            "root", "1qaz2wsx@");
-	    
-	    PreparedStatement pst = con.prepareStatement(sql);
-	    pst.executeUpdate();
-
+	    DatabaseConnection.getInstance().updateValues(SQL);
 		}catch(Exception e){
 			writer.println("There was an exception. Which is: "+e);
 		}

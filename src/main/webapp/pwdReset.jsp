@@ -1,26 +1,22 @@
+<%@page import="data.DatabaseConnection"%>
+<%@page import="configuration.StaticReferences"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import ="service.SendEmail" %>
 <%
     String email = request.getParameter("email");   
-
-// AAAA-These variables are to be put in a seperate class
-	final String emailSubjectPwdReset = "SSTS User Account Password";
-// AAAA
-    Class.forName("com.mysql.jdbc.Driver");
-
-    Connection con = DriverManager.getConnection("jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts",
-            "root", "1qaz2wsx@");
-    Statement st = con.createStatement();
-    ResultSet rs;
-    rs = st.executeQuery("select * from users where user_login='" + email + "'");
+	final String emailSubjectPwdReset = StaticReferences.emailSubjectPwdReset;    
+    String SQL="select * from users where user_login='" + email + "'";
     
+    ResultSet rs;
+	rs = DatabaseConnection.getInstance().getValues(SQL);
+	
     if (rs.next()) {
 //Gets data required to send email.
         String dbPwd=rs.getString("user_password");
         String dbUserstatus=rs.getString("user_status");  
         String dbUsername=rs.getString("user_name");
-//Prepares email reciever, subject and body.
 
+//Prepares email reciever, subject and body.
 		try{
         SendEmail se = new SendEmail();
         se.setReceiverEmail(email);

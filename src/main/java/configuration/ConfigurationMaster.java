@@ -10,7 +10,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
+/**
+ * 
+ * @author Yasas De Silva
+ *
+ */
 public class ConfigurationMaster {
 
 //	Configuration file location and name
@@ -26,7 +30,7 @@ public class ConfigurationMaster {
 	
 
 	@SuppressWarnings("unchecked")
-	private JSONObject addConfigSettings() {
+	public JSONObject addConfigSettings() {
     		JSONObject jsonObj = new JSONObject();
 //Insert dbconfiguration to JsonArray
     		JSONArray dbConfig = new JSONArray();
@@ -45,7 +49,7 @@ public class ConfigurationMaster {
     		return jsonObj;
 	}
 
-     private void saveConfigFile(JSONObject jsonObj) {
+     public void saveConfigFile(JSONObject jsonObj) {
     		try {
 //Save configuration file in configuration location
     			FileWriter file = new FileWriter(configurationFileLocal);
@@ -60,7 +64,7 @@ public class ConfigurationMaster {
 
 	}
      
-     private JSONArray readConfigFile(String configSetting) {
+     public JSONArray readConfigFile(String configSetting) {
  		JSONParser parser = new JSONParser();
  		JSONArray configSettingArray = null;
  		try {
@@ -87,7 +91,7 @@ public class ConfigurationMaster {
  		return configSettingArray;
 	}     
      
-     private ConfigurationMaster configsFromConfigFile() {
+     public ConfigurationMaster configsFromConfigFile() {
     	 
     	 ConfigurationMaster cm = new ConfigurationMaster();
     	 

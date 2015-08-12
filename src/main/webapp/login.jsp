@@ -1,15 +1,12 @@
+<%@page import="data.DatabaseConnection"%>
 <%@ page import ="java.sql.*" %>
 <%
     String userid = request.getParameter("uname");   
     String pwd = request.getParameter("pass");
-    Class.forName("com.mysql.jdbc.Driver");
-
-   
-    Connection con = DriverManager.getConnection("jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts",
-            "root", "1qaz2wsx@");
-    Statement st = con.createStatement();
+    String SQL="select * from users where user_login='" + userid + "'";    
+    
     ResultSet rs;
-    rs = st.executeQuery("select * from users where user_login='" + userid + "'");
+    rs = DatabaseConnection.getInstance().getValues(SQL);
     
     if (rs.next()) {
     

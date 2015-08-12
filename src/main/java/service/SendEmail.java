@@ -13,16 +13,21 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import configuration.ConfigurationMaster;
+
 /**
  * 
  * @author Yasas De Silva
  *
  */
 public class SendEmail {
-//AAAA-THese variables to be added to a seperate class
+//Default Sender Email Address and Password hardcoded to prevent user dissatisfaction due to a broken link with email.
     private String emailUserName="emindlibrarysystem@gmail.com";
     private String emailPassword="emind123456";
-//AAAA    
+
+       
+    
+    //Default receiver email address set to test any defects in setting receiver email address
     private String receiverEmail="myasas@gmail.com";
     private String mailSubject="SSTS - Your most dedicated and intelligent virtual speech therapist for Stammer...";
     private String mailBody="Hi User, \n Thank you for registering with SSTS";
@@ -32,7 +37,11 @@ public class SendEmail {
 
     
     public void sendAnEmail(SendEmail emailSendeObj){
-        
+//    //Always sets the email configuration from the configuration file.     
+//   	 ConfigurationMaster cm = new ConfigurationMaster();
+//   	 emailUserName = cm.configsFromConfigFile().getEmailUserName();
+//   	 emailPassword = cm.configsFromConfigFile().getEmailPassword();    
+   	 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port","465");
