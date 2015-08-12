@@ -1,3 +1,4 @@
+<%@page import="service.SendEmail"%>
 <%@page import="data.DatabaseConnection"%>
 <%@page import="configuration.StaticReferences"%>
 <%@ page import ="java.sql.*" %>
@@ -22,9 +23,14 @@
     }else{
     	int i = DatabaseConnection.getInstance().getSt().executeUpdate(SQLInsert);
         if (i > 0) {
-    //session.setAttribute("userid", user);
-    //response.sendRedirect("welcome.jsp");
-           out.print("Registration Successfull!"+"<a href='login.html'>Go to Login</a>");
+//Send user account activation email
+		out.print("Thank you for getting registered with SSTS ! ");
+		SendEmail se = new SendEmail();
+			if(se.sendAccountActivationEmail(email)){
+				out.print("Check your email inbox for an Activation Email from SSTS. Activate your account first and then you can <a href='login.html'>login to your SSTS Account</a>.");	
+			}else{
+				out.print("Sorry, There was a deffculty in sending the activation email to "+email+". Kindly use the request activation email service to receive an Account Activation Email. Thank you.");
+			}          
         } else {
             out.print("Else statement of if condition - SQL query may not pass in to the user database");
         }    	

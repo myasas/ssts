@@ -1,6 +1,8 @@
 package service;
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -14,6 +16,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import configuration.ConfigurationMaster;
+import configuration.StaticReferences;
+import data.DatabaseConnection;
 
 /**
  * 
@@ -47,7 +51,7 @@ public class SendEmail {
         props.put("mail.smtp.socketFactory.port","465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
-         props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.port", "465");
          
         Session session =Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
@@ -89,6 +93,51 @@ public class SendEmail {
            }        
     }
 
+    public Boolean sendAccountActivationEmail(String userLogin) {
+    	
+    	Boolean isemailSucsessfullySent=false;
+        String SQL="select * from users where user_login='"+userLogin+"'";
+        
+        try {        
+        ResultSet rs;
+    	rs = DatabaseConnection.getInstance().getValues(SQL);    	
+    	
+
+			if (rs.next()) {
+				//Gets data required to send email.
+				String dbUserid=rs.getString("user_id");
+				String dbUsername=rs.getString("user_name");
+				String activationURL="http://devssts-yasasd.rhcloud.com/AccountActivation?secretkey="+dbUserid+"";
+				        
+     //Prepares email reciever, subject and body.
+				try{
+			      SendEmail se = new SendEmail();
+			      se.setReceiverEmail(userLogin);
+			      se.setMailSubject(StaticReferences.emailSubjectWelcome);
+			      se.setMailBody("Hi "+dbUsername+", \n\nWelcome to Smart Speech Therapist ! \n\nPlease click on the following link (Or copy and paste the URL in your web browser) to activate your SSTS account.\n\nActivation URL :"+activationURL+" \n\nThank you,\nSSTS\n(Smart Speech Therapist for Stammer)");     
+			      
+			      se.sendAnEmail(se);
+			      isemailSucsessfullySent=true;
+			      System.out.println("Account activation email sent to "+userLogin+".");
+
+				}catch(Exception e){
+					System.out.println("There was a problem in sending the Activation email. Problem: "+e);
+				}
+			  } else {
+			      	System.out.println("Could not find the user account: "+userLogin+" in the database.");
+			  }
+		
+        } catch (SQLException e) {
+			// TODO Auto-generated catch block
+        	System.out.println("SQL Exception occured. Problem: "+e);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			System.out.println("Exception occured while trying to send the activation email. Problem :");
+		}
+          return isemailSucsessfullySent;
+	}
+    
+//    Getters and Setters
     /**
      * @return the ReceiverEmail
      */

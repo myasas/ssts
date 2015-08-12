@@ -5,7 +5,7 @@
 
     <groupId>org.icbt.projects.ssts</groupId>
     <artifactId>smart-speech-therapist-for-stammer</artifactId>
-    <version>01.03.03.00.032</version>
+    <version>01.03.04.00.032</version>
     <packaging>war</packaging>
 
     <name>smart-speech-therapist-for-stammer</name>
