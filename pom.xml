@@ -5,7 +5,7 @@
 
     <groupId>org.icbt.projects.ssts</groupId>
     <artifactId>smart-speech-therapist-for-stammer</artifactId>
-    <version>01.00.00.00.015</version>
+    <version>01.03.03.00.032</version>
     <packaging>war</packaging>
 
     <name>smart-speech-therapist-for-stammer</name>
@@ -187,6 +187,12 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.4</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		  </dependency>		
 
     </dependencies>
 
