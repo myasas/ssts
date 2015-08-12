@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 
+ * @author Yasas De Silva
  * Servlet implementation class AccountActivation
  * This class allows users to acvivate there user accounts through this url
  * http://localhost:8080/LyndaDynamics/AccountActivation?secretkey=9
+ *
  */
 @WebServlet(description = "this is my calculator decroption", urlPatterns = { "/AccountActivation" })
 public class AccountActivation extends HttpServlet {
@@ -24,7 +27,7 @@ public class AccountActivation extends HttpServlet {
      */
     public AccountActivation() {
         super();
-        // TODO Auto-generated constructor stub
+        // TODO Use singletonSesignpattern in this class
     }
 
 	/**

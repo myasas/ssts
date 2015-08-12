@@ -95,18 +95,16 @@
                     updateMemberTable();
 
                     //Register an event listener on the sumbit action
-                    $('#reg').submit(function(event) {
-                        event.preventDefault();
+//                     $('#regform').submit(function(event) {
+//                         event.preventDefault();
+//                         var memberData = $(this).serializeObject();
+//                         registerMember(memberData);
+//                     });
 
-                        var memberData = $(this).serializeObject();
-
-                        registerMember(memberData);
-                    });
-
-                    //Register the cancel listener
-                    $('#cancel').click(function(event) {
+                    //Register the clear listener
+                    $('#clear').click(function(event) {
                         //clear input fields
-                        $('#reg')[0].reset();
+                        $('#regform')[0].reset();
 
                         //clear existing msgs
                         $('span.invalid').remove();
@@ -241,7 +239,7 @@
 				<div data-role="content">
 
 					<!-- For now mapping bean validation constraints from server side model is a manual task -->
-					<form method="post" action="registration.jsp" data-ajax="false">
+					<form id="regform" method="post" action="registration.jsp" data-ajax="false">
 						<fieldset>
 							<legend>Sign Up (It's Free and always will be):</legend>
 							<div>
@@ -255,11 +253,11 @@
 							</div>
 							<div>
 								<label for="password">Password:</label> <input type="password"
-									name="pass" id="password" placeholder="New Password" required />
+									name="pass" id="pass" placeholder="New Password" required />
 							</div>
 							<div>
 								<label for="passwordReEntered">Re-Enter Password:</label> <input type="password"
-									name="passReEntered" id="passReEntered" placeholder="Re-enter Password" required />
+									name="cfmpass" id="cfmpass" placeholder="Re-enter Password" required />
 							</div>		
 												
 							<div>
@@ -272,10 +270,10 @@
 							<div id="formMsgs"></div>
 							<div data-role="controlgroup" data-type="horizontal">
 								<input type="submit" value="SignUp" /> 
-								<input type="button" name="clear" id="cancel" value="Clear" />
+								<input type="button" name="clear" id="clear" value="Clear" />
 							</div>
 							<div data-role="controlgroup" data-type="horizontal">
-								<input type="button" id="signin" value="Sign In" onclick="location.href='login.html'"/>
+								<input type="submit" id="signin" value="Sign In" onclick="location.href='login.html'"/>
 							</div>							
 						</fieldset>
 					</form>

@@ -14,19 +14,20 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 /**
+ * 
+ * @author Yasas De Silva
  *
- * @author Yasas
  */
 public class SendEmail {
 //AAAA-THese variables to be added to a seperate class
-    private String EmindUserName="emindlibrarysystem@gmail.com";
-    private String EmindPassword="emind123456";
+    private String emailUserName="emindlibrarysystem@gmail.com";
+    private String emailPassword="emind123456";
 //AAAA    
-    private String ReceiverEmail="myasas@gmail.com";
-    private String MailSubject="SSTS - Your most dedicated and intelligent virtual speech therapist for Stammer...";
-    private String MailBody="Hi User, \n Thank you for registering with SSTS";
-    private String AttachmentPath;
-    private String AttachedFileName;
+    private String receiverEmail="myasas@gmail.com";
+    private String mailSubject="SSTS - Your most dedicated and intelligent virtual speech therapist for Stammer...";
+    private String mailBody="Hi User, \n Thank you for registering with SSTS";
+    private String attachmentPath;
+    private String attachedFileName;
     
 
     
@@ -42,14 +43,14 @@ public class SendEmail {
         Session session =Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
                   protected PasswordAuthentication getPasswordAuthentication(){
-                  return new PasswordAuthentication(EmindUserName, EmindPassword);//Emind UserName and Passord            
+                  return new PasswordAuthentication(emailUserName, emailPassword);//Emind UserName and Passord            
                   }                                
                 }
             );
            
             try{
                 Message message=new MimeMessage(session);
-                message.setFrom(new InternetAddress(EmindUserName));
+                message.setFrom(new InternetAddress(emailUserName));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(getReceiverEmail())); // Receiver Email Addres
                 message.setSubject(getMailSubject());//Mail Subject
 //                message.setText(getMailBody());//Mail Body
@@ -83,69 +84,69 @@ public class SendEmail {
      * @return the ReceiverEmail
      */
     public String getReceiverEmail() {
-        return ReceiverEmail;
+        return receiverEmail;
     }
 
     /**
      * @param ReceiverEmail the ReceiverEmail to set
      */
     public void setReceiverEmail(String ReceiverEmail) {
-        this.ReceiverEmail = ReceiverEmail;
+        this.receiverEmail = ReceiverEmail;
     }
 
     /**
      * @return the MailSubject
      */
     public String getMailSubject() {
-        return MailSubject;
+        return mailSubject;
     }
 
     /**
      * @param MailSubject the MailSubject to set
      */
     public void setMailSubject(String MailSubject) {
-        this.MailSubject = MailSubject;
+        this.mailSubject = MailSubject;
     }
 
     /**
      * @return the MailBody
      */
     public String getMailBody() {
-        return MailBody;
+        return mailBody;
     }
 
     /**
      * @param MailBody the MailBody to set
      */
     public void setMailBody(String MailBody) {
-        this.MailBody = MailBody;
+        this.mailBody = MailBody;
     }
 
     /**
      * @return the AttachmentPath
      */
     public String getAttachmentPath() {
-        return AttachmentPath;
+        return attachmentPath;
     }
 
     /**
      * @param AttachmentPath the AttachmentPath to set
      */
     public void setAttachmentPath(String AttachmentPath) {
-        this.AttachmentPath = AttachmentPath;
+        this.attachmentPath = AttachmentPath;
     }
 
     /**
      * @return the AttachedFileName
      */
     public String getAttachedFileName() {
-        return AttachedFileName;
+        return attachedFileName;
     }
 
     /**
      * @param AttachedFileName the AttachedFileName to set
      */
     public void setAttachedFileName(String AttachedFileName) {
-        this.AttachedFileName = AttachedFileName;
+        this.attachedFileName = AttachedFileName;
     }
 }
