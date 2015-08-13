@@ -5,7 +5,20 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-<meta charset="ISO-8859-1">
+	<script type="text/javascript">//<![CDATA[
+	$(window).load(function(){
+	$("#setToDefaults").click(function () {
+	    $("#dbDriver").val("com.mysql.jdbc.Driver");
+	    $("#dbConURL").val("jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts");
+	    $("#dbUserName").val("root");
+	    $("#dbPassword").val("1qaz2wsx@");
+	    $("#emailUserName").val("emindlibrarysystem@gmail.com");
+	    $("#emailPassword").val("emind123456");	
+	});
+	});//]]> 
+
+</script>
+	<meta charset="ISO-8859-1">
 <title>Configuration</title>		
 </head>
 <body>
@@ -42,19 +55,19 @@
 					<p>Please Edit the values with care.</p>
 			<div class="ui-field-contain">
 				<label for="text-1">Driver Name</label>
-				<input name="dbDriver" value="com.mysql.jdbc.Driver" placeholder="com.mysql.jdbc.Driver" type="text" required autofocus/>
+				<input name="dbDriver" id="dbDriver" value="" placeholder="com.mysql.jdbc.Driver" type="text" required autofocus/>
 			</div>
 			<div class="ui-field-contain">
 				<label for="text-2">URL</label>
-				<input name="dbConURL" value="jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts" placeholder="jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts" type="text" required/>
+				<input name="dbConURL" id="dbConURL" value="" placeholder="jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts" type="text" required/>
 			</div>
 			<div class="ui-field-contain">
 				<label for="text-3">UserName</label>
-				<input name="dbUserName" value="root" placeholder="DataBase UserName" type="text" required/>
+				<input name="dbUserName" id="dbUserName" value="" placeholder="root" type="text" required/>
 			</div>
 			<div class="ui-field-contain">
 				<label for="text-4">Password</label>
-				<input name="dbPassword" value="1qaz2wsx@" placeholder="DataBase Password" type="password" required/>
+				<input name="dbPassword" id="dbPassword" value="" placeholder="DataBase Password" type="password" required/>
 			</div>					
 				</div>
 				<div data-role="collapsible">
@@ -62,16 +75,18 @@
 					<p>Credentials to log in to the SMTP server.</p>
 			<div class="ui-field-contain">
 				<label for="text-5">User Name</label>
-				<input name="emailUserName" value="emindlibrarysystem@gmail.com" placeholder="ssts@gmail.com" type="email" required autofocus/>
+				<input name="emailUserName" id="emailUserName" value="" placeholder="emindlibrarysystem@gmail.com" type="email" required autofocus/>
 			</div>
 			<div class="ui-field-contain">
 				<label for="text-6">Password</label>
-				<input name="emailPassword" value="emind123456" placeholder="Email Password" type="password" required/>
+				<input name="emailPassword" id="emailPassword" value="" placeholder="Email Password" type="password" required/>
 			</div>								
 				</div>
 
 			</div>	
-			<input type="submit" value="Save Settings" /> 	
+
+			<input type="button" id="setToDefaults" value="Set to Defaults" /> 
+			<input type="submit" value="Save Settings" /> 			
 </form>			
 		</div>
 		<div data-role="footer" data-theme="b">
