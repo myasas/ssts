@@ -26,25 +26,22 @@ import data.DatabaseConnection;
  */
 public class SendEmail {
 //Default Sender Email Address and Password hardcoded to prevent user dissatisfaction due to a broken link with email.
-    private String emailUserName="emindlibrarysystem@gmail.com";
-    private String emailPassword="emind123456";
-
-       
+    private String emailUserName;
+    private String emailPassword;
     
     //Default receiver email address set to test any defects in setting receiver email address
-    private String receiverEmail="myasas@gmail.com";
-    private String mailSubject="SSTS - Your most dedicated and intelligent virtual speech therapist for Stammer...";
-    private String mailBody="Hi User, \n Thank you for registering with SSTS";
+    private String receiverEmail = StaticReferences.emailReceiverForBugTest;
+    private String mailSubject = StaticReferences.emailSubjectForBugTest;
+    private String mailBody = StaticReferences.emailBodyForBugTest;
     private String attachmentPath;
     private String attachedFileName;
     
-
-    
     public void sendAnEmail(SendEmail emailSendeObj){
-//    //Always sets the email configuration from the configuration file.     
-//   	 ConfigurationMaster cm = new ConfigurationMaster();
-//   	 emailUserName = cm.configsFromConfigFile().getEmailUserName();
-//   	 emailPassword = cm.configsFromConfigFile().getEmailPassword();    
+    //Always sets the email configuration from the configuration file.     
+   	 ConfigurationMaster cm = new ConfigurationMaster();
+   	 cm = cm.configsFromConfigFile();
+   	 emailUserName = cm.getEmailUserName();
+   	 emailPassword = cm.getEmailPassword();    
    	 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");

@@ -39,19 +39,20 @@ public class DatabaseConnection {
     
     private Connection getConnection() throws Exception
     {
-////Online-Direct        
-//        String driver = "com.mysql.jdbc.Driver";
-//        String url = "jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts";
-//        String username = "root";
-//        String password = "1qaz2wsx@";
-
     	
 //Online-ThroughConfigurationFile        
 	 ConfigurationMaster cm = new ConfigurationMaster();
-        driver = cm.configsFromConfigFile().getDbDriver();
-        url = cm.configsFromConfigFile().getDbConURL();
-        username = cm.configsFromConfigFile().getDbUserName();
-        password = cm.configsFromConfigFile().getDbPassword();      
+	 cm = cm.configsFromConfigFile();
+        driver = cm.getDbDriver();
+        url = cm.getDbConURL();
+        username = cm.getDbUserName();
+        password = cm.getDbPassword();      
+        
+    ////Online-Direct        
+//      String driver = "com.mysql.jdbc.Driver";
+//      String url = "jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts";
+//      String username = "root";
+//      String password = "1qaz2wsx@";
         
       //Offline-Direct
 //      driver = "com.mysql.jdbc.Driver";
