@@ -49,19 +49,21 @@ public class ConfigurationMaster {
     		return jsonObj;
 	}
 
-     public void saveConfigFile(JSONObject jsonObj) {
+     public Boolean saveConfigFile(JSONObject jsonObj) {
+    	 boolean isFileSaveSuccess=false;
     		try {
 //Save configuration file in configuration location
     			FileWriter file = new FileWriter(configurationFileLocal);
     			file.write(jsonObj.toJSONString());
     			file.flush();
     			file.close();
-    			
+    			isFileSaveSuccess = true;
 //    			System.out.print(jsonObj);
     		} catch (IOException e) {
-    			System.out.println("Exception in saving the Configuration file. Exception: "+e);
+    			//TODO Write error logging for this
+//    			System.out.println("Exception in saving the Configuration file. Exception: "+e);
     		}
-
+    		return isFileSaveSuccess;
 	}
      
      public JSONArray readConfigFile(String configSetting) {

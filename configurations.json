@@ -1,1 +1,1 @@
-{"DBConfiguration":["A","B","C","D"],"EmailConfiguration":["E","F"]}
+{"DBConfiguration":["DB","URL","DBUNAME","DBPW"],"EmailConfiguration":["EMAIL","EMAILPW"]}
