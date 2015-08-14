@@ -2,6 +2,8 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -93,13 +95,13 @@ public class InputVoiceController {
         return stutteredWordsnCountsHashMap;         
     }
     
-	private String hashmapToHtml(HashMap<String, Integer> stutteredWordCountHashMap) {
+	public String hashmapToHtml(HashMap<String, Integer> stutteredWordCountHashMap) {
 
 		StringBuilder htmlBuilder = new StringBuilder();
 		htmlBuilder.append("<table border=5>");
 		htmlBuilder.append("<tr><td align=\"center\"><b>Word</b></td><td align=\"center\"><b>Count<b></td></tr>");
 
-		for (HashMap.Entry<String, Integer> entry : stutteredWordCountHashMap.entrySet()) {
+		for (Entry<String, Integer> entry : stutteredWordCountHashMap.entrySet()) {
 			htmlBuilder.append(String.format("<tr><td align=\"center\">%s</td><td align=\"center\">%d</td></tr>",
 					entry.getKey(), entry.getValue()));
 		}
