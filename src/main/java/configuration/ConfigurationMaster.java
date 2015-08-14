@@ -4,8 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,7 +17,10 @@ import org.json.simple.parser.ParseException;
  *
  */
 public class ConfigurationMaster {
-
+	final Logger logger= Logger.getLogger(this.getClass());
+	public ConfigurationMaster() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 //	Configuration file location and name
 	private final static String configurationFileLocal = StaticReferences.configurationFile;
 //	Database related references
@@ -50,9 +54,11 @@ public class ConfigurationMaster {
 	}
 
      public Boolean saveConfigFile(JSONObject jsonObj) {
-    	 boolean isFileSaveSuccess=false;
+    	    	 
+    	boolean isFileSaveSuccess=false;
     		try {
 //Save configuration file in configuration location
+     			logger.info("Saving Configuration file");    			
     			FileWriter file = new FileWriter(configurationFileLocal);
     			file.write(jsonObj.toJSONString());
     			file.flush();
@@ -60,8 +66,7 @@ public class ConfigurationMaster {
     			isFileSaveSuccess = true;
 //    			System.out.print(jsonObj);
     		} catch (IOException e) {
-    			//TODO Write error logging for this
-//    			System.out.println("Exception in saving the Configuration file. Exception: "+e);
+    			logger.error("Exception in saving the Configuration file|:"+e);
     		}
     		return isFileSaveSuccess;
 	}
@@ -70,10 +75,10 @@ public class ConfigurationMaster {
  		JSONParser parser = new JSONParser();
  		JSONArray configSettingArray = null;
  		try {
-
+ 			logger.info("Reading Configuration file");
  			Object obj = parser.parse(new FileReader(configurationFileLocal));
  			JSONObject jsonObject = (JSONObject) obj;
-
+ 			
  			// loop array
  			configSettingArray = (JSONArray) jsonObject.get(configSetting);
  			
@@ -84,11 +89,11 @@ public class ConfigurationMaster {
 // 			}
 
  		} catch (FileNotFoundException e) {
- 			e.printStackTrace();
+ 			logger.error("Exception in Reading Configuration file|:"+e);
  		} catch (IOException e) {
- 			e.printStackTrace();
+ 			logger.error("Exception in Reading Configuration file|:"+e);
  		} catch (ParseException e) {
- 			e.printStackTrace();
+ 			logger.error("Exception in Reading Configuration file|:"+e);
  		}
  		return configSettingArray;
 	}     

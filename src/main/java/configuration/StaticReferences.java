@@ -22,5 +22,8 @@ public class StaticReferences {
 	public static final String uTypeMember = "member";
 	public static final String uStatusDeactivated = "deact";
 	public static final String uStatusActivated = "act";	
-	public static final String uStatusRestricted = "rest";	
+	public static final String uStatusRestricted = "rest";
+	
+//	Log4j References
+	public static final String log4jPropertiesPath = "log4j.properties";	
 }
