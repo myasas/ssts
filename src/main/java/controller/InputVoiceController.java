@@ -16,7 +16,6 @@ public class InputVoiceController {
     private ArrayList<String> repeatedWordsArrayOut = new ArrayList<>();
     private ArrayList<Integer> caughtIndexArrayOut = new ArrayList<>();
     private HashMap<String, Integer> stutteredWordsnCountsHashMap = new HashMap<String, Integer> ();  
-    
 
     public InputVoiceController analyzeRecognizedVoiceInput(String recognizedVoiceInput){
         InputVoiceController stutteredWordsObj = new InputVoiceController();
