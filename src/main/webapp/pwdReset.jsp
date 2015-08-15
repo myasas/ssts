@@ -12,10 +12,19 @@
 	
     if (rs.next()) {
 //Gets data required to send email.
+		String dbUserid=rs.getString("user_id");
         String dbPwd=rs.getString("user_password");
         String dbUserstatus=rs.getString("user_status");  
         String dbUsername=rs.getString("user_name");
 
+//Insert log record to PwRequest Table
+		try{
+	String SQLLog = ("insert into pwrequest (user_id) values ("+dbUserid+")");
+	DatabaseConnection.getInstance().insertValues(SQLLog);
+		}catch(Exception e){
+			out.println("There was a problem in updating log records in the Database. Please try again later. Problem: "+e);
+		}
+ 
 //Prepares email reciever, subject and body.
 		try{
         SendEmail se = new SendEmail();
