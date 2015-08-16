@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
  * <i>jsoncallback</> that defines the JSONP callback method to use with the response.
  * </p>
  * 
- * @author balunasj
+ * @author 
  * 
  */
 @WebFilter("/rest/*")
