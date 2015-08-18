@@ -59,7 +59,7 @@ public class AccountActivation extends HttpServlet {
 		    	    DatabaseConnection.getInstance().updateValues(SQLUpdate);	
 		    		writer.println("Account activation sucessful.");		    	    
 		        }else if(dbUserstatus.equalsIgnoreCase(StaticReferences.uStatusRestricted)){
-		    		writer.println("This account is currently restricted. Kindly request access from the SSTS administrator by sending an email. Thank you!");		        	
+		    		writer.println(StaticReferences.msgAccRestrict);		        	
 		        }
 		    }else{
 				writer.println("User account does not exist in the database.");		    	
