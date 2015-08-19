@@ -7,6 +7,7 @@
 You are not logged in<br/>
 <a href="login.html">Please Login</a>
 <%} else {
+
 %>
 <%-- Welcome <%=session.getAttribute(StaticReferences.ssnUserlogin)%> --%>
 <!-- <a href='logout.jsp'>Log out</a> -->
@@ -45,21 +46,8 @@ $(document).foundation();
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<script type="text/javascript">//<![CDATA[
-	$(window).load(function(){
-	$("#setToDefaults").click(function () {
-	    $("#dbDriver").val("com.mysql.jdbc.Driver");
-	    $("#dbConURL").val("jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts");
-	    $("#dbUserName").val("root");
-	    $("#dbPassword").val("1qaz2wsx@");
-	    $("#emailUserName").val("emindlibrarysystem@gmail.com");
-	    $("#emailPassword").val("emind123456");	
-	});
-	});//]]> 
-
-</script>
 	<meta charset="ISO-8859-1">
-<title>Configuration</title>		
+<title>SSTS User Home</title>		
 </head>
 <body>
 
@@ -71,7 +59,7 @@ $(document).foundation();
 		<div data-role="panel" id="panel-1" data-theme="b">
 			<ul data-role="listview" id="listview-1">
 				<li><a href="" onclick="location.href='index.html'">Home</a></li>
-				<li><a href="#">Configurations</a></li>
+				<li><a href="configurations.jsp">Configurations</a></li>
 				<li><a href="#page-2">Help</a></li>		
 				<li><a href="#dialog-1">Log Out</a></li>					
 			</ul>
@@ -91,11 +79,11 @@ $(document).foundation();
 <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="active"><a href="#"><%=session.getAttribute(StaticReferences.ssnUserlogin)%></a></li>
+      <li class="active"><a href="#"><%=session.getAttribute(StaticReferences.ssnUserlogindisplay)%></a></li>
       <li class="has-dropdown not-click">
         <a href="#">Account</a>
         <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
-          <li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>
+          <li><a href="#dialog-1">Log Out</a></li>
         </ul>
       </li>
     </ul>
@@ -151,7 +139,8 @@ $(document).foundation();
 		</div>
 		<div data-role="content" data-theme="a">
 			<h6>Do you want to log out?</h6>
-			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">No</a>
+			<a href="" onclick="location.href='logout.jsp'" class="ui-btn ui-corner-all">Yes</a>
 		</div>
 	</div>	
 	
@@ -177,7 +166,6 @@ $(document).foundation();
 
 </body>
 </html>
-
 
 <%
     }
