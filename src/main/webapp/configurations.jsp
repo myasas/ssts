@@ -6,6 +6,13 @@
 %>
 You are not logged in<br/>
 <a href="login.html">Please Login</a>
+
+	<%} else if(session.getAttribute(StaticReferences.ssnUsertype) == "admin") {
+
+	%>
+	You are a Admin<br/>
+
+
 <%} else {
 %>
 
