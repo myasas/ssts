@@ -45,5 +45,6 @@ public class StaticReferences {
 	public static final String log4jPropertiesPath = "log4j.properties";
 	
 //	Information Messages
-	public static final String msgAccRestrict = "This account is currently restricted. Kindly request access from the SSTS administrator by sending an email. Thank you!";	
+	public static final String msgAccRestrict = "This account is currently restricted. Kindly request access from the SSTS administrator by sending an email. Thank you!";
+	public static final String msgAccessAdminOnly = "Sorry, you are not authorized to access this page.";
 }

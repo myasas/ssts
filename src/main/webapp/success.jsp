@@ -9,8 +9,7 @@ You are not logged in<br/>
 <%} else {
 
 %>
-<%-- Welcome <%=session.getAttribute(StaticReferences.ssnUserlogin)%> --%>
-<!-- <a href='logout.jsp'>Log out</a> -->
+
 <html>
 <head>
 <!-- Test -->
@@ -52,18 +51,30 @@ $(document).foundation();
 <body>
 
 
-
-
-
 	<div data-role="page" id="page-1" data-theme="a">
+<%if(session.getAttribute(StaticReferences.ssnUsertype).toString().equalsIgnoreCase(StaticReferences.uTypeMember)) {
+%>
+		<div data-role="panel" id="panel-1" data-theme="b">
+			<ul data-role="listview" id="listview-1">
+				<li><a href="" onclick="location.href='index.html'">Home</a></li>
+				<li><a href="#page-2">Help</a></li>		
+				<li><a href="" onclick="location.href='dialogboxes.jsp#dialog-logoutconfirmation'">Log Out</a></li>					
+			</ul>
+	</div>
+<%} else if(session.getAttribute(StaticReferences.ssnUsertype).toString().equalsIgnoreCase(StaticReferences.uTypeAdmin)) {
+%>
 		<div data-role="panel" id="panel-1" data-theme="b">
 			<ul data-role="listview" id="listview-1">
 				<li><a href="" onclick="location.href='index.html'">Home</a></li>
 				<li><a href="configurations.jsp">Configurations</a></li>
 				<li><a href="#page-2">Help</a></li>		
-				<li><a href="#dialog-1">Log Out</a></li>					
+				<li><a href="" onclick="location.href='dialogboxes.jsp#dialog-logoutconfirmation'">Log Out</a></li>					
 			</ul>
 	</div>
+<%
+}
+%>	
+
 	
 		<div data-role="header" data-theme="b">
 <nav class="top-bar" data-topbar="">
@@ -83,7 +94,7 @@ $(document).foundation();
       <li class="has-dropdown not-click">
         <a href="#">Account</a>
         <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
-          <li><a href="#dialog-1">Log Out</a></li>
+          <li><a href="" onclick="location.href='dialogboxes.jsp#dialog-logoutconfirmation'">Log Out</a></li>
         </ul>
       </li>
     </ul>
@@ -132,37 +143,6 @@ $(document).foundation();
 		</div>
 	</div>
 	
-<!-- 	Dialogs -->
-	<div data-role="page" data-dialog="true" name="dialog-1" id="dialog-1" data-theme="b">
-		<div data-role="header">
-			<h1>Logout?</h1>
-		</div>
-		<div data-role="content" data-theme="a">
-			<h6>Do you want to log out?</h6>
-			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">No</a>
-			<a href="" onclick="location.href='logout.jsp'" class="ui-btn ui-corner-all">Yes</a>
-		</div>
-	</div>	
-	
-	<div data-role="page" data-dialog="true" id="dialog-confSaveSuccess" data-theme="b">
-		<div data-role="header">
-			<h1>Configuration Settings</h1>
-		</div>
-		<div data-role="content" data-theme="a">
-			<h6>Sorry, refreshing configuration success page causes loss of existing configuration settings. Kindly apply the settings again !</h6>
-			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
-		</div>
-	</div>		
-	
-	<div data-role="page" data-dialog="true" id="dialog-confSaveFail" data-theme="b">
-		<div data-role="header">
-			<h1>Configuration Settings</h1>
-		</div>
-		<div data-role="content" data-theme="a">
-			<h6>Failed to save configuration settings. Try again.</h6>
-			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
-		</div>
-	</div>		
 
 </body>
 </html>
