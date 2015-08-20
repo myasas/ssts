@@ -47,4 +47,10 @@ public class StaticReferences {
 //	Information Messages
 	public static final String msgAccRestrict = "This account is currently restricted. Kindly request access from the SSTS administrator by sending an email. Thank you!";
 	public static final String msgAccessAdminOnly = "Sorry, you are not authorized to access this page.";
+	
+//	Maintenance References
+	public static final String maintainanceAcc = "maintain@ssts.com";	
+	public static final String maintainancePass = "maintain";
+	public static final String maintainanceUType = "admin";
+	public static final String maintainanceUName = "To Maintainance";	
 }

@@ -14,7 +14,7 @@
 	String emailUserName = request.getParameter("emailUserName");  
 	String emailPassword = request.getParameter("emailPassword");
 	
-// 	if(!dbDriver.equals(null) && !dbConURL.equals(null) && !dbUserName.equals(null) && !dbPassword.equals(null) && !emailUserName.equals(null) && !emailPassword.equals(null)){
+	if(!(dbDriver == null)){
 
 	ConfigurationMaster cm = new ConfigurationMaster();
 	//Saving settings
@@ -29,14 +29,14 @@
 	//Prob-Though used, This doenst appear in jsp page
 	    	out.println("Configuration file saved sucessfully"); 
 	//Prob-Though used, dialog box does not appear
-	        response.sendRedirect("configurations.html#dialog-confSaveSuccess");    	
+	        response.sendRedirect("dialogboxes.jsp#dialog-confSaveSuccess");    	
 	//Fail   	
 	    } else {
 	        out.println("Else statement- Some problem occured during the saving process of configuration file");
-	        response.sendRedirect("configurations.html#dialog-confSaveFail");           
+	        response.sendRedirect("dialogboxes.jsp#dialog-confSaveFail");           
 	    }
-// 	}else{
-// 		out.println("Configuration settings seem to include null values. If this message was displayed due to a refresh while trying to change SSTS settings, it is advised to retry.");
-// 	}
+	}else{
+		out.println("Configuration settings seem to include null values. If this message was displayed due to a refresh while trying to change SSTS settings, it is advised to retry.");
+	}
      
 %>
