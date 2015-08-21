@@ -34,33 +34,16 @@ $(document).foundation();
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<script type="text/javascript">//<![CDATA[
-	$(window).load(function(){
-	$("#setToDefaults").click(function () {
-	    $("#dbDriver").val("com.mysql.jdbc.Driver");
-	    $("#dbConURL").val("jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts");
-	    $("#dbUserName").val("root");
-	    $("#dbPassword").val("1qaz2wsx@");
-	    $("#emailUserName").val("emindlibrarysystem@gmail.com");
-	    $("#emailPassword").val("emind123456");	
-	});
-	});//]]> 
-
-</script>
 	<meta charset="ISO-8859-1">
-<title>Configuration</title>		
+<title>DialogBoxes</title>		
 </head>
 <body>
-
-
-
-
 
 	<div data-role="page" id="page-1" data-theme="a">
 		<div data-role="panel" id="panel-1" data-theme="b">
 			<ul data-role="listview" id="listview-1">
 				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
-				<li><a href="#">Configurations</a></li>
+				<li ><a href="#" style="visibility: hidden">Configurations</a></li>
 				<li><a href="#page-2">Help</a></li>		
 				<li><a href="#dialog-1">Log Out</a></li>					
 			</ul>

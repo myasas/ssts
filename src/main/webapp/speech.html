@@ -1,38 +1,61 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Example</title>
-    </head>
-    <body>
-        <form method="post" action="speech.jsp">
-            <center>
-            <table border="1" width="30%" cellpadding="3">
-                <thead>
-                    <tr>
-                        <th colspan="2">Login Here</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Para to read</td>
-                        <td><input type="text" name="paratoread" value="My mom and I are very best friends. We even goto shopping together." /></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Speech Output</td>
-                        <td><input type="text" name="speechoutput" value="" /></td>
-                        
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Okay" /></td>
-                        <td><input type="reset" value="Reset" /></td>
-                    </tr>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<meta charset="ISO-8859-1">
 
-                </tbody>
-            </table>
-            </center>
-        </form>
-    </body>
+<title>Smart Speech Therapist</title>		
+</head>
+<body>
+
+	<div data-role="page" id="page-2" data-theme="c">
+		<div data-role="header" data-theme="a">
+
+			<h1 id="heading-1" class="ui-bar ui-bar-a ui-corner-all">Smart Speech Therapist</h1>
+			
+		</div>
+		
+		<form method="post" action="speech.jsp">		
+		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
+			<p>Please click the microphone icon when you are ready. Then read the paragraph below.</p>
+			
+			<p>Please read this out loud :</p>
+			<textarea rows="4" cols="50" name="paratoread" readonly>"My mom and I are very best friends. We even goto shopping together."</textarea>
+			<br>
+			<p>Speech Output :</p>
+<div class="si-wrapper">
+	<textarea name=speechoutput rows="4" cols="50" class="si-input" placeholder="Please read the text" readonly></textarea>
+	<a href="" class="si-btn ui-btn ui-icon-grid ui-btn-icon-left ui-corner-all ui-btn-b"><span class="si-mic"></span> <span class="si-holder"></span></a>
+</div>		
+		<input type="Submit" value="Finished !" />
+		<a href="#page-1">Help</a>
+
+</div>
+		
+		</form>
+		
+		<div data-role="footer" data-theme="a">
+			<h4>-</h4>
+		</div>
+	</div>
+<script src="js/speech-input.js"></script>	
+
+<div data-role="page" id="page-1">
+	<div data-role="header">
+		<h1>Page Title</h1>
+	</div>
+	<div data-role="content">
+		<p id="txtSecond">Page content goes here.</p>
+	</div>
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>
+
+
+
+</body>
 </html>
