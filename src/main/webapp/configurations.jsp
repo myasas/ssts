@@ -78,7 +78,7 @@ $(document).foundation();
 				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
 				<li><a href="#">Configurations</a></li>
 				<li><a href="#page-2">Help</a></li>		
-				<li><a href="" onclick="location.href='dialogboxes.jsp#dialog-logoutconfirmation'">Log Out</a></li>					
+				<li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>					
 			</ul>
 	</div>
 	
@@ -100,7 +100,7 @@ $(document).foundation();
       <li class="has-dropdown not-click">
         <a href="#">Account</a>
         <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
-          <li><a href="" onclick="location.href='dialogboxes.jsp#dialog-logoutconfirmation'">Log Out</a></li>
+          <li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>
         </ul>
       </li>
     </ul>
