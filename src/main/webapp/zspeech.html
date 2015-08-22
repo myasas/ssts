@@ -1,6 +1,6 @@
-    
 <html>
 <head>
+
 <!-- Test -->
   <link rel="stylesheet" type="text/css" href="/css/result-light.css">
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/css/foundation.min.css">
@@ -204,13 +204,54 @@ No input is received. If you received this message while refreshing the page, pl
 	
 	html= ivc.hashmapToHtml(repeatedWordsAndCount);
 %>	
-	<p>spIn is <%= paraToRead %></p>		
-	<p>spOut is <%= speechOutput %></p>	
+
+<!-- Test2 -->
+  <style type="text/css">
+    ins {
+  background-color: #73c1db;
+  text-decoration: none; }
+  del {
+    background-color: #ffc6c6; }
+      table th {
+        width: 30%; }
+  </style>
+<script type="text/javascript" src="http://google-diff-match-patch.googlecode.com/svn/trunk/javascript/diff_match_patch.js"></script>
+      <script type="text/javascript" src="https://rawgithub.com/arnab/jQuery.PrettyTextDiff/master/jquery.pretty-text-diff.js"></script>  
+<script type="text/javascript">//<![CDATA[
+$(window).load(function(){
+
+    $("#wrapper tr").prettyTextDiff({
+        cleanup: $("#cleanup").is(":checked")
+    });
+
+
+});//]]> 
+</script>	  
+<!-- Test2 -->	
+ <div id="wrapper">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Original Sentence</th>
+                <th>Voiced Sentence</th>
+                <th>Result (<ins>Missed</ins> / <del>Not Expected</del>)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="changed"><%= paraToRead %></td>
+                <td class="original"><%= speechOutput %></td>                
+                <td class="diff"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>		
+	
 	<%if(repeatedWordsAndCount.isEmpty()){
 // If no words are repeated - Do not show repeated words lable.
 	}else{
 	%>
-	<p>Following words were repeated by you,</p>
+	<p>Following words are repeated,</p>
 	<%= html %>
 	
 	<%
@@ -250,4 +291,4 @@ No input is received. If you received this message while refreshing the page, pl
 	</div>		
 	
 </body>
-</html> 
+</html>

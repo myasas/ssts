@@ -13,8 +13,10 @@ You are not logged in<br/>
 <%} else {
 
 %>    
+    
 <html>
 <head>
+
 <!-- Test -->
   <link rel="stylesheet" type="text/css" href="/css/result-light.css">
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/css/foundation.min.css">
@@ -130,12 +132,12 @@ if (spOut.length() == 0) {
 // There was a querystring like ?myText=
 // but no text, so myText is not null, but 
 // a zero length string instead.
-session.setAttribute(StaticReferences.ssnRedirectPage, "speech.jsp#dialog-nospeechinput");
+session.setAttribute("redirect", "speech.jsp#dialog-nospeechinput");
 response.sendRedirect("redirect.jsp");%>   
 <% } else { 
-   session.setAttribute(StaticReferences.ssnRedirectPage, "speech.jsp#page-2"); 
-   session.setAttribute(StaticReferences.ssnSpeechOut, spOut); 
-   session.setAttribute(StaticReferences.ssnSpeechIn, spIn);    
+   session.setAttribute("redirect", "speech.jsp#page-2"); 
+   session.setAttribute("spout", spOut); 
+   session.setAttribute("spin", spIn);    
    response.setHeader("refresh", "1");
    response.sendRedirect("redirect.jsp");   
 
@@ -200,13 +202,13 @@ response.sendRedirect("redirect.jsp");%>
 	String paraToRead=null;   
 	String speechOutput=null;  	
 	String html = null;
-    if ((session.getAttribute(StaticReferences.ssnSpeechOut) == null) || (session.getAttribute(StaticReferences.ssnSpeechOut) == "")) {
+    if ((session.getAttribute("spout") == null) || (session.getAttribute("spout") == "")) {
 	%>
 No input is received. If you received this message while refreshing the page, please go back and retry.<br/>
 
 <%} else {
-	paraToRead = session.getAttribute(StaticReferences.ssnSpeechIn).toString().toLowerCase();   
-    speechOutput = session.getAttribute(StaticReferences.ssnSpeechOut).toString().toLowerCase();   
+	paraToRead = session.getAttribute("spin").toString().toLowerCase();   
+    speechOutput = session.getAttribute("spout").toString().toLowerCase();   
 
 	InputVoiceController ivc = new InputVoiceController();
 
@@ -218,13 +220,54 @@ No input is received. If you received this message while refreshing the page, pl
 	
 	html= ivc.hashmapToHtml(repeatedWordsAndCount);
 %>	
-	<p>spIn is <%= paraToRead %></p>		
-	<p>spOut is <%= speechOutput %></p>	
+
+<!-- Test2 -->
+  <style type="text/css">
+    ins {
+  background-color: #73c1db;
+  text-decoration: none; }
+  del {
+    background-color: #ffc6c6; }
+      table th {
+        width: 30%; }
+  </style>
+<script type="text/javascript" src="http://google-diff-match-patch.googlecode.com/svn/trunk/javascript/diff_match_patch.js"></script>
+      <script type="text/javascript" src="https://rawgithub.com/arnab/jQuery.PrettyTextDiff/master/jquery.pretty-text-diff.js"></script>  
+<script type="text/javascript">//<![CDATA[
+$(window).load(function(){
+
+    $("#wrapper tr").prettyTextDiff({
+        cleanup: $("#cleanup").is(":checked")
+    });
+
+
+});//]]> 
+</script>	  
+<!-- Test2 -->	
+ <div id="wrapper">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Original Sentence</th>
+                <th>Voiced Sentence</th>
+                <th>Result (<ins>Missed</ins> / <del>Not Expected</del>)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="changed"><%= paraToRead %></td>
+                <td class="original"><%= speechOutput %></td>                
+                <td class="diff"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>		
+	
 	<%if(repeatedWordsAndCount.isEmpty()){
 // If no words are repeated - Do not show repeated words lable.
 	}else{
 	%>
-	<p>Following words were repeated by you,</p>
+	<p>Following words are repeated,</p>
 	<%= html %>
 	
 	<%
@@ -265,7 +308,6 @@ No input is received. If you received this message while refreshing the page, pl
 	
 </body>
 </html> 
-
 <%
     }
 %>
