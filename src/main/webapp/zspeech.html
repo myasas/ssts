@@ -90,7 +90,7 @@ $(document).foundation();
 			<p>Please click the microphone icon when you are ready. Then read the paragraph below.</p>
 			
 			<p>Please read this out loud :</p>
-			<textarea rows="4" cols="50" name="paratoread" readonly>"My mom and I are very best friends. We even goto shopping together."</textarea>
+			<textarea rows="4" cols="50" name="paratoread" readonly>My mom and I are very best friends. We even goto shopping together.</textarea>
 			<br>
 			<p>Speech Output :</p>
 <div class="si-wrapper">
@@ -174,12 +174,13 @@ response.sendRedirect("redirect.jsp");%>
 
 <!-- White Paragraph  -->					
 		<div data-role="content">		
-		<form >		
+
 
 	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Speech Results</h4>		
 		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
 			<p>Following are your results.</p>
-		</div>
+		<form >					
+
 		
 	<%
 	String paraToRead=null;   
@@ -199,21 +200,35 @@ No input is received. If you received this message while refreshing the page, pl
 	ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
 
 	HashMap<String , Integer> repeatedWordsAndCount = new HashMap<>();
-	repeatedWordsAndCount = 	ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
+	repeatedWordsAndCount = ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
 	
 	html= ivc.hashmapToHtml(repeatedWordsAndCount);
 %>	
 	<p>spIn is <%= paraToRead %></p>		
 	<p>spOut is <%= speechOutput %></p>	
+	<%if(repeatedWordsAndCount.isEmpty()){
+// If no words are repeated - Do not show repeated words lable.
+	}else{
+	%>
+	<p>Following words were repeated by you,</p>
 	<%= html %>
+	
+	<%
+	}
+%>
+
+
 <%	
 }	
 %>			
 		
 		</form>
-	
-		</div>	
 		
+		<a href="#" data-role="button" data-rel="back" data-icon="back">Do it again</a>
+		<a href="X" data-role="button" data-icon="action">Submit Results</a>
+			</div>
+		</div>	
+<!-- footer -->
 	<div data-role="footer" data-theme="b">
 		<h4>-</h4>
 	</div>			

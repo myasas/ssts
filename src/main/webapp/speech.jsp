@@ -3,8 +3,16 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="controller.InputVoiceController"%>
 <%@page import="configuration.StaticReferences"%>
-
     
+    
+<%
+    if ((session.getAttribute(StaticReferences.ssnUserlogin) == null) || (session.getAttribute(StaticReferences.ssnUserlogin) == "")) {
+%>
+You are not logged in<br/>
+<a href="login.html">Please Login</a>
+<%} else {
+
+%>    
 <html>
 <head>
 <!-- Test -->
@@ -96,7 +104,7 @@ $(document).foundation();
 			<p>Please click the microphone icon when you are ready. Then read the paragraph below.</p>
 			
 			<p>Please read this out loud :</p>
-			<textarea rows="4" cols="50" name="paratoread" readonly>"My mom and I are very best friends. We even goto shopping together."</textarea>
+			<textarea rows="4" cols="50" name="paratoread" readonly>My mom and I are very best friends. We even goto shopping together.</textarea>
 			<br>
 			<p>Speech Output :</p>
 <div class="si-wrapper">
@@ -122,12 +130,12 @@ if (spOut.length() == 0) {
 // There was a querystring like ?myText=
 // but no text, so myText is not null, but 
 // a zero length string instead.
-session.setAttribute("redirect", "speech.jsp#dialog-nospeechinput");
+session.setAttribute(StaticReferences.ssnRedirectPage, "speech.jsp#dialog-nospeechinput");
 response.sendRedirect("redirect.jsp");%>   
 <% } else { 
-   session.setAttribute("redirect", "speech.jsp#page-2"); 
-   session.setAttribute("spout", spOut); 
-   session.setAttribute("spin", spIn);    
+   session.setAttribute(StaticReferences.ssnRedirectPage, "speech.jsp#page-2"); 
+   session.setAttribute(StaticReferences.ssnSpeechOut, spOut); 
+   session.setAttribute(StaticReferences.ssnSpeechIn, spIn);    
    response.setHeader("refresh", "1");
    response.sendRedirect("redirect.jsp");   
 
@@ -180,24 +188,25 @@ response.sendRedirect("redirect.jsp");%>
 
 <!-- White Paragraph  -->					
 		<div data-role="content">		
-		<form >		
+
 
 	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Speech Results</h4>		
 		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
 			<p>Following are your results.</p>
-		</div>
+		<form >					
+
 		
 	<%
 	String paraToRead=null;   
 	String speechOutput=null;  	
 	String html = null;
-    if ((session.getAttribute("spout") == null) || (session.getAttribute("spout") == "")) {
+    if ((session.getAttribute(StaticReferences.ssnSpeechOut) == null) || (session.getAttribute(StaticReferences.ssnSpeechOut) == "")) {
 	%>
 No input is received. If you received this message while refreshing the page, please go back and retry.<br/>
 
 <%} else {
-	paraToRead = session.getAttribute("spin").toString().toLowerCase();   
-    speechOutput = session.getAttribute("spout").toString().toLowerCase();   
+	paraToRead = session.getAttribute(StaticReferences.ssnSpeechIn).toString().toLowerCase();   
+    speechOutput = session.getAttribute(StaticReferences.ssnSpeechOut).toString().toLowerCase();   
 
 	InputVoiceController ivc = new InputVoiceController();
 
@@ -205,21 +214,35 @@ No input is received. If you received this message while refreshing the page, pl
 	ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
 
 	HashMap<String , Integer> repeatedWordsAndCount = new HashMap<>();
-	repeatedWordsAndCount = 	ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
+	repeatedWordsAndCount = ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
 	
 	html= ivc.hashmapToHtml(repeatedWordsAndCount);
 %>	
 	<p>spIn is <%= paraToRead %></p>		
 	<p>spOut is <%= speechOutput %></p>	
+	<%if(repeatedWordsAndCount.isEmpty()){
+// If no words are repeated - Do not show repeated words lable.
+	}else{
+	%>
+	<p>Following words were repeated by you,</p>
 	<%= html %>
+	
+	<%
+	}
+%>
+
+
 <%	
 }	
 %>			
 		
 		</form>
-	
-		</div>	
 		
+		<a href="#" data-role="button" data-rel="back" data-icon="back">Do it again</a>
+		<a href="X" data-role="button" data-icon="action">Submit Results</a>
+			</div>
+		</div>	
+<!-- footer -->
 	<div data-role="footer" data-theme="b">
 		<h4>-</h4>
 	</div>			
@@ -242,3 +265,7 @@ No input is received. If you received this message while refreshing the page, pl
 	
 </body>
 </html> 
+
+<%
+    }
+%>

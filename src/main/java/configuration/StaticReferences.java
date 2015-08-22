@@ -40,6 +40,9 @@ public class StaticReferences {
 	public static final String ssnUserlogin = "userlogin";	
 	public static final String ssnUsertype = "usertype";
 	public static final String ssnUsername = "username";	
+	public static final String ssnRedirectPage = "redirect";	
+	public static final String ssnSpeechOut = "spout";	
+	public static final String ssnSpeechIn = "spin";		
 	
 //	Log4j References
 	public static final String log4jPropertiesPath = "log4j.properties";
