@@ -73,6 +73,7 @@ $(document).foundation();
 
 
 	<div data-role="page" id="page-1" data-theme="a">
+<!-- Left panel -->	
 		<div data-role="panel" id="panel-1" data-theme="b">
 			<ul data-role="listview" id="listview-1">
 				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
@@ -82,6 +83,7 @@ $(document).foundation();
 			</ul>
 	</div>
 	
+<!-- Top bar -->	
 		<div data-role="header" data-theme="b">
 <nav class="top-bar" data-topbar="">
   <ul class="title-area">
@@ -108,10 +110,10 @@ $(document).foundation();
 		</div>	
 
 			
-					
+<!-- White Paragraph  -->					
 		<div data-role="content">
-<form id="confform" method="post" action="configurationsSet.jsp">			
-			<h4 align="left">Configurations</h4>
+<form id="confform" method="post" action="configurationsSet.jsp">		
+			<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Configurations</h4>	
 			 
 			<div data-role="collapsible-set" id="collapsible-set-2" data-collapsed-icon="gear" data-expanded-icon="recycle" data-iconpos="right">
 				<div data-role="collapsible">
@@ -225,6 +227,7 @@ $(document).foundation();
 
 </body>
 </html>
+
 
 <%
     }

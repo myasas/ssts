@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 <head>
 <!-- Test -->
@@ -34,21 +34,40 @@ $(document).foundation();
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript">//<![CDATA[
+	$(window).load(function(){
+	$("#setToDefaults").click(function () {
+	    $("#dbDriver").val("com.mysql.jdbc.Driver");
+	    $("#dbConURL").val("jdbc:mysql://ssts-server.bitnamiapp.com:3306/ssts");
+	    $("#dbUserName").val("root");
+	    $("#dbPassword").val("1qaz2wsx@");
+	    $("#emailUserName").val("emindlibrarysystem@gmail.com");
+	    $("#emailPassword").val("emind123456");	
+	});
+	});//]]> 
+
+</script>
 	<meta charset="ISO-8859-1">
-<title>DialogBoxes</title>		
+<title>Configuration</title>		
 </head>
 <body>
 
+
+
+
+
 	<div data-role="page" id="page-1" data-theme="a">
+<!-- Left panel -->	
 		<div data-role="panel" id="panel-1" data-theme="b">
 			<ul data-role="listview" id="listview-1">
 				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
-				<li ><a href="#" style="visibility: hidden">Configurations</a></li>
+				<li><a href="#">Configurations</a></li>
 				<li><a href="#page-2">Help</a></li>		
-				<li><a href="#dialog-1">Log Out</a></li>					
+				<li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>					
 			</ul>
 	</div>
 	
+<!-- Top bar -->	
 		<div data-role="header" data-theme="b">
 <nav class="top-bar" data-topbar="">
   <ul class="title-area">
@@ -63,11 +82,11 @@ $(document).foundation();
 <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="active"><a href="#">FirstName LastName</a></li>
+      <li class="active"><a href="#"><%=session.getAttribute(StaticReferences.ssnUserlogindisplay)%></a></li>
       <li class="has-dropdown not-click">
         <a href="#">Account</a>
         <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
-          <li><a href="#dialog-1">Log Out</a></li>
+          <li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>
         </ul>
       </li>
     </ul>
@@ -75,10 +94,10 @@ $(document).foundation();
 		</div>	
 
 			
-					
+<!-- White Paragraph  -->					
 		<div data-role="content">
-<form id="confform" method="post" action="configurationsSet.jsp">			
-			<h4 align="left">Configurations</h4>
+<form id="confform" method="post" action="configurationsSet.jsp">		
+			<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Configurations</h4>	
 			 
 			<div data-role="collapsible-set" id="collapsible-set-2" data-collapsed-icon="gear" data-expanded-icon="recycle" data-iconpos="right">
 				<div data-role="collapsible">
@@ -115,7 +134,7 @@ $(document).foundation();
 				</div>
 
 			</div>	
-			<a href="configurationsGet.jsp" class="ui-btn ui-corner-all">Current Settings</a>	
+			<a href="" onclick="location.href='configurationsGet.jsp'" class="ui-btn ui-corner-all">Current Settings</a>	
 			<input type="button" id="setToDefaults" value="Set To Defaults" />
 			<input type="submit" value="Save Settings" /> 
 
@@ -133,7 +152,7 @@ $(document).foundation();
 	
 	<div data-role="page" id="page-2" data-theme="b">
 		<div data-role="header" data-theme="b">
-			<a href="#" data-role="button" data-rel="back" data-icon="back">Back</a>
+			<a href="success.jsp">Back</a>
 			<h1>Second Page</h1>
 		</div>
 		<div data-role="content" >
@@ -159,16 +178,6 @@ $(document).foundation();
 	</div>
 	
 <!-- 	Dialogs -->
-	<div data-role="page" data-dialog="true" id="dialog-1" data-theme="b">
-		<div data-role="header">
-			<h1>Logout?</h1>
-		</div>
-		<div data-role="content" data-theme="a">
-			<h6>Do you want to log out?</h6>
-			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">No</a>
-			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">Yes</a>			
-		</div>
-	</div>	
 	
 	<div data-role="page" data-dialog="true" id="dialog-confSaveSuccess" data-theme="b">
 		<div data-role="header">

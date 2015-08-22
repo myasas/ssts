@@ -1,4 +1,4 @@
-
+    
 <html>
 <head>
 <!-- Test -->
@@ -34,38 +34,27 @@ $(document).foundation();
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<meta charset="ISO-8859-1">
-<title>SSTS User Home</title>		
+<meta charset="ISO-8859-1">
+    
+
+<!-- Title bar - Title of page -->
+<title>Smart Speech Therapist</title>		
 </head>
 <body>
 
 
 	<div data-role="page" id="page-1" data-theme="a">
 <!-- Left panel -->	
-<%if(session.getAttribute(StaticReferences.ssnUsertype).toString().equalsIgnoreCase(StaticReferences.uTypeMember)) {
-%>
 		<div data-role="panel" id="panel-1" data-theme="b">
 			<ul data-role="listview" id="listview-1">
-				<li><a href="" onclick="location.href='index.html'">Home</a></li>
+				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
+				<li><a href="#">Configurations</a></li>
 				<li><a href="#page-2">Help</a></li>		
 				<li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>					
 			</ul>
 	</div>
-<%} else if(session.getAttribute(StaticReferences.ssnUsertype).toString().equalsIgnoreCase(StaticReferences.uTypeAdmin)) {
-%>
-		<div data-role="panel" id="panel-1" data-theme="b">
-			<ul data-role="listview" id="listview-1">
-				<li><a href="" onclick="location.href='index.html'">Home</a></li>
-				<li><a href="configurations.jsp">Configurations</a></li>
-				<li><a href="#page-2">Help</a></li>		
-				<li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>					
-			</ul>
-	</div>
-<%
-}
-%>	
 
-<!-- Top bar -->
+<!-- Top bar -->	
 		<div data-role="header" data-theme="b">
 <nav class="top-bar" data-topbar="">
   <ul class="title-area">
@@ -90,50 +79,35 @@ $(document).foundation();
     </ul>
   </section></nav>
 		</div>	
+		
+		
+<!-- White Paragraph  -->					
+		<div data-role="content">		
+		<form >		
 
-<!-- White Paragraph  -->
-		<div data-role="content">
-<form id="confform" method="post" action="configurationsSet.jsp">
-<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Welcome <%=session.getAttribute(StaticReferences.ssnUsername)%></h4>			
-	
-<p>Welcome to smart speech therapist !!!!</p>
-<p>Welcome to smart speech therapist !!!!</p>
-<p>Welcome to smart speech therapist !!!!</p>
-</form>			
+	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Title</h4>		
+		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
+			<p>Please click the microphone icon when you are ready. Then read the paragraph below.</p>
 		</div>
+		</form>
+	
+		</div>		
+
 		<div data-role="footer" data-theme="b">
 			<h4>-</h4>
 		</div>
-		
-	</div>
+	</div>		
 
-	<div data-role="page" id="page-2" data-theme="b">
-		<div data-role="header" data-theme="b">
-			<a href="#" data-role="button" data-rel="back" data-icon="back">Back</a>
-			<h1>Second Page</h1>
+<!-- Dialog box if needed -->
+	<div data-role="page" data-dialog="true" id="dialog-1" data-theme="b">
+		<div data-role="header">
+			<h1>Dialog Title</h1>
 		</div>
-		<div data-role="content" >
-			<p>Page content goes here.</p>
-			<div data-role="collapsible-set" id="collapsible-set-1" data-theme="a">
-				<div data-role="collapsible">
-					<h4>Registration</h4>
-					<p>Getting registered with SSTS is simple. You just have to provide your email address and a preffered password. Or else you can sign in with your existing google account.</p>
-				</div>
-				<div data-role="collapsible">
-					<h4>Key Contacts</h4>
-					<p>Collapsible content.</p>
-				</div>
-				<div data-role="collapsible">
-					<h4>Locations</h4>
-					<p>Collapsible content.</p>
-				</div>
-			</div>
+		<div data-role="content" data-theme="a">
+			<h6>Dialog content</h6>
+			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
 		</div>
-		<div data-role="footer" data-theme="b">
-			<h4>Second Page</h4>
-		</div>
-	</div>
+	</div>		
 	
-
 </body>
-</html>
+</html> 

@@ -10,6 +10,7 @@ You are not logged in<br/>
 
 %>
 
+
 <html>
 <head>
 <!-- Test -->
@@ -52,6 +53,7 @@ $(document).foundation();
 
 
 	<div data-role="page" id="page-1" data-theme="a">
+<!-- Left panel -->	
 <%if(session.getAttribute(StaticReferences.ssnUsertype).toString().equalsIgnoreCase(StaticReferences.uTypeMember)) {
 %>
 		<div data-role="panel" id="panel-1" data-theme="b">
@@ -75,7 +77,7 @@ $(document).foundation();
 }
 %>	
 
-	
+<!-- Top bar -->
 		<div data-role="header" data-theme="b">
 <nav class="top-bar" data-topbar="">
   <ul class="title-area">
@@ -101,10 +103,11 @@ $(document).foundation();
   </section></nav>
 		</div>	
 
-				
+<!-- White Paragraph  -->
 		<div data-role="content">
-<form id="confform" method="post" action="configurationsSet.jsp">			
-<h4 align="left">Welcome <%=session.getAttribute(StaticReferences.ssnUsername)%></h4>	
+<form id="confform" method="post" action="configurationsSet.jsp">
+<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Welcome <%=session.getAttribute(StaticReferences.ssnUsername)%></h4>			
+	
 <p>Welcome to smart speech therapist !!!!</p>
 <p>Welcome to smart speech therapist !!!!</p>
 <p>Welcome to smart speech therapist !!!!</p>
@@ -146,6 +149,7 @@ $(document).foundation();
 
 </body>
 </html>
+
 
 <%
     }
