@@ -106,7 +106,7 @@ $(document).foundation();
 			<p>Please click the microphone icon when you are ready. Then read the paragraph below.</p>
 			
 			<p>Please read this out loud :</p>
-			<textarea rows="4" cols="50" name="paratoread" readonly>My mom and I are very best friends. We even goto shopping together.</textarea>
+			<textarea rows="4" cols="50" name="paratoread" readonly>My mom and I are very best friends. We even go to shopping together.</textarea>
 			<br>
 			<p>Speech Output :</p>
 <div class="si-wrapper">
@@ -132,10 +132,10 @@ if (spOut.length() == 0) {
 // There was a querystring like ?myText=
 // but no text, so myText is not null, but 
 // a zero length string instead.
-session.setAttribute("redirect", "speech.jsp#dialog-nospeechinput");
+session.setAttribute(StaticReferences.ssnRedirectPage, "speech.jsp#dialog-nospeechinput");
 response.sendRedirect("redirect.jsp");%>   
 <% } else { 
-   session.setAttribute("redirect", "speech.jsp#page-2"); 
+   session.setAttribute(StaticReferences.ssnRedirectPage, "speech.jsp#page-2"); 
    session.setAttribute("spout", spOut); 
    session.setAttribute("spin", spIn);    
    response.setHeader("refresh", "1");

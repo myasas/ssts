@@ -43,8 +43,9 @@
 	            out.println(StaticReferences.msgAccRestrict);        	
 // If user is an Administrator        
 	        }else if(dbPwd.equals(pwd) && dbUsertype.equalsIgnoreCase(StaticReferences.uTypeAdmin)){
-	            session.setAttribute(StaticReferences.ssnUserlogindisplay, "Administrator:"+userlogin);  
-	            session.setAttribute(StaticReferences.ssnUserlogin, userlogin);  
+	            session.setAttribute(StaticReferences.ssnUserlogindisplay, "Administrator:"+userlogin);            
+	            session.setAttribute(StaticReferences.ssnUserlogin, userlogin); 
+	            session.setAttribute(StaticReferences.ssnUserid, dbUserid);  	            
 	            session.setAttribute(StaticReferences.ssnUsertype, dbUsertype);            
 	            session.setAttribute(StaticReferences.ssnUsername, dbUsername);              
 	            response.sendRedirect("success.jsp");
@@ -61,6 +62,7 @@
 	        }else if(dbPwd.equals(pwd)){
 	            session.setAttribute(StaticReferences.ssnUserlogindisplay, userlogin);         	
 	            session.setAttribute(StaticReferences.ssnUserlogin, userlogin);
+	            session.setAttribute(StaticReferences.ssnUserid, dbUserid);  	            
 	            session.setAttribute(StaticReferences.ssnUsertype, dbUsertype);            
 	            session.setAttribute(StaticReferences.ssnUsername, dbUsername);              
 	            response.sendRedirect("success.jsp");   

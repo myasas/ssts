@@ -37,6 +37,7 @@ public class StaticReferences {
 	
 //	Session References	
 	public static final String ssnUserlogindisplay = "userlogindisplay";
+	public static final String ssnUserid = "userid";		
 	public static final String ssnUserlogin = "userlogin";	
 	public static final String ssnUsertype = "usertype";
 	public static final String ssnUsername = "username";	

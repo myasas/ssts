@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 
 import data.DatabaseConnection;
 
-public class UserDao {
+public class UserDAO {
 	
 	private String userID="user_id";
 	private String userType="user_type";
@@ -18,17 +18,17 @@ public class UserDao {
 	
 	
 	public static void main(String[] args) {
-		UserDao ud = new UserDao();
+		UserDAO ud = new UserDAO();
 		ud.setUserLogin("'myasas@gmail.com'");
 		
-		UserDao ud2;
+		UserDAO ud2;
 		ud2 = ud.getUserDAO(ud);
 
 		System.out.println(ud2.getUserID());
 	}
 	
 	
-	public UserDao getUserDAO(UserDao userDAO) {
+	public UserDAO getUserDAO(UserDAO userDAO) {
 		String SQL="select * from ssts.users where user_id="+userDAO.getUserID()+" && "
 				+ "user_type="+userDAO.getUserType()+" && "
 				+ "user_login="+userDAO.getUserLogin()+" && "
