@@ -1,3 +1,4 @@
+<%@page import="configuration.StaticPanels"%>
 <%@page import="configuration.StaticReferences"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -70,25 +71,16 @@ $(document).foundation();
 
 
 
-
-
 	<div data-role="page" id="page-1" data-theme="a">
 <!-- Left panel -->	
-		<div data-role="panel" id="panel-1" data-theme="b">
-			<ul data-role="listview" id="listview-1">
-				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
-				<li><a href="#">Configurations</a></li>
-				<li><a href="#page-2">Help</a></li>		
-				<li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>					
-			</ul>
-	</div>
+<%= StaticPanels.homePanelAdmin %>
 	
 <!-- Top bar -->	
 		<div data-role="header" data-theme="b">
 <nav class="top-bar" data-topbar="">
   <ul class="title-area">
     <li class="name">
-    <a href="#panel-1" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MainMenu</a>
+    <a href="#panel-userhome" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MainMenu</a>
         <a href="#"><img src="img/ssts_logo_150px.png" ></a>
     </li>
      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
@@ -162,37 +154,7 @@ $(document).foundation();
 		
 	</div>
 	
-	
-	
-	
-	
-	<div data-role="page" id="page-2" data-theme="b">
-		<div data-role="header" data-theme="b">
-			<a href="success.jsp">Back</a>
-			<h1>Second Page</h1>
-		</div>
-		<div data-role="content" >
-			<p>Page content goes here.</p>
-			<div data-role="collapsible-set" id="collapsible-set-1" data-theme="a">
-				<div data-role="collapsible">
-					<h4>Registration</h4>
-					<p>Getting registered with SSTS is simple. You just have to provide your email address and a preffered password. Or else you can sign in with your existing google account.</p>
-				</div>
-				<div data-role="collapsible">
-					<h4>Key Contacts</h4>
-					<p>Collapsible content.</p>
-				</div>
-				<div data-role="collapsible">
-					<h4>Locations</h4>
-					<p>Collapsible content.</p>
-				</div>
-			</div>
-		</div>
-		<div data-role="footer" data-theme="b">
-			<h4>Second Page</h4>
-		</div>
-	</div>
-	
+
 <!-- 	Dialogs -->
 	
 	<div data-role="page" data-dialog="true" id="dialog-confSaveSuccess" data-theme="b">

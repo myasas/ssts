@@ -1,3 +1,4 @@
+<%@page import="configuration.StaticPanels"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.HashMap"%>
@@ -61,21 +62,14 @@ $(document).foundation();
 
 	<div data-role="page" id="page-1" data-theme="a">
 <!-- Left panel -->	
-		<div data-role="panel" id="panel-1" data-theme="b">
-			<ul data-role="listview" id="listview-1">
-				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
-				<li><a href="#">Configurations</a></li>
-				<li><a href="#page-2">Help</a></li>		
-				<li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>					
-			</ul>
-	</div>
+<%=StaticPanels.homePanelMember %>
 
 <!-- Top bar -->	
 		<div data-role="header" data-theme="b">
 <nav class="top-bar" data-topbar="">
   <ul class="title-area">
     <li class="name">
-    <a href="#panel-1" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MainMenu</a>
+    <a href="#panel-userhome" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MainMenu</a>
         <a href="#"><img src="img/ssts_logo_150px.png" ></a>
     </li>
      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
@@ -154,20 +148,14 @@ response.sendRedirect("redirect.jsp");%>
 
 <div data-role="page" id="page-2" data-theme="a">
 <!-- Left panel -->	
-	<div data-role="panel" id="panel-1" data-theme="b">
-			<ul data-role="listview" id="listview-1">
-				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
-				<li><a href="#">Configurations</a></li>
-				<li><a href="#page-2">Help</a></li>		
-				<li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>					
-			</ul>
-	</div>
+<%=StaticPanels.homePanelMember %>
+
 <!-- Top bar -->	
 		<div data-role="header" data-theme="b">
 <nav class="top-bar" data-topbar="">
   <ul class="title-area">
     <li class="name">
-    <a href="#panel-1" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MainMenu</a>
+    <a href="#panel-userhome" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MainMenu</a>
         <a href="#"><img src="img/ssts_logo_150px.png" ></a>
     </li>
      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
