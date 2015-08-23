@@ -96,9 +96,24 @@ $(document).foundation();
 <form id="confform" method="post" action="configurationsSet.jsp">
 <h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Welcome <%=session.getAttribute(StaticReferences.ssnUsername)%></h4>			
 	
-<p>Welcome to smart speech therapist !!!!</p>
-<p>Welcome to smart speech therapist !!!!</p>
-<p>Welcome to smart speech therapist !!!!</p>
+	<p>Following is a summary of your assessments.</p>
+	
+	<div class="ui-field-contain">
+		<label for="text-1">Your Last Score:</label>
+		<input name="text-1" id="text-1" data-clear-btn="true" value="" placeholder="X.xx%" type="text" readonly/>
+	</div>
+	<div class="ui-field-contain">
+		<label for="text-2">Your Average Score:</label>
+		<input name="text-2" id="text-2" data-clear-btn="true" placeholder="X.xx%" value="" type="text" readonly/>
+	</div>
+	<div class="ui-field-contain">
+		<label for="text-3">No. of completed tests:</label>
+		<input name="text-3" id="text-3" data-clear-btn="true" value="" placeholder="XX" type="text" readonly/>
+	</div>
+	<div class="ui-field-contain">
+		<label for="textarea-1">Most Repeated Words:</label>
+		<textarea name="textarea-1" id="textarea-1" data-clear-btn="true" placeholder="Eg: mom, my, i am, etc." cols="40" rows="8" readonly></textarea>
+	</div>
 </form>			
 		</div>
 		<div data-role="footer" data-theme="b">
