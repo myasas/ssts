@@ -1,3 +1,5 @@
+<%@page import="util.RandomIndexGenerator"%>
+<%@page import="dao.ActivityDAO"%>
 <%@page import="configuration.StaticPanels"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -90,7 +92,22 @@ $(document).foundation();
   </section></nav>
 		</div>	
 		
-		
+<% 	
+	
+
+	ActivityDAO setActDao = new ActivityDAO();
+
+	RandomIndexGenerator rig = new RandomIndexGenerator();
+	int randomIndexNumber = rig.generateRandomIndex(setActDao.getMinID(), setActDao.getMaxID());
+	String randomIndexNumberString = String.valueOf(randomIndexNumber);
+	setActDao.setActID(randomIndexNumberString);
+	
+	ActivityDAO getActDao = new ActivityDAO();	
+	getActDao = setActDao.getActivityDAO(setActDao);
+	
+	String actSession=getActDao.getActSession();
+	
+%>		
 <!-- White Paragraph  -->					
 		<div data-role="content">		
 		<form >		
@@ -100,7 +117,7 @@ $(document).foundation();
 			<p>Please click the microphone icon when you are ready. Then read the paragraph below.</p>
 			
 			<p>Please read this out loud :</p>
-			<textarea rows="4" cols="50" name="paratoread" readonly>My mom and I are very best friends. We even go to shopping together.</textarea>
+			<textarea rows="4" cols="50" name="paratoread" readonly><%=actSession %></textarea>
 			<br>
 			<p>Speech Output :</p>
 <div class="si-wrapper">

@@ -20,13 +20,13 @@ public class FeedbackDAO {
 		fbd.setFbID("1");
 		
 		FeedbackDAO fbd2;
-		fbd2 = fbd.getUserDAO(fbd);
+		fbd2 = fbd.getFeedbackDAO(fbd);
 
 		System.out.println(fbd2.getMessage());
 	}
 	
 	
-	public FeedbackDAO getUserDAO(FeedbackDAO feedbackDAO) {
+	public FeedbackDAO getFeedbackDAO(FeedbackDAO feedbackDAO) {
 		String SQL="select * from ssts.feedback where fb_id="+feedbackDAO.getUserID()+" && "
 				+ "user_id="+feedbackDAO.getFbID()+" && "
 				+ "fb_type="+feedbackDAO.getFbType()+" && "
@@ -51,7 +51,8 @@ public class FeedbackDAO {
 		return feedbackDAO;
 	}
 
-
+	
+//	Getters and Setters
 	/**
 	 * @return the fbID
 	 */
@@ -131,7 +132,7 @@ public class FeedbackDAO {
 		this.message = message;
 	}
 	
-//	Getters and Setters
+
 
 
 }
