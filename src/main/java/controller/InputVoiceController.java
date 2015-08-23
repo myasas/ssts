@@ -110,6 +110,25 @@ public class InputVoiceController {
 		return html;
 	}
     
+//Total repeated word count from the hash map
+	public Integer totalRepeated(HashMap<String, Integer> hashMap) {
+		int count = 0;
+		for (int f : hashMap.values()) {
+			count += f;
+		}
+
+		return count;
+	}	
+	
+//Calculate the score for the speech output	
+	public String calculateScore(Integer speechOutputLength, Integer totalRepeatedWords) {
+		float decimal = ((float) totalRepeatedWords) / speechOutputLength;
+		float decimalInvert = 1-decimal;
+		float percentage = decimalInvert * 100;
+		String score = String.format("%2.00f", percentage);		
+		return score;
+	}	
+	
 //    Getters and Setter
     public String[] textTotArray(String inputText){
         String[] splitted = inputText.split("\\s+");

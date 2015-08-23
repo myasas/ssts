@@ -223,9 +223,16 @@ No input is received. If you received this message while refreshing the page, pl
 	HashMap<String , Integer> repeatedWordsAndCount = new HashMap<>();
 	repeatedWordsAndCount = ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
 	
+	//Calculate Score
+	int speechOutputLength = ivc.textTotArray(speechOutput).length;
+	int totalRepeatedWords = ivc.totalRepeated(repeatedWordsAndCount);
+	String score = ivc.calculateScore(speechOutputLength, totalRepeatedWords);
+	
+	//Print HTML output
 	html= ivc.hashmapToHtml(repeatedWordsAndCount);
 %>	
-
+	<p>Your score(beta) for the lesson is <b><%=score%>%</b>.</p>	
+	
 <!-- Test2 -->
   <style type="text/css">
     ins {
