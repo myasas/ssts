@@ -1,12 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@page import="model.Activity"%>
 <%@page import="util.RandomIndexGenerator"%>
 <%@page import="dao.ActivityDAO"%>
 <%@page import="configuration.StaticPanels"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="controller.InputVoiceController"%>
 <%@page import="configuration.StaticReferences"%>
-    
+<%@page import="java.util.HashMap"%>
+<%@page import="controller.InputVoiceController"%>    
     
 <%
     if ((session.getAttribute(StaticReferences.ssnUserlogin) == null) || (session.getAttribute(StaticReferences.ssnUserlogin) == "")) {
@@ -95,17 +95,20 @@ $(document).foundation();
 <% 	
 	
 
-	ActivityDAO setActDao = new ActivityDAO();
-
+	ActivityDAO activityDao = new ActivityDAO();
+	Activity activity = new Activity();
 	RandomIndexGenerator rig = new RandomIndexGenerator();
-	int randomIndexNumber = rig.generateRandomIndex(setActDao.getMinID(), setActDao.getMaxID());
+	
+	activity = activityDao.getMinMaxIDs();
+	int randomIndexNumber = rig.generateRandomIndex(activity.getMinID(), activity.getMaxID());
 	String randomIndexNumberString = String.valueOf(randomIndexNumber);
-	setActDao.setActID(randomIndexNumberString);
 	
-	ActivityDAO getActDao = new ActivityDAO();	
-	getActDao = setActDao.getActivityDAO(setActDao);
+	activity.setActID(randomIndexNumberString);
 	
-	String actSession=getActDao.getActSession();
+// 	ActivityDAO getActDao = new ActivityDAO();	
+	activity = activityDao.getActivityBySettingValues(activity);
+	
+	String actSession=activity.getActSession();
 	
 %>		
 <!-- White Paragraph  -->					
