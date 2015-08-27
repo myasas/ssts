@@ -44,7 +44,7 @@ public class DatabaseConnection {
     }
 
     
-    private Connection getConnection() throws Exception
+    public Connection getConnection() throws Exception
     {
     	
 //Online-ThroughConfigurationFile        
@@ -77,6 +77,14 @@ public class DatabaseConnection {
         return conn;
     }
         
+    public void closeConnection(Connection conn) {
+        try  {
+            conn.close();
+        }
+        catch(Exception e) {
+        	logger.error("Exception in closing database connection :| "+e);        	
+        }
+    }    
 
     public void insertValues(String SQL) throws Exception
     {
@@ -89,6 +97,17 @@ public class DatabaseConnection {
         	logger.error("Exception in inserting values to database :|"+e);
         }        
     }
+      
+    public void updateValues(String SQL) throws Exception{
+        try{
+        Connection conn = getConnection(); //Connect to the database
+        PreparedStatement pst=conn.prepareStatement(SQL);
+        pst.executeUpdate();
+        conn.close();        
+        }catch(Exception e){
+        	logger.error("Exception in updating values in database :|"+e);        	
+        }
+}    
     
     public ResultSet getValues(String SQL) throws Exception{
         ResultSet rs = null;
@@ -102,17 +121,6 @@ public class DatabaseConnection {
 
         return rs;
             
-}
-    
-    public void updateValues(String SQL) throws Exception{
-        try{
-        Connection conn = getConnection(); //Connect to the database
-        PreparedStatement pst=conn.prepareStatement(SQL);
-        pst.executeUpdate();
-        conn.close();        
-        }catch(Exception e){
-        	logger.error("Exception in updating values in database :|"+e);        	
-        }
 }    
     
     public PreparedStatement getPst (String SQL) throws Exception{
