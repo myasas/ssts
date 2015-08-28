@@ -12,7 +12,7 @@ import model.User;
 
 public class UserDAO {
 	
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 //	User ud = new User();
 //	ud.setUserType("uType");
 //	ud.setUserLogin("uLogin");	
@@ -30,7 +30,7 @@ public class UserDAO {
 //	ud2.deleteUser("uLogin");
 	
 //	System.out.println(ud.getUserName());
-	}		
+//	}		
 	
 	public User getUserBySettingValues(User user) {
 		String SQL="select * from ssts.users where user_id="+user.getUserID()+" && "
