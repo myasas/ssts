@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form>
+		<input data-type="search" id="searchForTable-1"/>
+	</form>
+	<table data-role="table" id="table-1" data-filter="true" data-input="#searchForTable-1" class="ui-responsive table-stripe">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th data-priority="1">Age</th>
+				<th data-priority="2">College</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><a href=x.html>Yasas De Silva</a></td>
+				<td>25</td>
+				<td>ICBT</td>
+			</tr>
+			<tr>
+				<td>Dilshan Silva</td>
+				<td>23</td>
+				<td>NIBM</td>
+			</tr>	
+			<tr>
+				<td>Jayashan Dharmadasa</td>
+				<td>25</td>
+				<td>ESoft</td>
+			</tr>	
+			<tr>
+				<td>Jinath Wijesinghe</td>
+				<td>25</td>
+				<td>SLIIT</td>
+			</tr>							
+		</tbody>
+	</table>
+
+
+	<a href="#popup-userdata" data-transition="slideup" data-rel="popup" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline" title="Edit User">Edit User</a>
+	<div data-role="popup" id="popup-userdata" data-theme="a" class="ui-content">
+		<select name="select-usertype" id="select-usertype">
+			<option value="member">Member</option>	
+			<option value="admin">Administrator</option>
+		</select>	
+		<select name="select-userstatus" id="select-userstatus">
+			<option value="act">Active</option>
+			<option value="deact">Not-Active</option>
+			<option value="rest">Restricted</option>		
+		</select>				
+			<input type="text" placeholder="User Name" />
+			<input type="text" placeholder="Email Address" />
+			<input type="password" placeholder="User Password" />		
+			<input type="date" placeholder="BirthDay" />
+			<input type="button" value="Save">
+	</div>
+</body>
+</html>
