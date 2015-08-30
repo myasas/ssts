@@ -99,15 +99,16 @@ public class UserDAO {
 	    }	
 		
 	    public void updateUser(User user) {
-	    	String SQLUpdate = ("update users set user_password=?, user_name=?, user_bday=? where user_login=?");
-//	    	"update users set password=?, email=?, registeredon=? where uname=?");
+	    	String SQLUpdate = ("update users set user_name=?, user_password=?,  user_bday=?,  user_type=?,  user_status=? where user_login=?");
 	        try {
 	            PreparedStatement preparedStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(SQLUpdate);
 	            // Parameters start with 1
-	            preparedStatement.setString(1, user.getUserPass());
-	            preparedStatement.setString(2, user.getUserName());
+	            preparedStatement.setString(1, user.getUserName());	            
+	            preparedStatement.setString(2, user.getUserPass());
 	            preparedStatement.setString(3, user.getUserBday());
-	            preparedStatement.setString(4, user.getUserLogin());	            
+	            preparedStatement.setString(4, user.getUserType());	 
+	            preparedStatement.setString(5, user.getUserStatus());	 
+	            preparedStatement.setString(6, user.getUserLogin());	            
 	            preparedStatement.executeUpdate();
 	            
 	        } catch (SQLException e) {
