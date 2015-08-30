@@ -62,7 +62,7 @@ $(document).foundation();
 <body>
 
 
-	<div data-role="page" id="page-1" data-theme="a">
+<!-- 	<div data-role="page" id="page-1" data-theme="a"> -->
 <!-- Left panel -->	
 <%=StaticPanels.homePanelMember %>
 
@@ -162,7 +162,7 @@ response.sendRedirect("redirect.jsp");%>
 		<div data-role="footer" data-theme="b">
 			<h4>-</h4>
 		</div>
-	</div>		
+<!-- 	</div>		 -->
 
 
 

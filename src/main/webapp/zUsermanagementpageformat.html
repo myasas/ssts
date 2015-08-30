@@ -7,19 +7,65 @@
 <%@page import="configuration.StaticReferences"%>
 
 
+<%
+    if ((session.getAttribute(StaticReferences.ssnUserlogin) == null) || (session.getAttribute(StaticReferences.ssnUserlogin) == "")) {
+%>
+You are not logged in<br/>
+<a href="login.html">Please Login</a>
+<%} else if(session.getAttribute(StaticReferences.ssnUsertype).toString().equalsIgnoreCase(StaticReferences.uTypeMember)) {
+%>
+<%=StaticReferences.msgAccessAdminOnly%><br/>
+
+
+<%} else if(session.getAttribute(StaticReferences.ssnUsertype).toString().equalsIgnoreCase(StaticReferences.uTypeAdmin)) {
+%>
+
+
 <%  UserDAO dao = new UserDAO(); %>
-<!DOCTYPE html>
+<!DOCTYPE html>    
 <html>
 <head>
+<!-- Test -->
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/css/foundation.min.css">
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js"></script><meta class="foundation-data-attribute-namespace"><meta class="foundation-mq-xxlarge"><meta class="foundation-mq-xlarge"><meta class="foundation-mq-large"><meta class="foundation-mq-medium"><meta class="foundation-mq-small"><style></style>
+  <style type="text/css">
+    @media only screen and (max-width: 40em) {
+    .title-area {
+    }
+    .name {
+    }
+    .name img {
+            height:35px;
+            margin-top:5px;
+            margin-left:5px;
+    }
+}
+.name img {
+    margin-left:20px;
+    
+}
+  </style>
+
+<script type="text/javascript">//<![CDATA[
+$(window).load(function(){
+$(document).foundation();
+});//]]> 
+</script>
+<meta class="foundation-mq-topbar">
+<!-- Test -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<meta charset="ISO-8859-1">
+    
+<!-- Test -->
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- Javascript - copies popup inputs to the user update form -->
 
-<!-- clones (manually) the data in popup form to the form in main window -->
+<!-- Script*clones (manually) the data in popup form to the form in main window -->
 <script type="text/javascript">//<![CDATA[
 function change(id){
 
@@ -44,13 +90,13 @@ function change(id){
     document.getElementById('userpassdb').value=userpass ; 
     document.getElementById('userbdaydb').value=userbday ; 	
 
-// closes the pop up window - if it is not closed database wont get updated    
+// Script* closes the pop up window - if it is not closed database wont get updated    
     $( "#popup-"+id+"" ).popup( "close" );
 
 }
 </script>
 
-<!-- clicks the hidden save button after a delay -->
+<!-- Script* clicks the hidden save button after a delay -->
 <script type="text/javascript">
 
     function delayedclick(delayms) {
@@ -66,10 +112,57 @@ function change(id){
     
 </script>
 
-
-<title>Show All Users</title>
+<!-- Title bar - Title of page -->
+<title>Smart Speech Therapist</title>		
 </head>
 <body>
+
+
+	<div data-role="page" id="page-1" data-theme="a">
+<!-- Left panel -->	
+		<div data-role="panel" id="panel-1" data-theme="b">
+			<ul data-role="listview" id="listview-1">
+				<li><a href="" onclick="location.href='success.jsp'">Home</a></li>
+				<li><a href="#">Configurations</a></li>
+				<li><a href="#page-2">Help</a></li>		
+				<li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>					
+			</ul>
+	</div>
+
+<!-- Top bar -->	
+		<div data-role="header" data-theme="b">
+<nav class="top-bar" data-topbar="">
+  <ul class="title-area">
+    <li class="name">
+    <a href="#panel-1" id="button-1" class="ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">MainMenu</a>
+        <a href="#"><img src="img/ssts_logo_150px.png" ></a>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+  </ul>
+  
+<section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="active"><a href="#"><%=session.getAttribute(StaticReferences.ssnUserlogindisplay)%></a></li>
+      <li class="has-dropdown not-click">
+        <a href="#">Account</a>
+        <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+          <li><a href="" onclick="location.href='logout.jsp'">Log Out</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section></nav>
+		</div>	
+		
+		
+<!-- White Paragraph  -->					
+		<div data-role="content">		
+	
+
+	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">User Management</h4>		
+		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
+		<p>Please use the following table to manage user settings. Kindly note that system shall not allow to change user's email.</p>
 	<form>
 		<input data-type="search" id="searchForTable-1"/>
 	</form>
@@ -141,7 +234,7 @@ function change(id){
     
 <!--  html - user update form -->
     	<div data-role="content">	
-		<form>  
+		<form hidden="hidden">  
 		<input name="select-usertypedb" id="select-usertypedb"  type="text" placeholder="User Type" value=""/>
 		<input name="select-userstatusdb" id="select-userstatusdb" type="text" placeholder="User Status" value=""/>
 		
@@ -180,7 +273,7 @@ function change(id){
 		userDao.updateUser(user);
 		
 		session.setAttribute("userObj", user);  
-		session.setAttribute(StaticReferences.ssnRedirectPage, "listuser.jsp"); 
+		session.setAttribute(StaticReferences.ssnRedirectPage, "usermanagement.jsp"); 
 // 		response.setHeader("refresh", "1");
 		response.sendRedirect("redirect.jsp");   		
 		%>
@@ -190,6 +283,30 @@ function change(id){
 		}
 		%>			
 
-    
+		</div>	
+		</div>		
+<!-- footer -->
+		<div data-role="footer" data-theme="b">
+			<h4>-</h4>
+		</div>
+	</div>		
+
+
+
+<!-- Dialog box if needed -->
+	<div data-role="page" data-dialog="true" id="dialog-1" data-theme="b">
+		<div data-role="header">
+			<h1>Dialog Title</h1>
+		</div>
+		<div data-role="content" data-theme="a">
+			<h6>Dialog content</h6>
+			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+		</div>
+	</div>		
+	
 </body>
-</html>
+</html> 
+
+<%
+    }
+%>
