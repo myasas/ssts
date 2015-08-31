@@ -103,7 +103,7 @@ $(document).foundation();
 			<h4>Activities</h4>
 			<div data-role="collapsible-set" id="collapsible-set-1" data-collapsed-icon="bullets">
 				<div data-role="collapsible">
-					<h4>Add Acitivity</h4>
+					<h4>Add Activity</h4>
 		<form method="post" action="managelessons.jsp">
 			
 			<div class="ui-field-contain">
@@ -179,16 +179,37 @@ Either of the input/s are missing.
 	try{
 	String SQL = ("INSERT INTO ssts.activity (act_session, added_by, added_on) VALUES('"+actSession+"', "+addedBy+", date(CURRENT_TIMESTAMP))");
 	DatabaseConnection.getInstance().insertValues(SQL);
+	%>
+	
+<div data-role="page" data-dialog="true" id="dialog-managelessonssuccess" data-theme="b">
+	<div data-role="header">
+		<h1>Lesson Added</h1>
+	</div>
+	<div data-role="content" data-theme="a">
+		<h6>Lesson added successfully.</h6>
+		<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+	</div>
+</div>			
+	
+	<%
 	}catch(Exception e){
-	out.println("There was a problem in updating log records in the Database. Please try again later. Problem: "+e);
-	}     
-
-%>	
-
-Thank you very much for your valuable feed back.
-
-<%
-}
+		%>
+		
+<div data-role="page" data-dialog="true" id="dialog-managelessonserrorupdatedb" data-theme="b">
+	<div data-role="header">
+		<h1>ManageLessons exception</h1>
+	</div>
+	<div data-role="content" data-theme="a">
+		<h6>There was a problem in updating log records in the Database. Please try again later.</h6>
+		<p>Problem : <%=e %></p>
+		<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+	</div>
+</div>				
+		
+		
+		<%
+		}     
+	}
 %>				
 		
 		

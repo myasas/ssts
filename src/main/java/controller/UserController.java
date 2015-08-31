@@ -20,7 +20,7 @@ import model.User;
  * http://localhost:8080/LyndaDynamics/AccountActivation?secretkey=9
  *
  */
-@WebServlet(description = "this is my calculator decroption", urlPatterns = { "/AccountActivation" })
+@WebServlet(description = "this is my calculator decroption", urlPatterns = { "/ClassName" })
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

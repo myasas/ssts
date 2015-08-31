@@ -140,16 +140,37 @@ Either of the input/s are missing.
 	try{
 	String SQL = ("INSERT INTO ssts.feedback (user_id, fb_type, fb_category, message) VALUES("+userID+", '"+fbType+"', '"+fbCatrgory+"', '"+fbText+"')");
 	DatabaseConnection.getInstance().insertValues(SQL);
+%>
+
+<div data-role="page" data-dialog="true" id="dialog-feedbacksuccess" data-theme="b">
+	<div data-role="header">
+		<h1>Feedback received</h1>
+	</div>
+	<div data-role="content" data-theme="a">
+		<h6>Thank you very much for your valuable feed back. I will be working on it soon.<b>-Yasas De Silva</b></h6>
+		<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+	</div>
+</div>
+
+<%	
 	}catch(Exception e){
-	out.println("There was a problem in updating log records in the Database. Please try again later. Problem: "+e);
-	}     
-
-%>	
-
-Thank you very much for your valuable feed back.
-
-<%
-}
+// 	out.println("There was a problem in updating log records in the Database. Please try again later. Problem: "+e);
+	%>
+	
+<div data-role="page" data-dialog="true" id="dialog-feedbackerrorupdatedb" data-theme="b">
+	<div data-role="header">
+		<h1>Feedback exception</h1>
+	</div>
+	<div data-role="content" data-theme="a">
+		<h6>There was a problem in updating log records in the Database. Please try again later.</h6>
+		<p>Problem : <%=e %></p>
+		<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+	</div>
+</div>	
+	
+	<%		
+		}     
+	}
 %>				
 		
 		
@@ -161,15 +182,15 @@ Thank you very much for your valuable feed back.
 </div>		
 
 <!-- Dialog box if needed -->
-<div data-role="page" data-dialog="true" id="dialog-feedbacksuccess" data-theme="b">
-	<div data-role="header">
-		<h1>Feedback received</h1>
-	</div>
-	<div data-role="content" data-theme="a">
-		<h6>Thank you very much for your valuable feed back. I will be working on it soon.<b>-Yasas De Silva</b></h6>
-		<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
-	</div>
-</div>		
+<!-- <div data-role="page" data-dialog="true" id="dialog-feedbacksuccess" data-theme="b"> -->
+<!-- 	<div data-role="header"> -->
+<!-- 		<h1>Feedback received</h1> -->
+<!-- 	</div> -->
+<!-- 	<div data-role="content" data-theme="a"> -->
+<!-- 		<h6>Thank you very much for your valuable feed back. I will be working on it soon.<b>-Yasas De Silva</b></h6> -->
+<!-- 		<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a> -->
+<!-- 	</div> -->
+<!-- </div>		 -->
 
 </body>
 </html> 
