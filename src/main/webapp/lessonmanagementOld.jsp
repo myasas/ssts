@@ -104,7 +104,7 @@ $(document).foundation();
 			<div data-role="collapsible-set" id="collapsible-set-1" data-collapsed-icon="bullets">
 				<div data-role="collapsible">
 					<h4>Add Activity</h4>
-		<form method="post" action="managelessons.jsp">
+		<form method="post" action="lessonmanagement.jsp">
 			
 			<div class="ui-field-contain">
 				<textarea name="textarea-actsession" data-clear-btn="true" placeholder="New Activity" cols="40" rows="8" required></textarea>

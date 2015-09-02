@@ -6,7 +6,7 @@ package configuration;
  */
 public class StaticPanels {
 
-//	User Homepage
+//	User Homepage - Member
 	public static final String homePanelMember="<div data-role=\"panel\" id=\"panel-userhome\" data-theme=\"b\">\n" +
 			"		<ul data-role=\"listview\" id=\"listview-1\">\n" +
 			"			<li><a href=\"\" onclick=\"location.href='success.jsp'\">My Profile</a></li>\n" +
@@ -19,11 +19,12 @@ public class StaticPanels {
 			"			<li><a href=\"\" onclick=\"location.href='logout.jsp'\">Log Out</a></li>					\n" +
 			"		</ul>\n" +
 			"</div>";	
-
+//	User Homepage - Administrator
 	public static final String homePanelAdmin="<div data-role=\"panel\" id=\"panel-userhome\" data-theme=\"b\">\n" +
 			"		<ul data-role=\"listview\" id=\"listview-1\">\n" +
 			"			<li><a href=\"\" onclick=\"location.href='success.jsp'\">My Profile</a></li>\n" +
 			"			<li><a href=\"\" onclick=\"location.href='usermanagement.jsp'\">User Management</a></li>\n" +
+			"			<li><a href=\"\" onclick=\"location.href='lessonmanagement.jsp'\">Lesson Management</a></li>\n" +			
 			"			<li><a href=\"\" onclick=\"location.href='userreports.jsp'\">User Reports</a></li>\n" +
 			"			<li><a href=\"configurations.jsp\">Configurations</a></li>\n" +
 			"			<li><a href=\"\" onclick=\"location.href='logout.jsp'\">Log Out</a></li>					\n" +

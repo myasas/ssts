@@ -5,6 +5,7 @@ public class Activity {
 	private String actID="act_id";	
 	private String actSession="act_session";
 	private String addedBy="added_by";
+	private String addedByName="(SELECT user_name FROM ssts.users where user_id= activity.added_by)";
 	private String addedOn="added_on";
 	private int minID;
 	private int maxID;
@@ -103,6 +104,22 @@ public class Activity {
 	 */
 	public void setAddedOn(String addedOn) {
 		this.addedOn = addedOn;
+	}
+
+
+	/**
+	 * @return the addedByName
+	 */
+	public String getAddedByName() {
+		return addedByName;
+	}
+
+
+	/**
+	 * @param addedByName the addedByName to set
+	 */
+	public void setAddedByName(String addedByName) {
+		this.addedByName = addedByName;
 	}
 
 	
