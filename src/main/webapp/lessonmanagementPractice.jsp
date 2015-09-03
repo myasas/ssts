@@ -245,7 +245,7 @@ function changeaddpractice(){
 	    
     
 <!--  html - practice update form -->
-    	<div data-role="content" >	
+    	<div data-role="content" hidden="hidden">	
 		<form>  
 		
 		<input name="praciddb" id="praciddb" type="text" placeholder="PracticeID DB" value=""/>	
@@ -258,7 +258,7 @@ function changeaddpractice(){
 		</div>
 		
 <!--  html - practice add form -->
-    	<div data-role="content" >	
+    	<div data-role="content" hidden="hidden">	
 		<form>
 
 		<input name="addpraccharacterdb" id="addpraccharacterdb" type="text" placeholder="Practice Character" value=""/>				
@@ -271,44 +271,52 @@ function changeaddpractice(){
 				
 		<%
 		
-		String actid = request.getParameter("activityiddb");
-		String actSession = request.getParameter("activitysessiondb");
+		String pracid = request.getParameter("praciddb");
+		String pracCharacter = request.getParameter("praccharacterdb");
+		String pracSession = request.getParameter("pracsessiondb");
+		String pracUrl = request.getParameter("pracurldb");
 		String addedby = session.getAttribute(StaticReferences.ssnUserid).toString();
 
-		String addActSession = request.getParameter("addactivitysessiondb");		
+		String addPracCharacter = request.getParameter("addpraccharacterdb");
+		String addPracSession = request.getParameter("addpracsessiondb");	
+		String addPracUrl = request.getParameter("addpracurldb");	
 		
-		if (actSession == null && addActSession == null) {
+		if (pracSession == null && addPracSession == null) {
 			// myText is null when the page is first requested, 
 			// so do nothing
 			} else { 
 					
-		if(actSession != null){
+		if(pracSession != null){
 						
-		Activity activity = new Activity();
-		activity.setActID(actid);
-		activity.setActSession(actSession);
-		activity.setAddedBy(addedby);		
+		Practice practice = new Practice();
+		practice.setPracID(pracid);
+		practice.setPracCharacter(pracCharacter);
+		practice.setPracSession(pracSession);	
+		practice.setPracUrl(pracUrl);
+		practice.setAddedBy(addedby);		
 
-		ActivityDAO actDao = new ActivityDAO();
-		actDao.updateActivity(activity);
+		PracticeDAO pracDao = new PracticeDAO();
+		pracDao.updatePractice(practice);
 		
-		session.setAttribute("activityObj", activity);  
-		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagement.jsp"); 
+		session.setAttribute("practiceObj", practice);  
+		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementPractice.jsp"); 
 // 		response.setHeader("refresh", "1");
 		response.sendRedirect("redirect.jsp");   		
 	
 		}
-		if(addActSession != null){	
+		if(addPracSession != null){	
 					
-		Activity activity = new Activity();
-		activity.setActSession(addActSession);
-		activity.setAddedBy(addedby);		
+		Practice practice = new Practice();
+		practice.setPracCharacter(addPracCharacter);
+		practice.setPracSession(addPracSession);	
+		practice.setPracUrl(addPracUrl);
+		practice.setAddedBy(addedby);		
 
-		ActivityDAO actDao = new ActivityDAO();
-		actDao.addActivity(activity);
+		PracticeDAO pracDao = new PracticeDAO();
+		pracDao.addPractice(practice);
 		
-		session.setAttribute("activityObj", activity);  
-		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagement.jsp"); 
+		session.setAttribute("practiceObj", practice);  
+		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementPractice.jsp"); 
 //		response.setHeader("refresh", "1");
 		response.sendRedirect("redirect.jsp");   					
 

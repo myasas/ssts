@@ -191,21 +191,21 @@ public class ActivityDAO {
 	    }	    
 	
 	
-	    public static void main(String[] args) {
-			Activity activity = new Activity();
-	    	
-	    	ActivityDAO actDAO = new ActivityDAO();
-//			actDAO.getActivityById("3");
-//			System.out.println(actDAO.getActivityById("3"));
-//	    	activity.setActSession("Test act session");
-//	    	activity.setAddedBy("16");
-//	    	activity.setActID("9");
-//	    	activity.setActSession("Test act session updated 111");
-//	    	activity.setAddedBy("16");
+//	    public static void main(String[] args) {
+//			Activity activity = new Activity();
 //	    	
-//	    	actDAO.updateActivity(activity);
+//	    	ActivityDAO actDAO = new ActivityDAO();
+////			actDAO.getActivityById("3");
+////			System.out.println(actDAO.getActivityById("3"));
+////	    	activity.setActSession("Test act session");
+////	    	activity.setAddedBy("16");
+////	    	activity.setActID("9");
+////	    	activity.setActSession("Test act session updated 111");
+////	    	activity.setAddedBy("16");
+////	    	
+////	    	actDAO.updateActivity(activity);
+////			
+////			actDAO.addActivity(activity);
 //			
-//			actDAO.addActivity(activity);
-			
-		}
+//		}
 }
