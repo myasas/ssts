@@ -55,6 +55,79 @@ $(document).foundation();
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <meta charset="ISO-8859-1">
     
+  <script type="text/javascript">//<![CDATA[
+function myAnalyzer(){  
+
+var canvasCtx = document.getElementById('canvas').getContext('2d');
+var bufferSize = 4096;
+var audioContext;
+
+try {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    audioContext = new AudioContext();
+} catch (e) {
+    alert('Web Audio API is not supported in this browser');
+}
+
+// Check if there is microphone input.
+try {
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||     navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    var hasMicrophoneInput = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+} catch (e) {
+    alert("getUserMedia() is not supported in your browser");
+}
+
+// Create analyser node.
+var analyser = audioContext.createAnalyser();
+
+analyser.fftsize = 512;
+analyser.smoothingTimeConstant = 0.9;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+
+var errorCallback = function (e) {
+    alert("Error in getUserMedia: " + e);
+};
+
+// Get access to the microphone and start pumping data through the  graph.
+navigator.getUserMedia({
+    audio: true
+}, function (stream) {
+    // microphone -&gt; myPCMProcessingNode -&gt; destination.
+    var microphone = audioContext.createMediaStreamSource(stream);
+    microphone.connect(analyser);
+    analyser.connect(audioContext.destination);
+    //microphone.start(0);
+}, errorCallback);
+
+// draw an oscilloscope of the current audio source
+
+function draw() {
+
+    drawVisual = requestAnimationFrame(draw);
+
+    analyser.getByteFrequencyData(dataArray);
+
+    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    var WIDTH = 500;
+    var HEIGHT = 256;
+    canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+
+    for (var i = 0; i < dataArray.length; i++) {
+      barHeight = HEIGHT - dataArray[i];
+      canvasCtx.fillRect(i * 2, barHeight, 1, dataArray[i]);
+      // It is a bad idea to update an element in this loop:
+      // However, if I do, the following line always gives 0, which seems like a bug.
+      document.getElementById("arrayIndex").innerHTML = dataArray[i];
+      // This line works though.
+      document.getElementById("arrayIndex").innerHTML = dataArray[50];
+    }
+};
+
+draw();
+}//]]> 
+</script>
+<!-- Script - Speech Graph with DAF -->
 
 
 <title>Smart Speech Therapist</title>		
@@ -117,16 +190,29 @@ $(document).foundation();
 
 	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Smart Therapy</h4>		
 		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
-			<p>Please click the microphone icon when you are ready. Then read the paragraph below.</p>
-			
-			<p>Please read this out loud :</p>
+		<p><em>(This exercise is DAF enabled. It is advised to choose a calm environment or to wearing headsets while performing this exercise.)</em></p>
+		<p><strong>Please click the black color button and read out following paragraph loud and slow :</strong></p>
+
 			<textarea rows="4" cols="50" name="paratoread" readonly><%=actSession %></textarea>
 			<br>
-			<p>Speech Output :</p>
-<div class="si-wrapper">
+			<table border="0">
+            <tr>
+				<th>Voice Frequency:</th>
+				<th id="arrayIndex">0</th>
+            </tr>			
+			</table>
+<!-- 			<p>Frequency:</p> -->
+<!-- 			<p id="arrayIndex">0</p> -->
+			<p><ins><strong>Graph:</strong></ins></p>
+			<canvas id="canvas" width="500" height="220"></canvas>
+			
+<div class="si-wrapper">						
+	<p><ins><strong>Speech Output :</strong></ins></p>
 	<textarea name=speechoutput rows="4" cols="50" class="si-input" placeholder="Please read the text" ></textarea>
-	<a href="" class="si-btn ui-btn ui-icon-grid ui-btn-icon-left ui-corner-all ui-btn-b"><span class="si-mic"></span> <span class="si-holder"></span></a>
+
+<a href="" class="si-btn ui-btn ui-icon-grid ui-btn-icon-left ui-corner-all ui-btn-b" onclick="myAnalyzer();"><span class="si-mic"></span> <span class="si-holder"></span></a>
 </div>		
+	
 		<input type="Submit" value="Finished !" onclick="location.href='redirect.jsp'" />
 </div>
 		
