@@ -26,8 +26,8 @@ public class PracticeDAO {
 		try {
 			ResultSet rs= DatabaseConnection.getInstance().getValues(SQL);
 			if (rs.next()) {
-				practice.setMinID(Integer.parseInt(rs.getString("min(act_id)")));	
-				practice.setMaxID(Integer.parseInt(rs.getString("max(act_id)")));	
+				practice.setMinID(Integer.parseInt(rs.getString("min(prac_id)")));	
+				practice.setMaxID(Integer.parseInt(rs.getString("max(prac_id)")));	
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -175,7 +175,7 @@ function change(id){
                     <td><c:out value="${agl.aglLesson}" /></td>
                     <td><c:out value="${agl.aglForName}" /></td>    
                     <td><c:out value="${agl.genOn}" /></td>                
-                    <td><a href="#popup-${agl.aglID}" data-transition="slideup" data-rel="popup" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline" title="Edit Practice">Update</a></td>
+                    <td><a href="#popup-${agl.aglID}" data-transition="slideup" data-rel="popup" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline" title="Edit AGL">Update</a></td>
                 </tr>
 	<div data-role="popup" id="popup-${agl.aglID}" data-theme="a" class="ui-content">
 		<form>
@@ -193,7 +193,7 @@ function change(id){
     </table>
         
 
-<!--  html - practice update form -->
+<!--  html - agl update form -->
     	<div data-role="content" hidden="hidden">	
 		<form>  
 
@@ -209,56 +209,33 @@ function change(id){
 				
 		<%
 		
-		String pracid = request.getParameter("praciddb");
-		String pracCharacter = request.getParameter("praccharacterdb");
-		String pracSession = request.getParameter("pracsessiondb");
-		String pracUrl = request.getParameter("pracurldb");
+		String aglid = request.getParameter("agliddb");
+		String aglword = request.getParameter("aglworddb");
+		String agllesson = request.getParameter("agllessondb");
+
 		String addedby = session.getAttribute(StaticReferences.ssnUserid).toString();
 
-		String addPracCharacter = request.getParameter("addpraccharacterdb");
-		String addPracSession = request.getParameter("addpracsessiondb");	
-		String addPracUrl = request.getParameter("addpracurldb");	
-		
-		if (pracSession == null && addPracSession == null) {
+		if (agllesson == null) {
 			// myText is null when the page is first requested, 
 			// so do nothing
 			} else { 
 					
-		if(pracSession != null){
 						
 		AGL agl = new AGL();
-		practice.setPracID(pracid);
-		practice.setPracCharacter(pracCharacter);
-		practice.setPracSession(pracSession);	
-		practice.setPracUrl(pracUrl);
-		practice.setAddedBy(addedby);		
+		agl.setAglID(aglid);
+		agl.setAglWord(aglword);
+		agl.setAglLesson(agllesson);	
+	
 
 		AglDAO aglDAO = new AglDAO();
 		aglDAO.updateAGL(agl);
 		
-		session.setAttribute("practiceObj", practice);  
+		session.setAttribute("aglObj", agl);  
 		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementAGL.jsp"); 
 // 		response.setHeader("refresh", "1");
 		response.sendRedirect("redirect.jsp");   		
 	
-		}
-		if(addPracSession != null){	
-					
-		AGL agl = new AGL();
-		practice.setPracCharacter(addPracCharacter);
-		practice.setPracSession(addPracSession);	
-		practice.setPracUrl(addPracUrl);
-		practice.setAddedBy(addedby);		
 
-		AglDAO aglDAO = new AglDAO();
-		aglDAO.addAGL(agl);
-		
-		session.setAttribute("aglObj", agl);  
-		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementAGL.jsp"); 
-//		response.setHeader("refresh", "1");
-		response.sendRedirect("redirect.jsp");   					
-
-		}
 
 		}
 		%>			
