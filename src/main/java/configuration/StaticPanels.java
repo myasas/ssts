@@ -23,8 +23,10 @@ public class StaticPanels {
 	public static final String homePanelAdmin="<div data-role=\"panel\" id=\"panel-userhome\" data-theme=\"b\">\n" +
 			"		<ul data-role=\"listview\" id=\"listview-1\">\n" +
 			"			<li><a href=\"\" onclick=\"location.href='success.jsp'\">My Profile</a></li>\n" +
-			"			<li><a href=\"\" onclick=\"location.href='usermanagement.jsp'\">User Management</a></li>\n" +
-			"			<li><a href=\"\" onclick=\"location.href='lessonmanagement.jsp'\">Lesson Management</a></li>\n" +			
+			"			<li><a href=\"\" onclick=\"location.href='lessonmanagementactivity.jsp'\">Activity Management</a></li>\n" +
+			"			<li><a href=\"\" onclick=\"location.href='lessonmanagementpractice.jsp'\">Practice Management</a></li>\n" +
+			"			<li><a href=\"\" onclick=\"location.href='lessonmanagementagl.jsp'\">AGL Management</a></li>\n" +	
+			"			<li><a href=\"\" onclick=\"location.href='usermanagement.jsp'\">User Management</a></li>\n" +			
 			"			<li><a href=\"\" onclick=\"location.href='userreports.jsp'\">User Reports</a></li>\n" +
 			"			<li><a href=\"configurations.jsp\">Configurations</a></li>\n" +
 			"			<li><a href=\"\" onclick=\"location.href='logout.jsp'\">Log Out</a></li>					\n" +

@@ -299,7 +299,7 @@ function changeaddpractice(){
 		pracDao.updatePractice(practice);
 		
 		session.setAttribute("practiceObj", practice);  
-		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementPractice.jsp"); 
+		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementpractice.jsp"); 
 // 		response.setHeader("refresh", "1");
 		response.sendRedirect("redirect.jsp");   		
 	
@@ -316,7 +316,7 @@ function changeaddpractice(){
 		pracDao.addPractice(practice);
 		
 		session.setAttribute("practiceObj", practice);  
-		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementPractice.jsp"); 
+		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementpractice.jsp"); 
 //		response.setHeader("refresh", "1");
 		response.sendRedirect("redirect.jsp");   					
 

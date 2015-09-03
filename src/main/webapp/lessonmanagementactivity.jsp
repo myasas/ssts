@@ -1,8 +1,8 @@
-<%@page import="model.AGL"%>
+<%@page import="model.Activity"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page import ="dao.AglDAO" %>
+<%@ page import ="dao.ActivityDAO" %>
 <%@ page import ="controller.UserController" %>
 <%@page import="configuration.StaticReferences"%>
 <%@page import="configuration.StaticPanels"%>
@@ -21,7 +21,7 @@ You are not logged in<br/>
 %>
 
 
-<%  AglDAO dao = new AglDAO(); %>
+<%  ActivityDAO dao = new ActivityDAO(); %>
 
 <!DOCTYPE html>  
 <html>
@@ -70,21 +70,41 @@ $(document).foundation();
 <script type="text/javascript">//<![CDATA[
 function change(id){
 
-   var aglid = document.getElementById('aglid'+id).value;
-   var aglword = document.getElementById('aglword'+id).value;
-   var agllesson = document.getElementById('agllesson'+id).value;
+   var activityid = document.getElementById('activityid'+id).value;
+   var activitysession = document.getElementById('activitysession'+id).value;
    
-   if( agllesson.length==0 ){
+   
+   if( activitysession.length==0 ){
        alert('Write Some real Text please.');
    return;
    }
-    document.getElementById('agliddb').value=aglid ; 
-    document.getElementById('aglworddb').value=aglword ; 
-    document.getElementById('agllessondb').value=agllesson ;    
+    document.getElementById('activityiddb').value=activityid ; 
+    document.getElementById('activitysessiondb').value=activitysession ; 
 
 
 // Script* closes the pop up window - if it is not closed database wont get updated    
     $( "#popup-"+id+"" ).popup( "close" );
+
+}
+</script>
+
+<script type="text/javascript">//<![CDATA[
+function changeaddactivity(){
+
+
+   var addactivitysession = document.getElementById('addactivitysession').value;
+   
+   
+   if( addactivitysession.length==0 ){
+       alert('Write Some real Text please.');
+   return;
+   }
+
+    document.getElementById('addactivitysessiondb').value=addactivitysession ; 
+
+
+// Script* closes the pop up window - if it is not closed database wont get updated    
+    $( "#popup-addactivity" ).popup( "close" );
 
 }
 </script>
@@ -105,6 +125,20 @@ function change(id){
     
 </script>
 
+<script type="text/javascript">
+
+    function delayedclickaddactivity(delayms) {
+        console.log("clicked...waiting...");
+
+        setTimeout(
+            function() {
+//                 alert("Called after delay.");
+                document.getElementById('addbutton').click();
+            },
+            delayms);
+    }
+    
+</script>
 
 <!-- Title bar - Title of page -->
 <title>Smart Speech Therapist</title>		
@@ -147,44 +181,40 @@ function change(id){
 		<div data-role="content">		
 	
 
-	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Auto Generated Lesson Management</h4>
-	
+	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Lesson Management</h4>
+	<a href="#popup-addactivity"  data-transition="slideup" data-rel="popup" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline" title="Add Activity">Add Activity</a>
 		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
-		<p>Please use the following table to manage Auto Generated Lessons for users. Kindly note that system shall not allow to change the users allocated for lessons.</p>
+		<p>Please use the following table to manage activity sessions. Kindly note that system shall not allow to change added date.</p>
 	<form>
 		<input data-type="search" id="searchForTable-1"/>
 	</form>
     <table data-role="table" id="table-1" data-filter="true" data-input="#searchForTable-1" class="ui-responsive table-stripe">
         <thead>
             <tr>
-				<th>No.</th>
-				<th>Words</th>
-				<th>AGL Lesson</th>					
-				<th>Generated For</th>
-				<th>Generated On</th>			             
+                <th>No.</th>
+                <th>Activity</th>
+                <th>Added By</th>
+                <th>Added On</th>                
                 <th colspan=2>Action</th>
             </tr>
         </thead>
         <tbody>
 <%--Using JSTL to draw user table from the database--%>        
-            <c:forEach items="<%=dao.getAllAGLs()%>" var="agl">
+            <c:forEach items="<%=dao.getAllActivities()%>" var="activity">
             
-                <tr>           
-                    <td><c:out value="${agl.aglID}" /></td>
-                    <td><c:out value="${agl.aglWord}" /></td>
-                    <td><c:out value="${agl.aglLesson}" /></td>
-                    <td><c:out value="${agl.aglForName}" /></td>    
-                    <td><c:out value="${agl.genOn}" /></td>                
-                    <td><a href="#popup-${agl.aglID}" data-transition="slideup" data-rel="popup" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline" title="Edit AGL">Update</a></td>
+                <tr>
+                    <td><c:out value="${activity.actID}" /></td>
+                    <td><c:out value="${activity.actSession}" /></td>
+                    <td><c:out value="${activity.addedByName}" /></td>     
+                    <td><c:out value="${activity.addedOn}" /></td>                
+                    <td><a href="#popup-${activity.actID}" data-transition="slideup" data-rel="popup" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline" title="Edit Activity">Update</a></td>
                 </tr>
-	<div data-role="popup" id="popup-${agl.aglID}" data-theme="a" class="ui-content">
+	<div data-role="popup" id="popup-${activity.actID}" data-theme="a" class="ui-content">
 		<form>
-				<input name="aglid" id="aglid${agl.aglID}" type="text" placeholder="AglID" value="${agl.aglID}" readonly/>
-<input name="aglword" id="aglword${agl.aglID}" type="text" placeholder="AglWord" value="${agl.aglWord}" readonly/>									
-<textarea name="agllesson" id="agllesson${agl.aglID}" placeholder="AglLesson" required="required">${agl.aglLesson}</textarea>
-<input name="aglforname" id="aglforname${agl.aglID}" type="text" placeholder="AglForName" value="${agl.aglForName}" readonly/>
-				<input name="aglgenon" id="aglgenon${agl.aglID}" type="text" placeholder="Generated On" value="${agl.genOn}" readonly/>
-				<input type="button" id="${agl.aglID}" value="Save" onclick="change(this.id);delayedclick(1000);"/>
+				<input name="activityid" id="activityid${activity.actID}" type="text" placeholder="ActivityID" value="${activity.actID}" readonly/>						
+				<textarea name="activitysession" id="activitysession${activity.actID}" placeholder="Activity Session" required="required">${activity.actSession}</textarea>
+				<input name="addedbyname" id="addedbyname${activity.actID}" type="text" placeholder="Added By" value="${activity.addedByName}" readonly/>
+				<input type="button" id="${activity.actID}" value="Save" onclick="change(this.id);delayedclick(1000);"/>
 		</form>
 		
 	</div>                 
@@ -192,50 +222,80 @@ function change(id){
         </tbody>
     </table>
         
-
-<!--  html - agl update form -->
+	<div data-role="popup" id="popup-addactivity" data-theme="a" class="ui-content">
+		<form>				
+		<textarea name="addactivitysession" id="addactivitysession" placeholder="Activity Session" required="required"></textarea>
+		<input type="button" id="addactbttn" value="Save" onclick="changeaddactivity();delayedclickaddactivity(1000);"/>
+		</form>
+		
+	</div> 
+	    
+    
+<!--  html - activity update form -->
     	<div data-role="content" hidden="hidden">	
 		<form>  
-
-		<input name="agliddb" id="agliddb" type="text" placeholder="AglID DB" value=""/>	
-		<input name="aglworddb" id="aglworddb" type="text" placeholder="AglWordDB" value=""/>				
-		<input name="agllessondb" id="agllessondb" type="text" placeholder="AglLessonDB" value=""/>
+		
+		<input name="activityiddb" id="activityiddb" type="text" placeholder="ActivityID DB" value=""/>	
+		<input name="activitysessiondb" id="activitysessiondb" type="text" placeholder="Activity Session DB" value=""/>
 
 		<input type="submit" id="savebutton" value="Save" onclick="location.href='redirect.jsp'" >	
 		</form>  
 		</div>
 		
+<!--  html - activity add form -->
+    	<div data-role="content" hidden="hidden">	
+		<form>
 
+		<input name="addactivitysessiondb" id="addactivitysessiondb" type="text" placeholder="New Activity" value=""/>				
+
+		<input type="submit" id="addbutton" value="Save" onclick="location.href='redirect.jsp'">	
+		</form>
+		</div>
 				
 		<%
 		
-		String aglid = request.getParameter("agliddb");
-		String aglword = request.getParameter("aglworddb");
-		String agllesson = request.getParameter("agllessondb");
-
+		String actid = request.getParameter("activityiddb");
+		String actSession = request.getParameter("activitysessiondb");
 		String addedby = session.getAttribute(StaticReferences.ssnUserid).toString();
 
-		if (agllesson == null) {
+		String addActSession = request.getParameter("addactivitysessiondb");		
+		
+		if (actSession == null && addActSession == null) {
 			// myText is null when the page is first requested, 
 			// so do nothing
 			} else { 
 					
+		if(actSession != null){
 						
-		AGL agl = new AGL();
-		agl.setAglID(aglid);
-		agl.setAglWord(aglword);
-		agl.setAglLesson(agllesson);	
-	
+		Activity activity = new Activity();
+		activity.setActID(actid);
+		activity.setActSession(actSession);
+		activity.setAddedBy(addedby);		
 
-		AglDAO aglDAO = new AglDAO();
-		aglDAO.updateAGL(agl);
+		ActivityDAO actDao = new ActivityDAO();
+		actDao.updateActivity(activity);
 		
-		session.setAttribute("aglObj", agl);  
-		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementAGL.jsp"); 
+		session.setAttribute("activityObj", activity);  
+		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementactivity.jsp"); 
 // 		response.setHeader("refresh", "1");
 		response.sendRedirect("redirect.jsp");   		
 	
+		}
+		if(addActSession != null){	
+					
+		Activity activity = new Activity();
+		activity.setActSession(addActSession);
+		activity.setAddedBy(addedby);		
 
+		ActivityDAO actDao = new ActivityDAO();
+		actDao.addActivity(activity);
+		
+		session.setAttribute("activityObj", activity);  
+		session.setAttribute(StaticReferences.ssnRedirectPage, "lessonmanagementactivity.jsp"); 
+//		response.setHeader("refresh", "1");
+		response.sendRedirect("redirect.jsp");   					
+
+		}
 
 		}
 		%>			
