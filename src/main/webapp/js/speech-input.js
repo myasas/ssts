@@ -6,7 +6,7 @@
 	if (! ('webkitSpeechRecognition' in window) ) return;
 
 	var talkMsg = 'start talking';
-	var patience = 15;
+	var patience = 60;
 
 	function capitalize(str) {
 		return str.length ? str[0].toUpperCase() + str.slice(1) : str;
