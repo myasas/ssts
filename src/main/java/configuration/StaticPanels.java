@@ -11,7 +11,7 @@ public class StaticPanels {
 			"		<ul data-role=\"listview\" id=\"listview-1\">\n" +
 			"			<li><a href=\"\" onclick=\"location.href='success.jsp'\">My Profile</a></li>\n" +
 			"			<li><a href=\"\" onclick=\"location.href='speech.jsp'\">My Therapy</a></li>\n" +
-			"			<li><a href=\"\" onclick=\"location.href='speech.jsp'\">Practice Room</a></li>\n" +
+			"			<li><a href=\"\" onclick=\"location.href='speechpractice.jsp'\">Practice Room</a></li>\n" +
 			"			<li><a href=\"\" onclick=\"location.href='success.jsp#page-2'\">Help</a></li>\n" +			
 //			"			<li><a href=\"success.jsp#page-2\">Help</a></li>		\n" +
 			"			<li><a href=\"\" onclick=\"location.href='settings.jsp'\">Settings</a></li>\n" +
