@@ -1,5 +1,5 @@
-<%@page import="model.Feedback"%>
-<%@ page import ="dao.FeedbackDAO" %>
+<%@page import="model.PwRequest"%>
+<%@ page import ="dao.PwRequestDAO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -21,7 +21,7 @@ You are not logged in<br/>
 %>
 
 
-<%  FeedbackDAO dao = new FeedbackDAO(); %>
+<%  PwRequestDAO dao = new PwRequestDAO(); %>
 
 <!DOCTYPE html>  
 <html>
@@ -107,18 +107,34 @@ $(document).foundation();
 		<div data-role="content">		
 	
 
-	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">User Reports</h4>
+	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">User Account Password Requests</h4>
 	
 		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
-		<p>Available reports are User Feedback, User Account Update History, Login History, Login Attempts and Password Request History.</p>
-
-<a href=""  onclick="location.href='userreportsfeedback.jsp'" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline">Feedback Received</a>
-<a href=""  onclick="location.href='userreportsupupdatehistory.jsp'" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline">Profile Update History</a>
-<a href=""  onclick="location.href='userreportsloginhistory.jsp'" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline">Login History</a>
-<a href=""  onclick="location.href='userreportsloginattempt.jsp'" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline">Login Attempts</a>
-<a href=""  onclick="location.href='userreportspwrequest.jsp'" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline">Password Request History</a>		
-		
-     
+		<p>Search can be used to filter user name or logged dates of user account password request details.</p>
+	<form>
+		<input data-type="search" id="searchForTable-1"/>
+	</form>
+    <table data-role="table" id="table-1" data-filter="true" data-input="#searchForTable-1" class="ui-responsive table-stripe">
+        <thead>
+            <tr>
+				<th>No.</th>
+				<th>User Name</th>
+				<th>Requested Date And Time</th>
+            </tr>
+        </thead>
+        <tbody>
+<%--Using JSTL to draw user table from the database--%>        
+            <c:forEach items="<%=dao.getAllPwRequests()%>" var="pwrequest">
+				<tr>  
+                    <td><c:out value="${pwrequest.logID}" /></td>
+                    <td><c:out value="${pwrequest.userName}" /></td>
+                    <td><c:out value="${pwrequest.updateTime}" /></td>                
+                    
+                </tr>             
+            </c:forEach>
+        </tbody>
+    </table>
+        
 		</div>	
 		</div>		
 <!-- footer -->
@@ -126,7 +142,6 @@ $(document).foundation();
 			<h4>-</h4>
 		</div>
 	</div>		
-
 
 <!-- Dialog box if needed -->
 	<div data-role="page" data-dialog="true" id="dialog-1" data-theme="b">

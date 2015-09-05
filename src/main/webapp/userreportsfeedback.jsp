@@ -128,7 +128,7 @@ $(document).foundation();
         <tbody>
 <%--Using JSTL to draw user table from the database--%>        
             <c:forEach items="<%=dao.getAllFeedbacks()%>" var="feedback">
-
+				<tr>  
                     <td><c:out value="${feedback.fbID}" /></td>
                     <td><c:out value="${feedback.fbType}" /></td>
                     <td><c:out value="${feedback.fbCategory}" /></td>
