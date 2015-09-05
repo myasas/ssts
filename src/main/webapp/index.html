@@ -38,7 +38,6 @@
             ],
             complete: function() {
                 if ( !window.jQuery ) {
-                    //In production, you would want to fall back to a minified file.
                     //the full version is used because Eclipse reports false errors in some minified JavaScript files.
                     yepnope( "js/libs/jquery-1.9.1.js" );
                 }
@@ -46,7 +45,7 @@
         },{
             //device detection and asynchronous script loading
             /*--------Note-----------
-             Here the yepnope framework is used which gives us the ability to load scripts dynamically, based on
+             Here the yepnope framework is used which gives me the ability to load scripts dynamically, based on
              Modernizr's results.
              With Modernizr, media queries and touch detection are used to see if user is on a mobile, touch based device
              or if user is at anything less than 480px.. this gives us a mobile ui on desktop browsers when resized to <480px
@@ -90,16 +89,6 @@
                 $( document ).ready( function() {
                     //setup the app after all scripts have loaded
 
-                    $( "#container" ).show();
-                    //Fetches the initial member data and populates the table using lodash templates
-                    updateMemberTable();
-
-                    //Register an event listener on the sumbit action
-//                     $('#regform').submit(function(event) {
-//                         event.preventDefault();
-//                         var memberData = $(this).serializeObject();
-//                         registerMember(memberData);
-//                     });
 
                     //Register the clear listener
                     $('#clear').click(function(event) {
@@ -111,9 +100,6 @@
                         $('span.success').remove();
                     });
 
-                    $("#refreshButtonD, #refreshButtonM").click(function(event) {
-                        updateMemberTable();
-                    });
 
                     //Clear member registration and error messages on page change
                     $("#container").delegate("#register-art", "pagebeforeshow", function(event) {
@@ -122,24 +108,55 @@
                     });
                 });
 
-                $.fn.serializeObject = function() {
-                    var o = {};
-                    var a = this.serializeArray();
-                    $.each(a, function() {
-                        if (o[this.name]) {
-                            if (!o[this.name].push) {
-                                o[this.name] = [o[this.name]];
-                            }
-                            o[this.name].push(this.value || '');
-                        } else {
-                            o[this.name] = this.value || '';
-                        }
-                    });
-                    return o;
-                };
             }
         }]);
     </script>
+    
+<!--     Sign In and Visit Buttons -->
+  <script type="text/javascript" src="/js/lib/mootools-core-1.4.5-nocompat.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+  <style type="text/css">
+    .default, .submit, .delete, .pill, .block {
+  background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%3F%3E%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20version%3D%221.0%22%3E%3Cdefs%3E%3ClinearGradient%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%22100%25%22%20id%3D%22g%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22rgb%28255%2C255%2C255%29%22%20stop-opacity%3D%220.1%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22rgb%280%2C0%2C0%29%22%20stop-opacity%3D%220.1%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20fill%3D%22url%28%23g%29%22%20width%3D%22100%25%22%20height%3D%22100%25%22/%3E%3C/svg%3E");
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+  background-origin: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px rgba(255, 255, 255, 0.1) inset;
+  border-radius: 0.25em;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 87.5%;
+  line-height: 1.5;
+  margin: 0.5em 0.5em 0 0;
+  padding: 0.25em 1em;
+  text-align: center;
+  white-space: nowrap; }
+  :focus.delete, :hover.pill, :focus.pill, :hover.block, :focus.block {
+    background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%3F%3E%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20version%3D%221.0%22%3E%3Cdefs%3E%3ClinearGradient%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%22100%25%22%20id%3D%22g%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22rgb%28128%2C128%2C128%29%22%20stop-opacity%3D%220.1%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22rgb%280%2C0%2C0%29%22%20stop-opacity%3D%220.1%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20fill%3D%22url%28%23g%29%22%20width%3D%22100%25%22%20height%3D%22100%25%22/%3E%3C/svg%3E");
+    background-image: -webkit-linear-gradient(rgba(128, 128, 128, 0.1), rgba(0, 0, 0, 0.1));
+    background-image: linear-gradient(rgba(128, 128, 128, 0.1), rgba(0, 0, 0, 0.1)); }
+    :active.default, :active.submit, :active.delete, :active.pill, :active.block {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset; }
+      .pill {
+        text-shadow: 0 -1px rgba(0, 0, 0, 0.25);
+        background-color: #0080ff;
+        border-radius: 99em;
+        color: white; }
+      .block {
+        text-shadow: 0 -1px rgba(0, 0, 0, 0.25);
+        background-color: #00c000;
+        border-radius: 99em;
+        color: white; }        
+  </style>
+  
+<script type="text/javascript">//<![CDATA[
+window.addEvent('load', function() {
+});//]]> 
+</script>
+<!--     Sign In and Visit Buttons -->
+
 </head>
 <body>
 	<div id="container" style="">
@@ -147,7 +164,9 @@
 			<img src="img/ssts_logo_150px.png" />
 		</div>
 		<div class="dualbrand">
-			<img src="img/university_logo.png" />
+<!-- 			<img src="img/university_logo.png" /> -->
+			<button class="block" onclick="location.href='speechvisitor.jsp'">Visit SSTS (No Registration)</button>
+			<button class="pill" onclick="location.href='login.html'">SignIn to SSTS</button>
 		</div>
 		<section>
 			<h1>Smart Speech Therapist for Stammer (SSTS)</h1>
@@ -218,8 +237,9 @@
 						<a href="#home-art" data-role="button" data-icon="home">Home</a>
 					</div>
 					<div class="footer_right">
-						<a href="#register-art"	data-role="button" data-inline="true" data-icon="plus">SignUp</a> 
-						<a href="" onclick="location.href='login.html'" data-role="button" data-inline="true"	data-icon="grid">SignIn</a>
+						<a href="" onclick="location.href='speechvisitor.jsp'"	data-role="button" data-inline="true" >Visit</a> 					
+						<a href="#register-art"	data-role="button" data-inline="true" >Sign Up</a> 
+						<a href="" onclick="location.href='login.html'" data-role="button" data-inline="true"	>Sign In</a>
 					</div>
 				</div>
 				<!-- /Footer -->
@@ -271,10 +291,7 @@
 							<div data-role="controlgroup" data-type="horizontal">
 								<input type="submit" value="SignUp" /> 
 								<input type="button" name="clear" id="clear" value="Clear" />
-							</div>
-							<div data-role="controlgroup" data-type="horizontal">
-								<input type="button" id="signin" value="Sign In" onclick="location.href='login.html'"/>
-							</div>							
+							</div>						
 						</fieldset>
 					</form>
 				</div>
@@ -285,37 +302,13 @@
 						<a href="#home-art" data-role="button" data-icon="home">Home</a>
 					</div>
 					<div class="footer_right">
-						
-						<a href="" onclick="location.href='login.html'" data-role="button" data-inline="true"	data-icon="grid">SignIn</a>
+						<a href="" onclick="location.href='speechvisitor.jsp'"	data-role="button" data-inline="true" >Visit</a>
+						<a href="" onclick="location.href='login.html'" data-role="button" data-inline="true" >Sign In</a>
 					</div>
 				</div>
 				<!-- /Footer -->
 			</article>
 
-			<!-- New HTML5 article tag -->
-<!-- 			<article id="member-art" data-role="page" data-theme="c"> -->
-<!-- 				Header -->
-<!-- 				<div data-role="header" class="header" data-position="fixed"> -->
-<!-- 					<img class="header_logo" src="img/icon_medium.png" /> -->
-<!-- 					<h3>Contact Speech Therapists</h3> -->
-<!-- 					<a href="#info-aside" data-role="button" data-icon="info" -->
-<!-- 						class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a> -->
-<!-- 				</div> -->
-<!-- 				/Header -->
-<!-- 				<h2>Current Members</h2> -->
-				
-<!-- 				<div data-role="content"> -->
-<!-- 					<button id="refreshButtonM" data-role="button" data-inline="true" -->
-<!-- 						data-icon="refresh">Refresh Members</button> -->
-<!-- 					<div id="members"></div> -->
-<!-- 					<div class="member-foot"> -->
-<!-- 						Sets the JAX-RS URLs to retrieve all members either as XML or JSON data. -->
-<!-- 						REST URL for all members: <a href="rest/members" target="_blank" -->
-<!-- 							rel="external">JSON</a> -->
-<!-- 						<button id="refreshButtonD">Refresh Members</button> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</article> -->
 
 			<!-- New HTML5 aside tag -->
 			<aside id="info-aside" data-role="page" data-theme="c">

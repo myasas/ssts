@@ -5,7 +5,16 @@ package configuration;
  *
  */
 public class StaticPanels {
-
+	
+//	User Homepage - Member
+	public static final String homePanelVisitor="<div data-role=\"panel\" id=\"panel-userhome\" data-theme=\"b\">\n" +
+			"		<ul data-role=\"listview\" id=\"listview-1\">\n" +
+			"			<li><a href=\"\" onclick=\"location.href='index.html'\">SSTS Home</a></li>\n" +
+			"			<li><a href=\"\" onclick=\"location.href='index.html#register-art'\">Sign Up</a></li>\n" +	
+			"			<li><a href=\"\" onclick=\"location.href='terms.html'\">Terms</a></li>					\n" +
+			"		</ul>\n" +
+			"</div>";	
+	
 //	User Homepage - Member
 	public static final String homePanelMember="<div data-role=\"panel\" id=\"panel-userhome\" data-theme=\"b\">\n" +
 			"		<ul data-role=\"listview\" id=\"listview-1\">\n" +
