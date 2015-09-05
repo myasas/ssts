@@ -49,6 +49,7 @@ $(document).foundation();
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <meta charset="ISO-8859-1">
     
+<!-- Script - Speech Graph with DAF -->    
   <script type="text/javascript">//<![CDATA[
 function myAnalyzer(){  
 

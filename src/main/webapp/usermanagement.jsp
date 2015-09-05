@@ -100,6 +100,36 @@ function change(id){
 }
 </script>
 
+<script type="text/javascript">//<![CDATA[
+function changeadduser(){
+
+   var usertype = document.getElementById('addselect-usertype').value;
+   var userstatus = document.getElementById('addselect-userstatus').value;
+   var username = document.getElementById('addusername').value;
+   var useremail = document.getElementById('adduserlogin').value;
+   var userpass = document.getElementById('adduserpass').value;
+   var userbday = document.getElementById('adduserbday').value;
+   
+   
+   if( username.length==0 ){
+       alert('Write Some real Text please.');
+   return;
+   }
+   
+    document.getElementById('addselect-usertypedb').value=usertype ; 
+    document.getElementById('addselect-userstatusdb').value=userstatus ; 
+    document.getElementById('addusernamedb').value=username ; 
+    document.getElementById('adduserlogindb').value=useremail ; 
+    document.getElementById('adduserpassdb').value=userpass ; 
+    document.getElementById('adduserbdaydb').value=userbday ; 	
+
+    
+// Script* closes the pop up window - if it is not closed database wont get updated    
+    $( "#popup-newuser" ).popup( "close" );
+
+}
+</script>
+
 <!-- Script* clicks the hidden save button after a delay -->
 <script type="text/javascript">
 
@@ -110,6 +140,21 @@ function change(id){
             function() {
 //                 alert("Called after delay.");
                 document.getElementById('savebutton').click();
+            },
+            delayms);
+    }
+    
+</script>
+
+<script type="text/javascript">
+
+    function delayedclickadduser(delayms) {
+        console.log("clicked...waiting...");
+
+        setTimeout(
+            function() {
+//                 alert("Called after delay.");
+                document.getElementById('addbutton').click();
             },
             delayms);
     }
@@ -157,7 +202,8 @@ function change(id){
 		<div data-role="content">		
 	
 
-	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">User Management</h4>		
+	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">User Management</h4>
+	<a href="#popup-newuser"  data-transition="slideup" data-rel="popup" class="ui-btn ui-corner-all ui-alt-icon ui-shadow ui-btn-inline" title="Add User">Add User</a>
 		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
 		<p>Please use the following table to manage user settings. Kindly note that system shall not allow to change user's email.</p>
 	<form>
@@ -227,7 +273,28 @@ function change(id){
             </c:forEach>
         </tbody>
     </table>
-    <p><a href="" onclick="location.href='adduser.jsp'">Add User</a></p>
+    
+	<div data-role="popup" id="popup-newuser" data-theme="a" class="ui-content">
+		<form>
+			<select name="addselect-usertype" id="addselect-usertype">
+				<option value="member" selected>Member</option>	
+				<option value="admin">Administrator</option>			
+			</select>	
+			
+			<select name="addselect-userstatus" id="addselect-userstatus">
+				<option value="act" selected>Active</option>
+				<option value="deact">Not-Active</option>
+				<option value="rest">Restricted</option>			
+			</select>	
+						
+				<input name="addusername" id="addusername" type="text" placeholder="User Name" />
+				<input name="adduserlogin" id="adduserlogin" type="text" placeholder="Email Address" />
+				<input name="adduserpass" id="adduserpass" type="password" placeholder="User Password" />	
+				<input name="adduserbday" id="adduserbday" type="date" placeholder="BirthDay" />
+				<input type="button" value="Add User" onclick="changeadduser();delayedclickadduser(1000);"/>
+		</form>	
+	</div>
+	    
     
 <!--  html - user update form -->
     	<div data-role="content">	
@@ -243,8 +310,24 @@ function change(id){
 		<input type="submit" id="savebutton" value="Save" onclick="location.href='redirect.jsp'" >	
 		</form>  
 		</div>
-		<%
 		
+<!--  html - user add form -->
+    	<div data-role="content">	
+		<form hidden="hidden">  
+		<input name="addselect-usertypedb" id="addselect-usertypedb"  type="text" placeholder="User Type" value=""/>
+		<input name="addselect-userstatusdb" id="addselect-userstatusdb" type="text" placeholder="User Status" value=""/>
+		
+		<input name="adduseriddb" id="adduseriddb" type="text" placeholder="User ID" value=""/>
+		<input name="addusernamedb" id="addusernamedb" type="text" placeholder="User Name" value=""/>
+		<input name="adduserlogindb" id="adduserlogindb" type="text" placeholder="Email Address" value=""/>
+		<input name="adduserpassdb" id="adduserpassdb" type="password" placeholder="User Password" value=""/>	
+		<input name="adduserbdaydb" id="adduserbdaydb" type="date" placeholder="BirthDay" value=""/>
+		<input type="submit" id="addbutton" value="Add" onclick="location.href='redirect.jsp'" >	
+		</form>  
+		</div>
+				
+		<%
+// 		User Update Parameters
 		String userID = request.getParameter("useriddb");
 		String userType = request.getParameter("select-usertypedb");
 		String userStatus = request.getParameter("select-userstatusdb");
@@ -255,14 +338,21 @@ function change(id){
 		
 		String updateByID = session.getAttribute(StaticReferences.ssnUserid).toString();
 		
-		if (userType == null) {
+// 		User Add Parameters
+		String addUserType = request.getParameter("addselect-usertypedb");
+		String addUserStatus = request.getParameter("addselect-userstatusdb");
+		String addUserName = request.getParameter("addusernamedb");
+		String addUserLogin = request.getParameter("adduserlogindb");
+		String addUserPass = request.getParameter("adduserpassdb");
+		String addUserBday = request.getParameter("adduserbdaydb");
+		
+		if (userName == null && addUserName == null) {
 			// myText is null when the page is first requested, 
 			// so do nothing
 			} else { 
-				if (userType.length() == 0) {
-					out.print("Length is 0");
-				}else{
-				
+			
+		if (userName != null) {
+
 // 		Update User Account			
 		User user = new User();
 		user.setUserType(userType);
@@ -287,12 +377,29 @@ function change(id){
 		session.setAttribute("userObj", user);  
 		session.setAttribute(StaticReferences.ssnRedirectPage, "usermanagement.jsp"); 
 // 		response.setHeader("refresh", "1");
-		response.sendRedirect("redirect.jsp");   		
-		%>
-
-			<%
-			}
+		response.sendRedirect("redirect.jsp");   
 		}
+		
+		if (addUserName != null) {
+//	 		Add User Account			
+			User user = new User();
+			user.setUserType(addUserType);
+			user.setUserStatus(addUserStatus);
+			user.setUserName(addUserName);		
+			user.setUserLogin(addUserLogin);
+			user.setUserPass(addUserPass);
+			user.setUserBday(addUserBday);
+					
+			UserDAO userDao = new UserDAO();
+			userDao.addUser(user);
+			
+			session.setAttribute("userObj", user);  
+			session.setAttribute(StaticReferences.ssnRedirectPage, "usermanagement.jsp"); 
+//	 		response.setHeader("refresh", "1");
+			response.sendRedirect("redirect.jsp");   			
+		}
+
+	}
 		%>			
 
 		</div>	
