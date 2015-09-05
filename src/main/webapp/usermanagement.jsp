@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import ="dao.UserDAO" %>
 <%@ page import ="model.User" %>
+<%@ page import ="dao.UPUpdateHistoryDAO" %>
+<%@ page import ="model.UPUpdateHistory" %>
 <%@ page import ="controller.UserController" %>
 <%@page import="configuration.StaticReferences"%>
 <%@page import="configuration.StaticPanels"%>
@@ -83,7 +85,7 @@ function change(id){
    return;
    }
    
-   
+   	document.getElementById('useriddb').value=id ; 
     document.getElementById('select-usertypedb').value=usertype ; 
     document.getElementById('select-userstatusdb').value=userstatus ; 
     document.getElementById('usernamedb').value=username ; 
@@ -91,6 +93,7 @@ function change(id){
     document.getElementById('userpassdb').value=userpass ; 
     document.getElementById('userbdaydb').value=userbday ; 	
 
+    
 // Script* closes the pop up window - if it is not closed database wont get updated    
     $( "#popup-"+id+"" ).popup( "close" );
 
@@ -232,6 +235,7 @@ function change(id){
 		<input name="select-usertypedb" id="select-usertypedb"  type="text" placeholder="User Type" value=""/>
 		<input name="select-userstatusdb" id="select-userstatusdb" type="text" placeholder="User Status" value=""/>
 		
+		<input name="useriddb" id="useriddb" type="text" placeholder="User ID" value=""/>
 		<input name="usernamedb" id="usernamedb" type="text" placeholder="User Name" value=""/>
 		<input name="userlogindb" id="userlogindb" type="text" placeholder="Email Address" value=""/>
 		<input name="userpassdb" id="userpassdb" type="password" placeholder="User Password" value=""/>	
@@ -240,12 +244,16 @@ function change(id){
 		</form>  
 		</div>
 		<%
+		
+		String userID = request.getParameter("useriddb");
 		String userType = request.getParameter("select-usertypedb");
 		String userStatus = request.getParameter("select-userstatusdb");
 		String userName = request.getParameter("usernamedb");
 		String userLogin = request.getParameter("userlogindb");
 		String userPass = request.getParameter("userpassdb");
 		String userBday = request.getParameter("userbdaydb");
+		
+		String updateByID = session.getAttribute(StaticReferences.ssnUserid).toString();
 		
 		if (userType == null) {
 			// myText is null when the page is first requested, 
@@ -255,6 +263,7 @@ function change(id){
 					out.print("Length is 0");
 				}else{
 				
+// 		Update User Account			
 		User user = new User();
 		user.setUserType(userType);
 		user.setUserStatus(userStatus);
@@ -265,6 +274,15 @@ function change(id){
 		
 		UserDAO userDao = new UserDAO();
 		userDao.updateUser(user);
+		
+// 		Add record in User Profile Updates Table		
+		UPUpdateHistory upUpdateHistory = new UPUpdateHistory();
+		upUpdateHistory.setUpdateByID(updateByID);
+		upUpdateHistory.setUpdateOnID(userID);
+		
+		UPUpdateHistoryDAO upUpdateHistoryDAO = new UPUpdateHistoryDAO();
+		upUpdateHistoryDAO.addUPUpdateHistory(upUpdateHistory);
+
 		
 		session.setAttribute("userObj", user);  
 		session.setAttribute(StaticReferences.ssnRedirectPage, "usermanagement.jsp"); 
