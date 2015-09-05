@@ -1,3 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@page import="model.UPHistory"%>
+<%@ page import ="dao.UPHistoryDAO" %>
+
 <%@page import="configuration.StaticPanels"%>
 <%@page import="configuration.StaticReferences"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -8,9 +13,17 @@
 You are not logged in<br/>
 <a href="login.html">Please Login</a>
 <%} else {
-
+	
+	UPHistoryDAO dao = new UPHistoryDAO();
+	UPHistory uph = new UPHistory();
+	//Get user profile data from database
+	uph=dao.getProgressGraphData(session.getAttribute(StaticReferences.ssnUserid).toString());
+	//Set the appropriate values for x axis and y axis of the graph
+	String xAxisValues = uph.getxAxisValuesForUser();
+	String yAxisValues = uph.getyAxisValuesForUser();	
 %>
 
+ 
 
 <html>
 <head>
@@ -73,8 +86,20 @@ $('#container').highcharts({
     },
 	
     xAxis: {
-        categories: ['Act9', 'Prac5', 'Agl1']
+        categories: [
+                     <%=xAxisValues %>
+                     ]
     },
+   
+    series: [{
+        
+    	name: 'Session/Score',
+        type: 'spline',        
+        data: [
+					<%=yAxisValues %>
+               ]
+
+    }],
 
     yAxis: {
         labels: {
@@ -83,15 +108,7 @@ $('#container').highcharts({
         title: {
             text: 'Score'
         }
-    },
-    
-    series: [{
-        
-    	name: 'Session/Score',
-        type: 'spline',        
-        data: [23, 32, 69]
-
-    }]
+    }    
 
 });
 
@@ -216,3 +233,4 @@ $('#container').highcharts({
 <%
     }
 %>
+
