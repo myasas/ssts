@@ -25,8 +25,19 @@ $('#container').highcharts({
     },
 	
     xAxis: {
-        categories: ['Act9', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1']
+        categories: ['Act9', 'Prac5', 'Agl1',]
     },
+
+    
+    series: [{
+        
+    	name: 'Session/Score',
+        type: 'spline',        
+        data: [23, 32, 69,]
+
+    }],
+
+    
 
     yAxis: {
         labels: {
@@ -35,15 +46,7 @@ $('#container').highcharts({
         title: {
             text: 'Score'
         }
-    },
-    
-    series: [{
-        
-    	name: 'Session/Score',
-        type: 'spline',        
-        data: [23, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69]
-
-    }]
+    }    
 
 });
 

@@ -7,6 +7,8 @@
 <%@page import="configuration.StaticReferences"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="controller.InputVoiceController"%>    
+<%@page import="model.UPHistory"%>
+<%@ page import ="dao.UPHistoryDAO" %>
     
 <%
     if ((session.getAttribute(StaticReferences.ssnUserlogin) == null) || (session.getAttribute(StaticReferences.ssnUserlogin) == "")) {
@@ -129,6 +131,33 @@ draw();
 </script>
 <!-- Script - Speech Graph with DAF -->
 
+<!-- Script - Diff Text Setting -->
+<script>
+function setdifftexttodb(){
+	
+var difftext = document.getElementById('diffid').innerHTML;
+
+document.getElementById('addresultsdb').value = difftext;
+
+	}
+</script>
+<!-- Script - Diff Text Setting -->
+
+<!-- Script* clicks the hidden save button after a delay -->
+
+<script type="text/javascript">
+    function delayedclickadduph(delayms) {
+        console.log("clicked...waiting...");
+
+        setTimeout(
+            function() {
+//                 alert("Called after delay.");
+                document.getElementById('addresultsbutton').click();
+            },
+            delayms);
+    }
+    
+</script>
 
 <title>Smart Speech Therapist</title>		
 </head>
@@ -182,6 +211,7 @@ draw();
 	activity = activityDao.getActivityBySettingValues(activity);
 	
 	String actSession=activity.getActSession();
+	session.setAttribute(StaticReferences.ssnActivityID, randomIndexNumber); 
 	
 %>		
 <!-- White Paragraph  -->					
@@ -296,6 +326,7 @@ response.sendRedirect("redirect.jsp");%>
 	String paraToRead=null;   
 	String speechOutput=null;  	
 	String html = null;
+	String score =null;
     if ((session.getAttribute("spout") == null) || (session.getAttribute("spout") == "")) {
 	%>
 No input is received. If you received this message while refreshing the page, please go back and retry.<br/>
@@ -315,7 +346,7 @@ No input is received. If you received this message while refreshing the page, pl
 	//Calculate Score
 	int speechOutputLength = ivc.textTotArray(speechOutput).length;
 	int totalRepeatedWords = ivc.totalRepeated(repeatedWordsAndCount);
-	String score = ivc.calculateScore(speechOutputLength, totalRepeatedWords);
+	score = ivc.calculateScore(speechOutputLength, totalRepeatedWords);
 	
 	//Print HTML output
 	html= ivc.hashmapToHtml(repeatedWordsAndCount);
@@ -358,7 +389,7 @@ $(window).load(function(){
             <tr>
                 <td class="changed"><%= paraToRead %></td>
                 <td class="original"><%= speechOutput %></td>                
-                <td class="diff"></td>
+                <td class="diff" id="diffid"></td>
             </tr>
         </tbody>
     </table>
@@ -383,7 +414,55 @@ $(window).load(function(){
 		</form>
 		
 		<a href="#" data-role="button" data-rel="back" data-icon="back">Do it again</a>
-		<a href="X" data-role="button" data-icon="action">Submit Results</a>
+		<a href="" onclick="setdifftexttodb();delayedclickadduph(1000);" data-role="button" data-icon="action">Submit Results</a>
+		
+		
+		
+<!--  html - activity add form -->
+
+    	<div data-role="content" hidden="hidden">	
+		<form>
+
+		<input name="addresultsdb" id="addresultsdb" type="text" placeholder="Results" value=""/>				
+
+		<input type="submit" id="addresultsbutton" value="Add" onclick="location.href='redirect.jsp'">	
+		</form>
+		</div>		
+		
+		<%
+		
+		String addResultsDb = request.getParameter("addresultsdb");
+		String addLessonIdDb = session.getAttribute(StaticReferences.ssnActivityID).toString();
+		String addUserIdDb = session.getAttribute(StaticReferences.ssnUserid).toString();
+		String lessonTypeDb = "Activity";
+		String lessonScoreDb = score;
+		
+		if (addResultsDb == null) {
+			// myText is null when the page is first requested, 
+			// so do nothing
+		} else { 
+
+		UPHistoryDAO uphDao = new UPHistoryDAO();
+		UPHistory uph = new UPHistory();
+		
+// 		Add user profile history record to the uph table
+		uph.setPhUserID(addUserIdDb);
+		uph.setPhLessonID(addLessonIdDb);
+		uph.setPhLessonType(lessonTypeDb);
+		uph.setPhScore(lessonScoreDb);
+		uph.setPhResults(addResultsDb);
+		uphDao.addUPHistory(uph);
+		
+		session.setAttribute("uphObj", uph);  
+		session.setAttribute(StaticReferences.ssnRedirectPage, "speech.jsp#dialog-resultssaved"); 
+// 		response.setHeader("refresh", "1");
+		response.sendRedirect("redirect.jsp");   		
+		}
+		%>				
+		
+		
+		
+		
 			</div>
 		</div>	
 <!-- footer -->
@@ -406,6 +485,16 @@ $(window).load(function(){
 			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
 		</div>
 	</div>		
+	
+	<div data-role="page" data-dialog="true" id="dialog-resultssaved" data-theme="b">
+		<div data-role="header">
+			<h1>Results Saved</h1>
+		</div>
+		<div data-role="content" data-theme="a">
+			<h6>Results saved successfully. Do you want to perform another lesson?"</h6>
+			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+		</div>
+	</div>			
 	
 </body>
 </html> 
