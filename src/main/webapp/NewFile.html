@@ -1,0 +1,66 @@
+
+<head>
+
+<title>Highcharts test tool - jsFiddle demo by highcharts</title>
+
+<style type="text/css">
+#container {
+	min-width: 300px;
+	max-width: 2000px;
+	height: 300px;
+	margin: 1em auto;
+}
+</style>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-git.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<script type="text/javascript">//<![CDATA[
+$(function(){
+$('#container').highcharts({
+
+    title: {
+        text: 'Your Smart Therapy	 Progress !'
+    },
+	
+    xAxis: {
+        categories: ['Act9', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1', 'Prac5', 'Agl1']
+    },
+
+    yAxis: {
+        labels: {
+            format: '{value} %'
+        },
+        title: {
+            text: 'Score'
+        }
+    },
+    
+    series: [{
+        
+    	name: 'Session/Score',
+        type: 'spline',        
+        data: [23, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69, 32, 69]
+
+    }]
+
+});
+
+});//]]> 
+
+</script>
+
+
+</head>
+
+<body>
+
+	<div id="container" data-highcharts-chart="0">
+		<div class="highcharts-container" id="highcharts-0"
+			style="position: relative; overflow: hidden; width: 800px; height: 300px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+		</div>
+	</div>
+
+</body>
+</html>

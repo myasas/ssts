@@ -48,6 +48,59 @@ $(document).foundation();
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<meta charset="ISO-8859-1">
+	
+<!-- Progress Chart	 -->
+	
+<style type="text/css">
+#container {
+	min-width: 300px;
+	max-width: 2000px;
+	height: 300px;
+	margin: 1em auto;
+}
+</style>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-git.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<script type="text/javascript">//<![CDATA[
+$(function(){
+$('#container').highcharts({
+
+    title: {
+        text: 'Your Smart Therapy	 Progress !'
+    },
+	
+    xAxis: {
+        categories: ['Act9', 'Prac5', 'Agl1']
+    },
+
+    yAxis: {
+        labels: {
+            format: '{value} %'
+        },
+        title: {
+            text: 'Score'
+        }
+    },
+    
+    series: [{
+        
+    	name: 'Session/Score',
+        type: 'spline',        
+        data: [23, 32, 69]
+
+    }]
+
+});
+
+});//]]> 
+
+</script>
+	
+<!-- Progress Chart	 -->	
+	
 <title>SSTS User Home</title>		
 </head>
 <body>
@@ -97,6 +150,12 @@ $(document).foundation();
 <h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Welcome <%=session.getAttribute(StaticReferences.ssnUsername)%></h4>			
 	
 	<p>Following is a summary of your assessments.</p>
+	
+<div id="container" data-highcharts-chart="0">
+	<div class="highcharts-container" id="highcharts-0"
+		style="position: relative; overflow: hidden; width: 800px; height: 300px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+	</div>
+</div>	
 	
 	<div class="ui-field-contain">
 		<label for="text-1">Your Last Score:</label>
