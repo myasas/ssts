@@ -99,7 +99,7 @@ var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
 
 var errorCallback = function (e) {
-    alert("Error in getUserMedia: " + e);
+    alert("Please provide sufficient permission to access microphone. Error in getUserMedia: " + e);
 };
 
 // Get access to the microphone and start pumping data through the  graph.

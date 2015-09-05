@@ -199,7 +199,7 @@ function changeaddpractice(){
 				<th>No.</th>
 				<th>Character</th>
 				<th>Session</th>
-				<th>URL</th>								
+				<th>Web Link</th>								
 				<th>Added By</th>
 				<th>Added On</th>			             
                 <th colspan=2>Action</th>
@@ -223,7 +223,7 @@ function changeaddpractice(){
 				<input name="pracid" id="pracid${practice.pracID}" type="text" placeholder="PracticeID" value="${practice.pracID}" readonly/>
 <input name="praccharacter" id="praccharacter${practice.pracID}" type="text" placeholder="PracticeCharacter" value="${practice.pracCharacter}" required="required"/>
 <input name="pracsession" id="pracsession${practice.pracID}" type="text" placeholder="PracticeSession" value="${practice.pracSession}" required="required"/>										
-<textarea name="pracurl" id="pracurl${practice.pracID}" placeholder="Practice URL" required="required">${practice.pracUrl}</textarea>
+<textarea name="pracurl" id="pracurl${practice.pracID}" placeholder="Practice Web Link" required="required">${practice.pracUrl}</textarea>
 				<input name="addedbyname" id="addedbyname${practice.pracID}" type="text" placeholder="Added By" value="${practice.addedByName}" readonly/>
 				<input type="button" id="${practice.pracID}" value="Save" onclick="change(this.id);delayedclick(1000);"/>
 		</form>
@@ -237,7 +237,7 @@ function changeaddpractice(){
 		<form>		
 		<input type="text" name="addpraccharacter" id="addpraccharacter" placeholder="Practice Character" required="required"/>
 		<input type="text" name="addpracsession" id="addpracsession" placeholder="Practice Session" required="required"/>		
-		<textarea name="addpracurl" id="addpracurl" placeholder="Practice URL" required="required"></textarea>
+		<textarea name="addpracurl" id="addpracurl" placeholder="Practice Web Link" required="required"></textarea>
 		<input type="button" id="addpracbttn" value="Save" onclick="changeaddpractice();delayedclickaddpractice(1000);"/>
 		</form>
 		
