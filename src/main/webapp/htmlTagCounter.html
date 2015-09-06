@@ -1,0 +1,49 @@
+<head>
+<script>
+function countDels(){
+	
+   var tagList = document.getElementById("myul").getElementsByTagName("del");
+
+   var countOfTags = tagList.length-1
+
+   alert(countOfTags);
+
+	}
+	
+function countIns(){
+	
+   var tagList = document.getElementById("myul").getElementsByTagName("ins");
+
+   var countOfTags = tagList.length-1
+
+   alert(countOfTags);
+
+	}	
+</script>
+
+</head>
+
+<body>
+
+
+<table class="table table-striped table-bordered table-hover" id="myul">
+        <thead>
+            <tr>
+                <th>Original Sentence</th>
+                <th>Voiced Sentence</th>
+                <th>Result (<ins>Missed</ins> / <del>Not Expected</del>)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="changed">the cat was walking all around the corridor then i gave it some milk</td>
+                <td class="original">the cat was walking all around the condo then i gave it some milk</td>                
+                <td class="diff"><span>the cat was walking all around the co</span><del>n</del><ins>rri</ins><span>do</span><ins>r</ins><span> then i gave it some milk</span></td>
+            </tr>
+        </tbody>
+    </table>
+	
+
+	<input type="button" value="countDels" onclick="countDels()" />
+	<input type="button" value="countIns" onclick="countIns()" />	
+</body>	

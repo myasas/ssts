@@ -11,14 +11,14 @@ import javax.swing.JOptionPane;
  * @author Yasas De Silva
  *
  */
-public class InputVoiceController {
+public class StutteredSpeechController {
 
     private ArrayList<String> repeatedWordsArrayOut = new ArrayList<>();
     private ArrayList<Integer> caughtIndexArrayOut = new ArrayList<>();
     private HashMap<String, Integer> stutteredWordsnCountsHashMap = new HashMap<String, Integer> ();  
 
-    public InputVoiceController analyzeRecognizedVoiceInput(String recognizedVoiceInput){
-        InputVoiceController stutteredWordsObj = new InputVoiceController();
+    public StutteredSpeechController analyzeRecognizedVoiceInput(String recognizedVoiceInput){
+        StutteredSpeechController stutteredWordsObj = new StutteredSpeechController();
         String[] splittedArray = stutteredWordsObj.textTotArray(recognizedVoiceInput);
         
         ArrayList<String> repeatedWordsArray = new ArrayList<>();
