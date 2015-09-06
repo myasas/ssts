@@ -5,7 +5,7 @@
 <%@page import="dao.ActivityDAO"%>
 <%@page import="configuration.StaticReferences"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="controller.InputVoiceController"%>    
+<%@page import="controller.StutteredSpeechController"%>    
 <%@page import="configuration.StaticPanels"%>
     
   
@@ -301,21 +301,21 @@ No input is received. If you received this message while refreshing the page, pl
 	paraToRead = session.getAttribute("spin").toString().toLowerCase();   
     speechOutput = session.getAttribute("spout").toString().toLowerCase();   
 
-	InputVoiceController ivc = new InputVoiceController();
+	StutteredSpeechController ssc = new StutteredSpeechController();
 
-	ivc = ivc.analyzeRecognizedVoiceInput(speechOutput);
-	ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
+	ssc = ssc.analyzeRecognizedVoiceInput(speechOutput);
+	ssc.calculateSttuteredWordsAndCount(ssc.getRepeatedWordsArrayOut());
 
 	HashMap<String , Integer> repeatedWordsAndCount = new HashMap<>();
-	repeatedWordsAndCount = ivc.calculateSttuteredWordsAndCount(ivc.getRepeatedWordsArrayOut());
+	repeatedWordsAndCount = ssc.calculateSttuteredWordsAndCount(ssc.getRepeatedWordsArrayOut());
 	
 	//Calculate Score
-	int speechOutputLength = ivc.textTotArray(speechOutput).length;
-	int totalRepeatedWords = ivc.totalRepeated(repeatedWordsAndCount);
-	String score = ivc.calculateScore(speechOutputLength, totalRepeatedWords);
+	int speechOutputLength = ssc.textTotArray(speechOutput).length;
+	int totalRepeatedWords = ssc.totalRepeated(repeatedWordsAndCount);
+	String score = ssc.calculateScore(speechOutputLength, totalRepeatedWords);
 	
 	//Print HTML output
-	html= ivc.hashmapToHtml(repeatedWordsAndCount);
+	html= ssc.hashmapToHtml(repeatedWordsAndCount);
 %>	
 	<p>Your score(beta) for the lesson is <b><%=score%>%</b>.</p>	
 	
