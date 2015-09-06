@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>SignUp</title>
+<title>Login</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="http://getbootstrap.com/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="http://getbootstrap.com/examples/signin/signin.css"
+	rel="stylesheet">
 
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
-  <script type="text/javascript">
+
+<script type="text/javascript">
   (function() {
     var po = document.createElement('script');
     po.type = 'text/javascript'; po.async = true;
@@ -31,51 +33,65 @@
     s.parentNode.insertBefore(po, s);
   })();
   </script>
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <div class="container">
+	<div class="container">
 
-      <form class="form-signin" role="form">
+		<form class="form-signin" role="form" method="post" action="login.jsp">
 			<div id="status"></div>
-        <h2 class="form-signin-heading">User Registration</h2>
-		
-		<label for="inputFname" class="sr-only">First Name</label>
-			<input type="text" id="inputFullname" class="form-control" placeholder="First Name" required autofocus>
+			<h2 class="form-signin-heading">Log in to SSTS</h2>
+
+			<label for="inputFname" class="sr-only">Login Name</label> 
+			<input type="email" name="uname" value="" class="form-control" placeholder="Email: example@email.com" required autofocus> 
+<!-- 			<label for="inputEmail" class="sr-only">Email address</label>  -->
+<!-- 			<input type="email" id="inputEmail" class="form-control" placeholder="Email: example@email.com" required>  -->
+			<label for="inputPassword" class="sr-only">Password</label> <input type="password" name="pass" value="" class="form-control" placeholder="Password" required>
+					<p align="right"><a href= pwdReset.html>Forgot Password?</a></p>
+					<p align="right"><a href= actMailRequest.html>Want Activation Email?</a></p>
+					<p></p>		
+			<div class="row">
+				<div class="col-md-6">
+					<button class="btn btn-sm btn-primary btn-block" type="submit" value="Login">Sign	In</button>
+				</div>			
+				<div class="col-md-6">
+					<button class="g-signin "
+						data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
+						data-requestvisibleactions="http://schemas.google.com/AddActivity"
+						data-clientId="759166832534-kb3han5neb6t4urbe9vecd7jns42ca9i.apps.googleusercontent.com"
+						data-accesstype="offline" data-callback="mycoddeSignIn"
+						data-theme="dark" data-cookiepolicy="single_host_origin">
+					</button>
+				</div>
+			</div>
 			
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required >
-		
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-		
-        <div class="row"> 
-			<div class="col-md-6">
-				<button class="btn btn-sm btn-primary btn-block" type="submit">Sign Up</button>
-			</div>
-			<div class="col-md-6">
-				<button class="g-signin " 
-					data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
-					data-requestvisibleactions="http://schemas.google.com/AddActivity"
-					data-clientId="759166832534-kb3han5neb6t4urbe9vecd7jns42ca9i.apps.googleusercontent.com"
-					data-accesstype="offline"
-					data-callback="mycoddeSignIn"
-					data-theme="dark"
-					data-cookiepolicy="single_host_origin">
-				</button>
-			</div>
-		</div>
-		 
 
-      </form>
+			
+			<div class="row" align="center"> 
+			<p></p>
+			Do not have an Account yet?
+			<p></p>
+			</div>
+			
+			<div align="center">
+		<button class="btn btn-sm btn-primary btn-block" type="button" onclick="location.href='index.html#register-art'">SignUp</button>			
+			</div> 
+				
 
-    </div> <!-- /container -->
-    <!-- Bootstrap core JavaScript
+		</form>
+
+	</div>
+	
+	
+	
+	<!-- /container -->
+	<!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
 	var gpclass = (function(){
@@ -105,7 +121,7 @@
 					return v.type === 'account'; // Filter out the primary email
 				})[0].value;
 				var fName = profile.displayName;
-				$("#inputFullname").val(fName);
+				$("#loginName").val(fName);
 				$("#inputEmail").val(email);
 			});
 		}
@@ -117,5 +133,5 @@
 		gpclass.mycoddeSignIn(gpSignInResponse);
 	}
 	</script>
-  </body>
+</body>
 </html>

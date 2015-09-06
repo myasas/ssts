@@ -1,32 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-    JBoss, Home of Professional Open Source
-    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
-    contributors by the @authors tag. See the copyright.txt in the
-    distribution for a full listing of individual contributors.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.tools.example.html5</groupId>
-    <artifactId>jboss-as-kitchensink-html5-mobile</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>org.icbt.projects.ssts</groupId>
+    <artifactId>smart-speech-therapist-for-stammer</artifactId>
+    <version>01.03.04.00.049</version>
     <packaging>war</packaging>
 
-    <name>jboss-as-kitchensink-html5-mobile</name>
-    <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
+    <name>smart-speech-therapist-for-stammer</name>
+    <description>A Java EE 6, HTML5, mobile and web application.</description>
 
-    <url>http://jboss.org/aerogear</url>
+    <url>http://devssts-yasasd.rhcloud.com</url>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following message: -->
@@ -62,8 +47,8 @@
         <version.war.plugin>2.2</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
     </properties>
 
     <licenses>
@@ -191,6 +176,42 @@
             <scope>test</scope>
         </dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.23</version>
+		</dependency>  
+		
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		  </dependency>		
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		
     </dependencies>
 
     <build>

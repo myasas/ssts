@@ -1,10 +1,8 @@
-jboss-as-kitchensink-html5-mobile: JAX-RS Services Documentation 
-=======================================================
-Author: Jay Balunas, Marius Bogoevici
+smart-speech-therapist-for-stammer: Application Using JSP,Java,HTML5,Javascript, Mobile & JAX-RS Technologies 
+=========================================================================================================
+Author: Yasas De Silva
 
-This example supports various RESTFul end points which also includes JSONP support for cross domain requests.
-
-By default the base URL for services is `/jboss-as-kitchensink-html5-mobile/rest`.
+This supports various RESTFul end points which also includes JSONP support for cross domain requests.
 
 MemberService End Points
 ------------------------
@@ -15,7 +13,7 @@ MemberService End Points
 * Response example:
 
 ```javascript
-[{"id":1,"name":"Jane Smith","email":"jane.smith@mailinator.com","phoneNumber":"2125551212"},{"id":0,"name":"John Smith","email":"john.smith@mailinator.com","phoneNumber":"2125551212"}]
+[{"id":1,"name":"Yasas De Silva","email":"myasas@gmail.com","phoneNumber":"0713399773"},{"id":0,"name":"Yasas De Silva","email":"myasas@gmail.com","phoneNumber":"0713399773"}]
 ```
 
 
