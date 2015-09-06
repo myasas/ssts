@@ -1,6 +1,5 @@
 package service;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -15,6 +14,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import configuration.ConfigurationMaster;
 import configuration.StaticReferences;
 import data.DatabaseConnection;
@@ -25,6 +27,11 @@ import data.DatabaseConnection;
  *
  */
 public class SendEmail {
+	private static final Logger LOGGER= Logger.getLogger(SendEmail.class); 
+	
+	public SendEmail() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 //Default Sender Email Address and Password hardcoded to prevent user dissatisfaction due to a broken link with email.
     private String emailUserName;
     private String emailPassword;
@@ -50,7 +57,7 @@ public class SendEmail {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
          
-        Session session =Session.getDefaultInstance(props,
+        Session session =Session.getInstance(props,
                 new javax.mail.Authenticator() {
                   protected PasswordAuthentication getPasswordAuthentication(){
                   return new PasswordAuthentication(emailUserName, emailPassword);//Emind UserName and Passord            
@@ -70,23 +77,16 @@ public class SendEmail {
                 Multipart multipart = new MimeMultipart();
                 multipart.addBodyPart(messageBodyPart);
                 
-//AAA-Diables the part which adds the attachment feature                        
-//                messageBodyPart=new MimeBodyPart();
-//                javax.activation.DataSource source = new FileDataSource(getAttachmentPath());//Attachment path set
-//                messageBodyPart.setDataHandler(new DataHandler(source));//same continued
-//                messageBodyPart.setFileName(getAttachedFileName());//Attachment file  name set
-//                multipart.addBodyPart(messageBodyPart);// Adds atachement path and attachment name to the mail
-//AAA               
                 message.setContent(multipart);
                 
                 Transport.send(message);
-//Since jsp can not show JoptionPane
-//                JOptionPane.showMessageDialog(null,"Email Sent !");
+//    			Log info
+            	LOGGER.info("Email Sent to :"+ getReceiverEmail());
                 
            }catch(Exception e)  
            {
-//Since jsp can not show JoptionPane        	   
-//               JOptionPane.showMessageDialog(null,"Problem occured. Kindly refer to the Emind user guide. \nDetails: "+ e);
+//   		Log error	
+           	LOGGER.error("Exception in sending email to" + getReceiverEmail(), e);        	   
            }        
     }
 
@@ -107,7 +107,6 @@ public class SendEmail {
 				String activationURL="http://devssts-yasasd.rhcloud.com/AccountActivation?secretkey="+dbUserid+"";
 				        
      //Prepares email reciever, subject and body.
-				try{
 			      SendEmail se = new SendEmail();
 			      se.setReceiverEmail(userLogin);
 			      se.setMailSubject(StaticReferences.emailSubjectWelcome);
@@ -115,21 +114,19 @@ public class SendEmail {
 			      
 			      se.sendAnEmail(se);
 			      isemailSucsessfullySent=true;
-			      System.out.println("Account activation email sent to "+userLogin+".");
-
-				}catch(Exception e){
-					System.out.println("There was a problem in sending the Activation email. Problem: "+e);
-				}
+//					Log info
+		        	LOGGER.info("Account activation email sent to "+userLogin+".");
 			  } else {
-			      	System.out.println("Could not find the user account: "+userLogin+" in the database.");
+//					Log info
+		        	LOGGER.info("Could not find the user account: "+userLogin+" in the database.");
 			  }
 		
         } catch (SQLException e) {
-			// TODO Auto-generated catch block
-        	System.out.println("SQL Exception occured. Problem: "+e);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			System.out.println("Exception occured while trying to send the activation email. Problem :");
+//			Log error	
+        	LOGGER.error("SQL Exception in sendAccountActivationEmail", e);
+		} catch (Exception ex) {
+//			Log error	
+        	LOGGER.error("Exception in sendAccountActivationEmail", ex);			
 		}
           return isemailSucsessfullySent;
 	}

@@ -7,15 +7,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
+import configuration.StaticReferences;
 import data.DatabaseConnection;
 import model.UPHistory;;
 
 public class UPHistoryDAO {
+	private static final Logger LOGGER= Logger.getLogger(UPHistoryDAO.class);
 	
-	   private static final String String = null;
-
+	public UPHistoryDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 
 	public void addUPHistory(UPHistory upHistory) {
 		   String SQLInsert = ("insert into profilehistory(user_id, lesson_id, lesson_type, score, results) values (?, ?, ?, ?, ?)");		   
@@ -30,9 +34,11 @@ public class UPHistoryDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addUPHistory. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addUPHistory. Exception ", e);
 			}
 	    }
 	   
@@ -56,9 +62,11 @@ public class UPHistoryDAO {
 	            	upHistoryList.add(upHistory);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllUPHistory. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllUPHistory. Exception ", e);
 			}
 
 	        return upHistoryList;
@@ -85,9 +93,11 @@ public class UPHistoryDAO {
 	            	upHistoryList.add(upHistory);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllUPHistoryForUserID. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllUPHistoryForUserID. Exception ", e);
 			}
 
 	        return upHistoryList;
@@ -111,14 +121,16 @@ public class UPHistoryDAO {
 	            	upHistory.setUpdateTime(rs.getString("updateTime"));	
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getUPHistoryById. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getUPHistoryById. Exception ", e);
 			}
 	        return upHistory;
 	    }	    
 	    
-	    
+
 	    public UPHistory getProgressGraphData(String userID){
 	    	UPHistory uph = new UPHistory();
 	    	UPHistoryDAO uphDao = new UPHistoryDAO();
@@ -136,23 +148,5 @@ public class UPHistoryDAO {
 	    	return uph;
 	    }
 	    
-	    
-//	    public static void main(String[] args) {
-//	    	UPHistory uph = new UPHistory();
-//	    	UPHistoryDAO uphDao = new UPHistoryDAO();
-//	    	
-//	    	uph=uphDao.getProgressGraphData("3");
-//	    	System.out.println(uph.getxAxisValuesForUser());
-//	    	System.out.println(uph.getyAxisValuesForUser());
-//	    	
-////			uph.setPhUserID("16");
-////			uph.setPhLessonID("3");
-////			uph.setPhLessonType("activity");
-////			uph.setPhScore("33");
-////			uph.setPhResults("I am");
-//
-//			
-////			uphDao.addUPHistory(uph);
-//		}
 	
 }

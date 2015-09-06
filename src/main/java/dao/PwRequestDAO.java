@@ -7,10 +7,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import configuration.StaticReferences;
+
 import data.DatabaseConnection;
 import model.PwRequest;
 
 public class PwRequestDAO {
+	private static final Logger LOGGER= Logger.getLogger(PwRequestDAO.class);
+	
+	public PwRequestDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 	
 	   public void addPwRequest(PwRequest pwrequest) {
 		   String SQLInsert = ("insert into pwrequest(user_id) values (?)");		   
@@ -21,9 +30,11 @@ public class PwRequestDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addPwRequest. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addPwRequest. Exception ", e);
 			}
 	    }
 	   
@@ -42,9 +53,11 @@ public class PwRequestDAO {
 	            	pwrequests.add(pwrequest);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllPwRequests. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllPwRequests. Exception ", e);
 			}
 
 	        return pwrequests;
@@ -65,22 +78,14 @@ public class PwRequestDAO {
 	
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getPwRequestById. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getPwRequestById. Exception ", e);
 			}
 	        return logininfo;
 	    }	    
 	    
-//	    public static void main(String[] args) {
-//			PwRequest pr = new PwRequest();
-//			
-//			pr.setUserID("16");
-//
-//			PwRequestDAO prDao = new PwRequestDAO();
-//			
-//			System.out.println(prDao.getAllPwRequests());
-//
-//		}
 	
 }

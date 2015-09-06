@@ -7,11 +7,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import configuration.StaticReferences;
+
 import data.DatabaseConnection;
 import model.LoginInfo;
 
 public class LoginInfoDAO {
+	private static final Logger LOGGER= Logger.getLogger(LoginInfoDAO.class);
 	
+	public LoginInfoDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 	   public void addLoginInfo(LoginInfo logininfo) {
 		   String SQLInsert = ("insert into logininfo(user_id) values (?)");		   
 	        try {
@@ -21,9 +29,11 @@ public class LoginInfoDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addLoginInfo. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addLoginInfo. Exception ", e);
 			}
 	    }
 	   
@@ -42,9 +52,11 @@ public class LoginInfoDAO {
 	            	logininfos.add(logininfo);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllLoginInfos. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllLoginInfos. Exception ", e);
 			}
 
 	        return logininfos;
@@ -65,9 +77,11 @@ public class LoginInfoDAO {
 	
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getLoginInfoById. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getLoginInfoById. Exception ", e);
 			}
 	        return logininfo;
 	    }	    

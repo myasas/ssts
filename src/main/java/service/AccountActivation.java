@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import configuration.StaticReferences;
+
 import data.DatabaseConnection;
 
 /**
@@ -23,6 +26,8 @@ import data.DatabaseConnection;
  */
 @WebServlet(description = "this is my calculator decroption", urlPatterns = { "/AccountActivation" })
 public class AccountActivation extends HttpServlet {
+	private static final Logger LOGGER= Logger.getLogger(AccountActivation.class);
+
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -30,7 +35,7 @@ public class AccountActivation extends HttpServlet {
      */
     public AccountActivation() {
         super();
-        // TODO Use singletonSesignpattern in this class
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
     }
 
 	/**
@@ -57,7 +62,9 @@ public class AccountActivation extends HttpServlet {
 		    		writer.println("Account is already activated. Please proceed with signing in to SSTS.");		        	
 		        }else if(dbUserstatus.equalsIgnoreCase(StaticReferences.uStatusDeactivated)){
 		    	    DatabaseConnection.getInstance().updateValues(SQLUpdate);	
-		    		writer.println("Account activation sucessful.");		    	    
+		    		writer.println("Account activation sucessful.");	
+//					Log info
+		        	LOGGER.info("User Account Activated");		    		
 		        }else if(dbUserstatus.equalsIgnoreCase(StaticReferences.uStatusRestricted)){
 		    		writer.println(StaticReferences.msgAccRestrict);		        	
 		        }
@@ -65,7 +72,9 @@ public class AccountActivation extends HttpServlet {
 				writer.println("User account does not exist in the database.");		    	
 		    }    
 		}catch(Exception e){
-			writer.println("There was an exception. Which is: "+e);
+			writer.println("There was a Problem. Which is: "+e);
+//			Log error	
+        	LOGGER.error("Exception in sendAccountActivationEmail", e);			
 		}
 
 	}

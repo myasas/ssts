@@ -7,12 +7,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
+import configuration.StaticReferences;
 import data.DatabaseConnection;
 import model.Activity;
-import model.User;
 
 public class ActivityDAO {
-	
+	private static final Logger LOGGER= Logger.getLogger(ActivityDAO.class);
+	public ActivityDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 
 	/**
 	 * 
@@ -34,9 +40,8 @@ public class ActivityDAO {
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("exception: "+e);
+//			Log error
+			LOGGER.error("Error in getActivityBySettingValues. Exception", e);
 		}
 		return activity;
 	}
@@ -64,9 +69,8 @@ public class ActivityDAO {
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("exception: "+e);
+//			Log error			
+			LOGGER.error("Error in getActivityWithMinMaxIDBySettingValues. Exception", e);			
 		}
 		return activity;
 	}
@@ -86,9 +90,8 @@ public class ActivityDAO {
 				activity.setMaxID(Integer.parseInt(rs.getString("max(act_id)")));	
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("exception: "+e);
+//			Log error	
+			LOGGER.error("Error in getMinMaxIDs. Exception", e);
 		}
 		return activity;
 	}	
@@ -104,9 +107,11 @@ public class ActivityDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log SQL error	
+				LOGGER.error("Error in gaddActivity. SQL Exception", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addActivity. Exception", e);
 			}
 	    }	
 		
@@ -121,10 +126,11 @@ public class ActivityDAO {
 	            preparedStatement.executeUpdate();
 	            
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log SQL error	
+				LOGGER.error("Error in updateActivity. SQL Exception", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in updateActivity. Exception", e);
 			}
 	    }
 	   
@@ -145,9 +151,11 @@ public class ActivityDAO {
 	            	activities.add(activity);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log SQL error	
+				LOGGER.error("Error in getAllActivities. SQL Exception", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllActivities. Exception", e);
 			}
 
 	        return activities;
@@ -169,9 +177,11 @@ public class ActivityDAO {
 	
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log SQL error	
+				LOGGER.error("Error in getActivityById. SQL Exception",e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getActivityById. Exception",e);
 			}
 	        return activity;
 	    }		    
@@ -184,28 +194,12 @@ public class ActivityDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log SQL error	
+				LOGGER.error("Error in deleteActivity. SQL Exception",e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in deleteActivity. Exception",e);
 			}
 	    }	    
-	
-	
-//	    public static void main(String[] args) {
-//			Activity activity = new Activity();
-//	    	
-//	    	ActivityDAO actDAO = new ActivityDAO();
-////			actDAO.getActivityById("3");
-////			System.out.println(actDAO.getActivityById("3"));
-////	    	activity.setActSession("Test act session");
-////	    	activity.setAddedBy("16");
-////	    	activity.setActID("9");
-////	    	activity.setActSession("Test act session updated 111");
-////	    	activity.setAddedBy("16");
-////	    	
-////	    	actDAO.updateActivity(activity);
-////			
-////			actDAO.addActivity(activity);
-//			
-//		}
+
 }

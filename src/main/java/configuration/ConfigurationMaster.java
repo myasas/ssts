@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
  *
  */
 public class ConfigurationMaster {
-	final Logger logger= Logger.getLogger(this.getClass());
+	private static final Logger LOGGER= Logger.getLogger(ConfigurationMaster.class);
 	public ConfigurationMaster() {
 		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
 	}
@@ -58,15 +58,14 @@ public class ConfigurationMaster {
     	boolean isFileSaveSuccess=false;
     		try {
 //Save configuration file in configuration location
-     			logger.info("Saving Configuration file");    			
+     			LOGGER.info("Saving Configuration file");    			
     			FileWriter file = new FileWriter(configurationFileLocal);
     			file.write(jsonObj.toJSONString());
     			file.flush();
     			file.close();
     			isFileSaveSuccess = true;
-//    			System.out.print(jsonObj);
     		} catch (IOException e) {
-    			logger.error("Exception in saving the Configuration file|:"+e);
+    			LOGGER.error("Exception in saving the Configuration file", e);
     		}
     		return isFileSaveSuccess;
 	}
@@ -75,25 +74,19 @@ public class ConfigurationMaster {
  		JSONParser parser = new JSONParser();
  		JSONArray configSettingArray = null;
  		try {
- 			logger.info("Reading Configuration file");
+ 			LOGGER.info("Reading Configuration file");
  			Object obj = parser.parse(new FileReader(configurationFileLocal));
  			JSONObject jsonObject = (JSONObject) obj;
- 			
  			// loop array
  			configSettingArray = (JSONArray) jsonObject.get(configSetting);
  			
-// 			@SuppressWarnings("unchecked")
-//			Iterator<String> iterator = configSettingArray.iterator();
-// 			while (iterator.hasNext()) {
-// 				System.out.println(iterator.next());
-// 			}
 
  		} catch (FileNotFoundException e) {
- 			logger.error("Exception in Reading Configuration file|:"+e);
+ 			LOGGER.error("Exception in Reading Configuration file", e);
  		} catch (IOException e) {
- 			logger.error("Exception in Reading Configuration file|:"+e);
+ 			LOGGER.error("Exception in Reading Configuration file", e);
  		} catch (ParseException e) {
- 			logger.error("Exception in Reading Configuration file|:"+e);
+ 			LOGGER.error("Exception in Reading Configuration file", e);
  		}
  		return configSettingArray;
 	}     

@@ -7,30 +7,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import configuration.StaticReferences;
+
 import data.DatabaseConnection;
 import model.User;
 
 public class UserDAO {
 	
-//	public static void main(String[] args) {
-//	User ud = new User();
-//	ud.setUserType("uType");
-//	ud.setUserLogin("uLogin");	
-//	ud.setUserPass("uPass");	
-//	ud.setUserStatus("deact");	
-//	ud.setUserName("uName");	
-//	ud.setUserBday("2008/05/05");		
-	
-	
-//	UserDAO ud2 = new UserDAO();
-//	ud2.addUser(ud);
-//	ud2.getAllUsers();
-//	System.out.println(ud2.getAllUsers().toString());
-//	ud =ud2.getUserById("8");
-//	ud2.deleteUser("uLogin");
-	
-//	System.out.println(ud.getUserName());
-//	}		
+	private static final Logger LOGGER= Logger.getLogger(UserDAO.class);	
+	public UserDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 	
 	public User getUserBySettingValues(User user) {
 		String SQL="select * from ssts.users where user_id="+user.getUserID()+" && "
@@ -55,8 +44,8 @@ public class UserDAO {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("exception: "+e);
+//			Log error	
+			LOGGER.error("Error in getUserBySettingValues. Exception ", e);
 		}
 		return user;
 	}
@@ -74,7 +63,8 @@ public class UserDAO {
                 addUser(user);
             }
         } catch (Exception ex) {
-            System.out.println("Error in check() -->" + ex.getMessage());
+//			Log error	
+			LOGGER.error("Error in checkUser. Exception ", ex);
         } 
     }		
 	
@@ -92,9 +82,11 @@ public class UserDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addUser. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addUser. Exception ", e);
 			}
 	    }	
 		
@@ -112,10 +104,11 @@ public class UserDAO {
 	            preparedStatement.executeUpdate();
 	            
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in updateUser. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in updateUser. Exception ", e);
 			}
 	    }
 	   
@@ -138,9 +131,11 @@ public class UserDAO {
 	                users.add(user);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllUsers. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllUsers. Exception ", e);
 			}
 
 	        return users;
@@ -164,9 +159,11 @@ public class UserDAO {
 	                user.setUserReg(rs.getString("user_reg"));		
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getUserByLogin. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getUserByLogin. Exception ", e);
 			}
 	        return user;
 	    }	    
@@ -189,9 +186,11 @@ public class UserDAO {
 	                user.setUserReg(rs.getString("user_reg"));		
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getUserById. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getUserById. Exception ", e);
 			}
 	        return user;
 	    }		    
@@ -204,9 +203,11 @@ public class UserDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in deleteUser. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in deleteUser. Exception ", e);
 			}
 	    }	    
 	    

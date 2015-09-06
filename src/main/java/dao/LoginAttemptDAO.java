@@ -6,11 +6,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import configuration.StaticReferences;
 
 import data.DatabaseConnection;
 import model.LoginAttempt;
 
 public class LoginAttemptDAO {
+	private static final Logger LOGGER= Logger.getLogger(LoginAttemptDAO.class);
+	
+	public LoginAttemptDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 	
 	   public void addLoginAttempt(LoginAttempt loginattempt) {
 		   String SQLInsert = ("insert into logattempt(user_id) values (?)");		   
@@ -21,9 +29,11 @@ public class LoginAttemptDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addLoginAttempt. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addLoginAttempt. Exception ", e);
 			}
 	    }
 	   
@@ -42,9 +52,11 @@ public class LoginAttemptDAO {
 	            	loginattempts.add(loginattempt);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllLoginAttempts. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllLoginAttempts. Exception ", e);
 			}
 
 	        return loginattempts;
@@ -65,22 +77,14 @@ public class LoginAttemptDAO {
 	
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in LoginAttempt. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in LoginAttempt. Exception ", e);
 			}
 	        return loginattempt;
 	    }	    
 	    
-//	    public static void main(String[] args) {
-//			LoginAttempt la = new LoginAttempt();
-//			
-////			la.setUserID("16");
-//
-//			LoginAttemptDAO laDao = new LoginAttemptDAO();
-//			
-//			System.out.println(laDao.getAllLoginAttempts());
-//
-//		}
 	
 }

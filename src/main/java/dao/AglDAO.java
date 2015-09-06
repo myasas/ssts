@@ -7,11 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
+import configuration.StaticReferences;
 import data.DatabaseConnection;
-import model.Activity;
 import model.AGL;
-import model.Practice;
-import model.User;
 /**
  * 
  * @author Yasas De Silva
@@ -19,7 +20,11 @@ import model.User;
  *
  */
 public class AglDAO {
-	
+	private static final Logger LOGGER= Logger.getLogger(AglDAO.class);
+
+	public AglDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 	
 	
 	/**
@@ -36,9 +41,8 @@ public class AglDAO {
 				agl.setMaxID(Integer.parseInt(rs.getString("max(agl_id)")));	
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("exception: "+e);
+//			Log error	
+			LOGGER.error("Error in getMinMaxIDs. Exception ", e);
 		}
 		return agl;
 	}	
@@ -55,9 +59,11 @@ public class AglDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addAGL. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addAGL. Exception ", e);
 			}
 	    }	
 		
@@ -72,10 +78,11 @@ public class AglDAO {
 	            preparedStatement.executeUpdate();
 	            
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in updateAGL. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in updateAGL. Exception ", e);
 			}
 	    }
 	   
@@ -97,9 +104,11 @@ public class AglDAO {
 	            	agls.add(agl);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllAGLs. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllAGLs. Exception ", e);
 			}
 
 	        return agls;
@@ -122,9 +131,11 @@ public class AglDAO {
 	
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAGLById. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAGLById. Exception ", e);
 			}
 	        return agl;
 	    }		    
@@ -137,37 +148,12 @@ public class AglDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in deleteAGL. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in deleteAGL. Exception ", e);
 			}
 	    }	    
 	
-	
-//	    public static void main(String[] args) {
-//			AGL agl = new AGL();
-//	    	
-//	    	AglDAO aglDAO = new AglDAO();
-//	    	
-////	    	System.out.println(pracDAO.getPracticeById("1"));
-//	    	
-////	    	agl.setAglID("1");
-////	    	agl.setAglFor("16");
-////	    	agl.setAglWord("Mom");
-////	    	agl.setAglLesson("My mom and I are very best friends");
-//	    	
-//	    	System.out.println(aglDAO.getAllAGLs());
-//	    	
-////	    	System.out.println(pracDAO.getAllPractices());
-////	    	activity.setActSession("Test act session");
-////	    	activity.setAddedBy("16");
-////	    	activity.setActID("9");
-////	    	activity.setActSession("Test act session updated 111");
-////	    	activity.setAddedBy("16");
-////	    	
-////	    	actDAO.updateActivity(activity);
-////			
-////			actDAO.addActivity(activity);
-//			
-//		}
 }

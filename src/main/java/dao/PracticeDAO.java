@@ -7,15 +7,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
+import configuration.StaticReferences;
 import data.DatabaseConnection;
-import model.Activity;
 import model.Practice;
-import model.User;
 
 public class PracticeDAO {
+	private static final Logger LOGGER= Logger.getLogger(PracticeDAO.class);	
 	
-	
-	
+	public PracticeDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 	/**
 	 * 
 	 * @return returns the activity object with minID and MaxID from activity table
@@ -30,9 +34,8 @@ public class PracticeDAO {
 				practice.setMaxID(Integer.parseInt(rs.getString("max(prac_id)")));	
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("exception: "+e);
+//			Log error	
+			LOGGER.error("Error in getMinMaxIDs. Exception ", e);
 		}
 		return practice;
 	}	
@@ -50,9 +53,11 @@ public class PracticeDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addPractice. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addPractice. Exception ", e);
 			}
 	    }	
 		
@@ -68,10 +73,11 @@ public class PracticeDAO {
 	            preparedStatement.executeUpdate();
 	            
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in updatePractice. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in updatePractice. Exception ", e);
 			}
 	    }
 	   
@@ -94,9 +100,11 @@ public class PracticeDAO {
 	            	practices.add(practice);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllPractices. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllPractices. Exception ", e);
 			}
 
 	        return practices;
@@ -120,9 +128,11 @@ public class PracticeDAO {
 	
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getPracticeById. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getPracticeById. Exception ", e);
 			}
 	        return practice;
 	    }		    
@@ -135,38 +145,12 @@ public class PracticeDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in deletePractice. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in deletePractice. Exception ", e);
 			}
 	    }	    
 	
-	
-//	    public static void main(String[] args) {
-//			Practice practice = new Practice();
-//	    	
-//	    	PracticeDAO pracDAO = new PracticeDAO();
-//	    	
-////	    	System.out.println(pracDAO.getPracticeById("1"));
-//	    	
-//	    	practice.setPracID("2");
-//	    	practice.setAddedBy("16");
-//	    	practice.setPracCharacter("Q");
-//	    	practice.setPracSession("Letters for parents");
-//	    	practice.setPracUrl("tttttttttttttttttt");
-//	    	
-//	    	pracDAO.updatePractice(practice);
-//	    	
-//	    	System.out.println(pracDAO.getAllPractices());
-////	    	activity.setActSession("Test act session");
-////	    	activity.setAddedBy("16");
-////	    	activity.setActID("9");
-////	    	activity.setActSession("Test act session updated 111");
-////	    	activity.setAddedBy("16");
-////	    	
-////	    	actDAO.updateActivity(activity);
-////			
-////			actDAO.addActivity(activity);
-//			
-//		}
 }

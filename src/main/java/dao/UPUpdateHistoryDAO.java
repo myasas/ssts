@@ -7,11 +7,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import configuration.StaticReferences;
+
 import data.DatabaseConnection;
 import model.UPUpdateHistory;;
 
 public class UPUpdateHistoryDAO {
-	
+	private static final Logger LOGGER= Logger.getLogger(UPUpdateHistoryDAO.class);
+		
+	public UPUpdateHistoryDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 	   public void addUPUpdateHistory(UPUpdateHistory upUpdateHistory) {
 		   String SQLInsert = ("insert into profileupdatehistory(update_by, update_on) values (?, ?)");		   
 	        try {
@@ -22,9 +30,11 @@ public class UPUpdateHistoryDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addUPUpdateHistory. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addUPUpdateHistory. Exception ", e);
 			}
 	    }
 	   
@@ -45,9 +55,11 @@ public class UPUpdateHistoryDAO {
 	            	upUpdateHistoryList.add(upUpdateHistory);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllUPUpdateHistory. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllUPUpdateHistory. Exception ", e);
 			}
 
 	        return upUpdateHistoryList;
@@ -67,25 +79,14 @@ public class UPUpdateHistoryDAO {
 	            	upUpdateHistory.setUpdateTime(rs.getString("updateTime"));	
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getLoginInfoById. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getLoginInfoById. Exception ", e);
 			}
 	        return upUpdateHistory;
 	    }	    
 	    
-//	    public static void main(String[] args) {
-//			UPUpdateHistory upuh = new UPUpdateHistory();
-//			
-//			upuh.setUpdateByID("16");
-//			upuh.setUpdateOnID("16");			
-//
-//			UPUpdateHistoryDAO uph = new UPUpdateHistoryDAO();
-//			
-//			uph.addUPUpdateHistory(upuh);
-//			
-////			System.out.println(uph.getAllUPUpdateHustory());
-//
-//		}
 	
 }

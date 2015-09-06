@@ -41,9 +41,7 @@ public class StutteredSpeechController {
                     if (splittedArray[i].equalsIgnoreCase(splittedArray[i + 2]) && splittedArray[i + 1].equalsIgnoreCase(splittedArray[i + 3])) {
                 caughtIndexArray.add(i);
                 repeatedWordsArray.add(splittedArray[i]+" "+splittedArray[i+1]);  
-//                        System.out.println(i);
-//                        System.out.println(splittedArray[i] + " " + splittedArray[i + 1]);
-//                        System.out.println(splittedArray[i + 2] + " " + splittedArray[i + 3]);
+
                         i = i + 2;
                     }
                 }
@@ -60,9 +58,7 @@ public class StutteredSpeechController {
                     if (splittedArray[i].equalsIgnoreCase(splittedArray[i + 3]) && splittedArray[i + 1].equalsIgnoreCase(splittedArray[i + 4]) && splittedArray[i + 2].equalsIgnoreCase(splittedArray[i + 5])) {
                 caughtIndexArray.add(i);
                 repeatedWordsArray.add(splittedArray[i]+" "+splittedArray[i+1]+" "+splittedArray[i+2]);  
-//                        System.out.println(i);
-//                        System.out.println(splittedArray[i] + " " + splittedArray[i + 1]);
-//                        System.out.println(splittedArray[i + 2] + " " + splittedArray[i + 3]);
+
                         i = i + 3;
                     }
                 }

@@ -6,11 +6,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import configuration.StaticReferences;
 
 import data.DatabaseConnection;
 import model.Feedback;
 
 public class FeedbackDAO {
+	private static final Logger LOGGER= Logger.getLogger(FeedbackDAO.class);
+	
+	public FeedbackDAO() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
 	
 	public Feedback getFeedbackBySettingValues(Feedback feedback) {
 		String SQL="select * from ssts.feedback where fb_id="+feedback.getUserID()+" && "
@@ -30,9 +38,8 @@ public class FeedbackDAO {
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("exception: "+e);
+//			Log error	
+			LOGGER.error("Error in getFeedbackBySettingValues. Exception ", e);
 		}
 		return feedback;
 	}
@@ -50,9 +57,11 @@ public class FeedbackDAO {
 	            preparedStatement.executeUpdate();
 
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addFeedback. SQL Exception ", e);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in addFeedback. Exception ", e);
 			}
 	    }
 	   
@@ -74,9 +83,11 @@ public class FeedbackDAO {
 	            	feedbacks.add(feedback);
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllFeedbacks. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getAllFeedbacks. Exception ", e);
 			}
 
 	        return feedbacks;
@@ -98,22 +109,13 @@ public class FeedbackDAO {
 	            	feedback.setUpdateTime(rs.getString("updateTime"));			
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getFeedbackById. SQL Exception ", e);
 	        } catch (Exception e) {
-				e.printStackTrace();
+//				Log error	
+				LOGGER.error("Error in getFeedbackById. Exception ", e);
 			}
 	        return feedback;
 	    }	    
-	    
-//	    public static void main(String[] args) {
-//			Feedback fb = new Feedback();
-////			fb.setUserID("16");
-////			fb.setFbType("Idea");
-////			fb.setMessage("Idea TestDB");
-////			fb.setMessage("Message 123456");
-//			FeedbackDAO dbDao = new FeedbackDAO();
-//			System.out.println(dbDao.getFeedbackById("23").getUpdateTime());
-//
-//		}
 	
 }
