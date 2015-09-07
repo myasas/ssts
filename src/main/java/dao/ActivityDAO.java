@@ -40,6 +40,8 @@ public class ActivityDAO {
 			}
 //			Close Connection
 			rs.getStatement().getConnection().close();
+//			Close ResultSet
+			rs.close();			
 		} catch (Exception e) {
 //			Log error
 			LOGGER.error("Error in getActivityBySettingValues. Exception", e);
@@ -70,6 +72,8 @@ public class ActivityDAO {
 			}
 //			Close Connection			
 			rs.getStatement().getConnection().close();
+//			Close ResultSet
+			rs.close();			
 		} catch (Exception e) {
 //			Log error			
 			LOGGER.error("Error in getActivityWithMinMaxIDBySettingValues. Exception", e);			
@@ -93,6 +97,8 @@ public class ActivityDAO {
 			}
 //			Close Connection			
 			rs.getStatement().getConnection().close();
+//			Close ResultSet
+			rs.close();			
 		} catch (Exception e) {
 //			Log error	
 			LOGGER.error("Error in getMinMaxIDs. Exception", e);
@@ -111,6 +117,8 @@ public class ActivityDAO {
 	            preparedStatement.executeUpdate();
 //				Close Connection	            
 	            preparedStatement.getConnection().close();
+//				Close PreparedStatement
+	            preparedStatement.close();	            
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in gaddActivity. SQL Exception", e);
@@ -131,6 +139,8 @@ public class ActivityDAO {
 	            preparedStatement.executeUpdate();
 //				Close Connection	            
 	            preparedStatement.getConnection().close();
+//				Close PreparedStatement
+	            preparedStatement.close();	   
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in updateActivity. SQL Exception", e);
@@ -158,6 +168,8 @@ public class ActivityDAO {
 	            }
 //				Close Connection	            
 	            statement.getConnection().close();
+//				Close Statement
+	            statement.close();	   	            
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in getAllActivities. SQL Exception", e);
@@ -185,6 +197,8 @@ public class ActivityDAO {
 	            }
 //				Close Connection	            
 	            preparedStatement.getConnection().close();
+//				Close PreparedStatment
+	            preparedStatement.close();	   
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in getActivityById. SQL Exception",e);
@@ -203,6 +217,8 @@ public class ActivityDAO {
 	            preparedStatement.executeUpdate();
 //				Close Connection	            
 	            preparedStatement.getConnection().close();
+//				Close PreparedStatment
+	            preparedStatement.close();	   
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in deleteActivity. SQL Exception",e);
