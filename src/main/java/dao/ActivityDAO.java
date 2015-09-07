@@ -38,7 +38,8 @@ public class ActivityDAO {
 				activity.setAddedBy(rs.getString("added_by"));
 				activity.setAddedOn(rs.getString("added_on"));			
 			}
-			
+//			Close Connection
+			rs.getStatement().getConnection().close();
 		} catch (Exception e) {
 //			Log error
 			LOGGER.error("Error in getActivityBySettingValues. Exception", e);
@@ -67,7 +68,8 @@ public class ActivityDAO {
 				activity.setMinID(Integer.parseInt(rs.getString("min(act_id)")));	
 				activity.setMaxID(Integer.parseInt(rs.getString("max(act_id)")));	
 			}
-			
+//			Close Connection			
+			rs.getStatement().getConnection().close();
 		} catch (Exception e) {
 //			Log error			
 			LOGGER.error("Error in getActivityWithMinMaxIDBySettingValues. Exception", e);			
@@ -89,6 +91,8 @@ public class ActivityDAO {
 				activity.setMinID(Integer.parseInt(rs.getString("min(act_id)")));	
 				activity.setMaxID(Integer.parseInt(rs.getString("max(act_id)")));	
 			}
+//			Close Connection			
+			rs.getStatement().getConnection().close();
 		} catch (Exception e) {
 //			Log error	
 			LOGGER.error("Error in getMinMaxIDs. Exception", e);
@@ -105,7 +109,8 @@ public class ActivityDAO {
 	            preparedStatement.setString(1, activity.getActSession());
 	            preparedStatement.setString(2, activity.getAddedBy());        
 	            preparedStatement.executeUpdate();
-
+//				Close Connection	            
+	            preparedStatement.getConnection().close();
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in gaddActivity. SQL Exception", e);
@@ -124,7 +129,8 @@ public class ActivityDAO {
 	            preparedStatement.setString(2, activity.getAddedBy());
 	            preparedStatement.setString(3, activity.getActID());	            
 	            preparedStatement.executeUpdate();
-	            
+//				Close Connection	            
+	            preparedStatement.getConnection().close();
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in updateActivity. SQL Exception", e);
@@ -150,6 +156,8 @@ public class ActivityDAO {
 	                
 	            	activities.add(activity);
 	            }
+//				Close Connection	            
+	            statement.getConnection().close();
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in getAllActivities. SQL Exception", e);
@@ -174,8 +182,9 @@ public class ActivityDAO {
 					activity.setActSession(rs.getString("act_session"));
 					activity.setAddedBy(rs.getString("added_by"));
 					activity.setAddedOn(rs.getString("added_on"));		
-	
 	            }
+//				Close Connection	            
+	            preparedStatement.getConnection().close();
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in getActivityById. SQL Exception",e);
@@ -192,7 +201,8 @@ public class ActivityDAO {
 	            // Parameters start with 1
 	            preparedStatement.setString(1, activityID);
 	            preparedStatement.executeUpdate();
-
+//				Close Connection	            
+	            preparedStatement.getConnection().close();
 	        } catch (SQLException e) {
 //				Log SQL error	
 				LOGGER.error("Error in deleteActivity. SQL Exception",e);

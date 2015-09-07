@@ -72,7 +72,7 @@ public class DatabaseConnection {
         Class.forName(driver);
         conn = DriverManager.getConnection(url, username, password);
         }catch(Exception e){
-        	LOGGER.error("Exception in creating database connection :| "+e);
+        	LOGGER.error("Exception in creating database connection", e);
         }
         return conn;
     }
@@ -81,7 +81,7 @@ public class DatabaseConnection {
 		try {
 			conn.close();
 		} catch (Exception e) {
-			LOGGER.error("Exception in closing database connection :| " + e);
+			LOGGER.error("Exception in closing database connection" , e);
 		}
     }    
 
@@ -93,7 +93,7 @@ public class DatabaseConnection {
         st.executeUpdate(SQL);
         conn.close();
         }catch(Exception e){
-        	LOGGER.error("Exception in inserting values to database :|"+e);
+        	LOGGER.error("Exception in inserting values to database", e);
         }        
     }
       
@@ -104,7 +104,7 @@ public class DatabaseConnection {
         pst.executeUpdate();
         conn.close();        
         }catch(Exception e){
-        	LOGGER.error("Exception in updating values in database :|"+e);        	
+        	LOGGER.error("Exception in updating values in database", e);        	
         }
 }    
     
@@ -115,7 +115,7 @@ public class DatabaseConnection {
         PreparedStatement pst=conn.prepareStatement(SQL);
         rs=pst.executeQuery();
         }catch(Exception e){
-        	LOGGER.error("Exception in generating a result set :|"+e);
+        	LOGGER.error("Exception in generating a result set", e);
         }
 
         return rs;
@@ -128,7 +128,7 @@ public class DatabaseConnection {
         Connection conn = getConnection(); //Connect to the database
         pst=conn.prepareStatement(SQL);
         }catch(Exception e){
-        	LOGGER.error("Exception in obtaining a prepared statement from Database :|"+e);        	
+        	LOGGER.error("Exception in obtaining a prepared statement from Database", e);        	
         }        
         return pst;
     }
@@ -139,7 +139,7 @@ public class DatabaseConnection {
         Connection conn = getConnection();
         st = conn.createStatement();
         }catch(Exception e){
-        	LOGGER.error("Exception in obtaining a Statement from Database :|"+e);        	
+        	LOGGER.error("Exception in obtaining a Statement from Database", e);        	
         }                
         return st;
     }    

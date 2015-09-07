@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import configuration.StaticReferences;
+
 import dao.UserDAO;
 import model.User;
 
@@ -22,6 +26,7 @@ import model.User;
  */
 @WebServlet(description = "this is my calculator decroption", urlPatterns = { "/ClassName" })
 public class UserController extends HttpServlet {
+	private static final Logger LOGGER= Logger.getLogger(UserController.class); 	
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -29,7 +34,7 @@ public class UserController extends HttpServlet {
      */
     public UserController() {
         super();
-        // TODO can Use singletonDesignpattern in this class
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
     }
 
 	/**
@@ -57,10 +62,11 @@ public class UserController extends HttpServlet {
 	    UserDAO userDao = new UserDAO();
 	    userDao.updateUser(user);
 	    
-		writer.println("User account update successful !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!******************************");	
-
+//		Log info
+    	LOGGER.info("User Account Update Suceesful.");
 	    }catch(Exception e){
-			writer.println("Exception in update user account ????????????? :"+ e );			
+//			Log error	
+        	LOGGER.error("Exception in Updating user account.", e);	
 		}
 	  
 	}

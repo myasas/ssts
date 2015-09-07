@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import configuration.StaticReferences;
+
 
 /**
  * 
@@ -12,7 +15,11 @@ import javax.swing.JOptionPane;
  *
  */
 public class StutteredSpeechController {
-
+	private static final Logger LOGGER= Logger.getLogger(StutteredSpeechController.class);  
+	public StutteredSpeechController() {
+		PropertyConfigurator.configure(StaticReferences.log4jPropertiesPath);
+	}
+	
     private ArrayList<String> repeatedWordsArrayOut = new ArrayList<>();
     private ArrayList<Integer> caughtIndexArrayOut = new ArrayList<>();
     private HashMap<String, Integer> stutteredWordsnCountsHashMap = new HashMap<String, Integer> ();  
@@ -47,7 +54,7 @@ public class StutteredSpeechController {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Exception from two words repeated to log :" + e);
+        	LOGGER.error("Exception in -2words repeated-", e);            
         }
         
 //*detects if three words repeadedly pronounced (And I am)
@@ -64,7 +71,8 @@ public class StutteredSpeechController {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Exception from 3 words repeated to log :" + e);
+//			Log error	
+        	LOGGER.error("Exception in -3words repeated-", e);        	            
         }    
 //Returns Repeated words in an Array with out any modification
         stutteredWordsObj.setRepeatedWordsArrayOut(repeatedWordsArray);
