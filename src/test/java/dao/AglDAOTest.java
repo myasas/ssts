@@ -5,15 +5,15 @@
  */
 package dao;
 
+import static org.junit.Assert.assertEquals;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import model.AGL;
 
-import org.codehaus.plexus.util.CollectionUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,8 +21,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import data.DatabaseConnection;
-
-import static org.junit.Assert.*;
+import model.AGL;
 
 /**
  *
