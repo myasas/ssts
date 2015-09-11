@@ -10,7 +10,7 @@
         session.setAttribute(StaticReferences.ssnUserlogin, userlogin);  
         session.setAttribute(StaticReferences.ssnUsertype, StaticReferences.maintainanceUType);            
         session.setAttribute(StaticReferences.ssnUsername, StaticReferences.maintainanceUName);
-        response.sendRedirect("success.jsp"); 
+        response.sendRedirect("configurations.jsp"); 
         
     }else{
 	    String SQL="select * from users where user_login='" + userlogin + "'";    

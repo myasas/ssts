@@ -21,6 +21,10 @@ You are not logged in<br/>
 	//Set the appropriate values for x axis and y axis of the graph
 	String xAxisValues = uph.getxAxisValuesForUser();
 	String yAxisValues = uph.getyAxisValuesForUser();	
+			
+	String lastScore = uph.getPhLastScore();
+	String averageScore = uph.getPhAverageScore();
+	String lessonCount = uph.getPhLessonCount();
 %>
 
  
@@ -176,15 +180,15 @@ $('#container').highcharts({
 	
 	<div class="ui-field-contain">
 		<label for="text-1">Your Last Score:</label>
-		<input name="text-1" id="text-1" data-clear-btn="true" value="" placeholder="X.xx%" type="text" readonly/>
+		<input name="text-1" id="text-1" value="<%=lastScore%>" placeholder="X.xx%" type="text" readonly="readonly"/>
 	</div>
 	<div class="ui-field-contain">
 		<label for="text-2">Your Average Score:</label>
-		<input name="text-2" id="text-2" data-clear-btn="true" placeholder="X.xx%" value="" type="text" readonly/>
+		<input name="text-2" id="text-2" value="<%=averageScore%>" placeholder="X.xx%"  type="text" readonly/>
 	</div>
 	<div class="ui-field-contain">
 		<label for="text-3">No. of completed tests:</label>
-		<input name="text-3" id="text-3" data-clear-btn="true" value="" placeholder="XX" type="text" readonly/>
+		<input name="text-3" id="text-3" value="<%=lessonCount%>" placeholder="XX" type="text" readonly/>
 	</div>
 	<div class="ui-field-contain">
 		<label for="textarea-1">Most Repeated Words:</label>

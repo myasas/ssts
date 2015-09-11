@@ -13,7 +13,10 @@ public class UPHistory {
 	
 	private String xAxisValuesForUser;
 	private String yAxisValuesForUser;
-
+	
+	private String phLastScore;
+	private String phAverageScore;	
+	private String phLessonCount;
 
 //	Getters and Setters	
 
@@ -174,6 +177,54 @@ public class UPHistory {
 	 */
 	public void setyAxisValuesForUser(String yAxisValuesForUser) {
 		this.yAxisValuesForUser = yAxisValuesForUser;
+	}
+
+
+	/**
+	 * @return the phLastScore
+	 */
+	public String getPhLastScore() {
+		return phLastScore;
+	}
+
+
+	/**
+	 * @param phLastScore the phLastScore to set
+	 */
+	public void setPhLastScore(String phLastScore) {
+		this.phLastScore = phLastScore;
+	}
+
+
+	/**
+	 * @return the phAverageScore
+	 */
+	public String getPhAverageScore() {
+		return phAverageScore;
+	}
+
+
+	/**
+	 * @param phAverageScore the phAverageScore to set
+	 */
+	public void setPhAverageScore(String phAverageScore) {
+		this.phAverageScore = phAverageScore;
+	}
+
+
+	/**
+	 * @return the phLessonCount
+	 */
+	public String getPhLessonCount() {
+		return phLessonCount;
+	}
+
+
+	/**
+	 * @param phLessonCount the phLessonCount to set
+	 */
+	public void setPhLessonCount(String phLessonCount) {
+		this.phLessonCount = phLessonCount;
 	}
 
 	

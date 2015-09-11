@@ -138,15 +138,38 @@ public class UPHistoryDAO {
 	    	StringBuilder sbLessonNameandIds = new StringBuilder();
 	    	StringBuilder sbLessonScores = new StringBuilder();
 	    	
+	    	int countInt =0;
+	    	int tempScore =0;
+	    	int totalScoreInt =0;	    	
+	    	String lastScore = null;
+
 	    	for (UPHistory temp : uphDao.getAllUPHistoryForUserID(userID)) {
 	    		sbLessonNameandIds.append("'"+temp.getPhLessonType()+temp.getPhLessonID()+"',");
 	    		sbLessonScores.append(temp.getPhScore()+",");
+	    		countInt++;
+	    		lastScore = temp.getPhScore();
+	    		tempScore = Integer.parseInt(temp.getPhScore());
+	    		totalScoreInt = totalScoreInt + tempScore;
 			}	    	
 	    	uph.setxAxisValuesForUser(sbLessonNameandIds.toString());
 	    	uph.setyAxisValuesForUser(sbLessonScores.toString());
 	    	
+	    	uph.setPhLessonCount(String.valueOf(countInt));
+	    	
+			if (!(lastScore == null)) {
+				uph.setPhLastScore(lastScore + " %");
+			} else {
+				uph.setPhLastScore("X.XX % (You have not performed any lessons yet!)");	
+			}
+
+	    	if(countInt !=0){
+		    	uph.setPhAverageScore(String.valueOf((totalScoreInt/countInt))+" %");	    		
+	    	}else{
+		    	uph.setPhAverageScore("X.XX %");		    		
+	    	}
+
 	    	return uph;
 	    }
-	    
+
 	
 }
