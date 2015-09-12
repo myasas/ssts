@@ -1,5 +1,3 @@
-<%@page import="model.StutteredSpeech"%>
-<%@page import="dao.StutteredSpeechDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="model.Activity"%>
@@ -9,6 +7,8 @@
 <%@page import="configuration.StaticReferences"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="controller.StutteredSpeechController"%>    
+<%@page import="model.UPHistory"%>
+<%@ page import ="dao.UPHistoryDAO" %>
     
 <%
     if ((session.getAttribute(StaticReferences.ssnUserlogin) == null) || (session.getAttribute(StaticReferences.ssnUserlogin) == "")) {
@@ -56,20 +56,7 @@ $(document).foundation();
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <meta charset="ISO-8859-1">
-
-<!-- Script - Responsive Video --> 
-<script type="text/javascript" src="/js/lib/dummy.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/result-light.css">
-<style type="text/css">
-.embed-container { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; max-width: 100%; height: auto; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-</style>
-<script type="text/javascript">//<![CDATA[
-window.onload=function(){
-}//]]> 
-</script>
-<!-- Script - Responsive Video --> 
-
-<!-- Script - Speech Graph with DAF -->    
+    
   <script type="text/javascript">//<![CDATA[
 function myAnalyzer(){  
 
@@ -146,11 +133,11 @@ draw();
 
 <!-- Script - Diff Text Setting -->
 <script>
-function settriggertexttodb(){
+function setdifftexttodb(){
 	
-var triggertext = "trigger";
+var difftext = document.getElementById('diffid').innerHTML;
 
-document.getElementById('addresultsdb').value = triggertext;
+document.getElementById('addresultsdb').value = difftext;
 
 	}
 </script>
@@ -207,35 +194,54 @@ document.getElementById('addresultsdb').value = triggertext;
   </section></nav>
 		</div>	
 		
+<% 	
+	
 
+	ActivityDAO activityDao = new ActivityDAO();
+	Activity activity = new Activity();
+	RandomIndexGenerator rig = new RandomIndexGenerator();
+	
+	activity = activityDao.getMinMaxIDs();
+	int randomIndexNumber = rig.generateRandomIndex(activity.getMinID(), activity.getMaxID());
+	String randomIndexNumberString = String.valueOf(randomIndexNumber);
+	
+	activity.setActID(randomIndexNumberString);
+	
+// 	ActivityDAO getActDao = new ActivityDAO();	
+	activity = activityDao.getActivityBySettingValues(activity);
+	
+	String actSession=activity.getActSession();
+	session.setAttribute(StaticReferences.ssnActivityID, randomIndexNumber); 
+	
+%>		
 <!-- White Paragraph  -->					
 		<div data-role="content">		
 		<form >		
 
-	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">My Practice Room</h4>		
+	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Smart Therapy</h4>		
 		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
 		<p><em>(This exercise is DAF enabled. It is advised to choose a calm environment or to wearing headsets while performing this exercise.)</em></p>
-		<p><strong>Please click the black button, play the following visual. Then practice the words loud and slow :</strong></p>
+		<p><strong>Please click the black color button and read out following paragraph loud and slow :</strong></p>
 
-
-		
-<div class="si-wrapper">						
-	<p><ins><strong>Speech Output :</strong></ins></p>
-	
+			<textarea rows="4" cols="50" name="paratoread" readonly><%=actSession %></textarea>
+			<br>
 			<table border="0">
             <tr>
 				<th>Voice Frequency:</th>
 				<th id="arrayIndex">0</th>
             </tr>			
 			</table>
-			<canvas hidden="hidden" id="canvas" width="500" height="220"></canvas>
-				
+<!-- 			<p>Frequency:</p> -->
+<!-- 			<p id="arrayIndex">0</p> -->
+			<p><ins><strong>Graph:</strong></ins></p>
+			<canvas id="canvas" width="500" height="220"></canvas>
+			
+<div class="si-wrapper">						
+	<p><ins><strong>Speech Output :</strong></ins></p>
 	<textarea name=speechoutput rows="4" cols="50" class="si-input" placeholder="Please read the text" ></textarea>
 
 <a href="" class="si-btn ui-btn ui-icon-grid ui-btn-icon-left ui-corner-all ui-btn-b" onclick="myAnalyzer();"><span class="si-mic"></span> <span class="si-holder"></span></a>
 </div>		
-
-<div class='embed-container'><iframe width="420" height="315" src='https://www.youtube.com/embed/0Bkh6r_dLiI?list=PLsszHotwQ0jJeDjZIt134fsfF2tWVE_e-' frameborder='0' allowfullscreen></iframe></div>
 	
 		<input type="Submit" value="Finished !" onclick="location.href='redirect.jsp'" />
 </div>
@@ -245,7 +251,7 @@ document.getElementById('addresultsdb').value = triggertext;
 		</div>		
 		
 <%
-//  String spIn = request.getParameter("paratoread"); 
+String spIn = request.getParameter("paratoread");
 String spOut = request.getParameter("speechoutput");
 
 if (spOut == null) {
@@ -256,12 +262,12 @@ if (spOut.length() == 0) {
 // There was a querystring like ?myText=
 // but no text, so myText is not null, but 
 // a zero length string instead.
-session.setAttribute(StaticReferences.ssnRedirectPage, "speechpractice.jsp#dialog-nospeechinput");
+session.setAttribute(StaticReferences.ssnRedirectPage, "speechagl.jsp#dialog-nospeechinput");
 response.sendRedirect("redirect.jsp");%>   
 <% } else { 
-   session.setAttribute(StaticReferences.ssnRedirectPage, "speechpractice.jsp#page-2"); 
+   session.setAttribute(StaticReferences.ssnRedirectPage, "speechagl.jsp#page-2"); 
    session.setAttribute("spout", spOut); 
-//    session.setAttribute("spin", spIn);    
+   session.setAttribute("spin", spIn);    
    response.setHeader("refresh", "1");
    response.sendRedirect("redirect.jsp");   
 
@@ -320,13 +326,13 @@ response.sendRedirect("redirect.jsp");%>
 	String paraToRead=null;   
 	String speechOutput=null;  	
 	String html = null;
-	HashMap<String , Integer> repeatedWordsAndCount = new HashMap<>();	
+	String score =null;
     if ((session.getAttribute("spout") == null) || (session.getAttribute("spout") == "")) {
 	%>
 No input is received. If you received this message while refreshing the page, please go back and retry.<br/>
 
 <%} else {
-// 	paraToRead = session.getAttribute("spin").toString().toLowerCase();   
+	paraToRead = session.getAttribute("spin").toString().toLowerCase();   
     speechOutput = session.getAttribute("spout").toString().toLowerCase();   
 
 	StutteredSpeechController ssc = new StutteredSpeechController();
@@ -334,26 +340,63 @@ No input is received. If you received this message while refreshing the page, pl
 	ssc = ssc.analyzeRecognizedVoiceInput(speechOutput);
 	ssc.calculateSttuteredWordsAndCount(ssc.getRepeatedWordsArrayOut());
 
+	HashMap<String , Integer> repeatedWordsAndCount = new HashMap<>();
 	repeatedWordsAndCount = ssc.calculateSttuteredWordsAndCount(ssc.getRepeatedWordsArrayOut());
 	
 	//Calculate Score
 	int speechOutputLength = ssc.textTotArray(speechOutput).length;
 	int totalRepeatedWords = ssc.totalRepeated(repeatedWordsAndCount);
-	String score = ssc.calculateScore(speechOutputLength, totalRepeatedWords);
+	score = ssc.calculateScore(speechOutputLength, totalRepeatedWords);
 	
 	//Print HTML output
 	html= ssc.hashmapToHtml(repeatedWordsAndCount);
 %>	
-<%-- 	<p>Your score(beta) for the lesson is <b><%=score%>%</b>.</p>	 --%>
+	<p>Your score(beta) for the lesson is <b><%=score%>%</b>.</p>	
 	
+<!-- Test2 -->
+  <style type="text/css">
+    ins {
+  background-color: #73c1db;
+  text-decoration: none; }
+  del {
+    background-color: #ffc6c6; }
+      table th {
+        width: 30%; }
+  </style>
+<script type="text/javascript" src="http://google-diff-match-patch.googlecode.com/svn/trunk/javascript/diff_match_patch.js"></script>
+      <script type="text/javascript" src="https://rawgithub.com/arnab/jQuery.PrettyTextDiff/master/jquery.pretty-text-diff.js"></script>  
+<script type="text/javascript">//<![CDATA[
+$(window).load(function(){
 
+    $("#wrapper tr").prettyTextDiff({
+        cleanup: $("#cleanup").is(":checked")
+    });
+
+
+});//]]> 
+</script>	  
+<!-- Test2 -->	
+ <div id="wrapper">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Original Sentence</th>
+                <th>Voiced Sentence</th>
+                <th>Result (<ins>Missed</ins> / <del>Not Expected</del>)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="changed"><%= paraToRead %></td>
+                <td class="original"><%= speechOutput %></td>                
+                <td class="diff" id="diffid"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>		
 	
-<%
-	if(repeatedWordsAndCount.isEmpty()){
+	<%if(repeatedWordsAndCount.isEmpty()){
 // If no words are repeated - Do not show repeated words lable.
-%>
-	<p>Hooray ! You have not repeated anything!</p>
-	<%
 	}else{
 	%>
 	<p>Following words are repeated,</p>
@@ -362,28 +405,20 @@ No input is received. If you received this message while refreshing the page, pl
 	<%
 	}
 %>
-		</form>
-		
-		<a href="#" data-role="button" data-rel="back" data-icon="back">Do it again</a>
-<%
-	if(repeatedWordsAndCount.isEmpty()){
-// If no words are repeated - Do not show repeated words lable.
-	%>
-		<a href="" onclick="location.href='success.jsp'" data-role="button" data-icon="action">Goto My Profile</a>
-	<%
-	}else{
-	%>
-		<a href="" onclick="settriggertexttodb();delayedclickadduph(1000);" data-role="button" data-icon="action">Submit Results</a>
-	<%
-	}
-%>		
 
 
 <%	
 }	
 %>			
 		
-<!--  html - result add form -->
+		</form>
+		
+		<a href="#" data-role="button" data-rel="back" data-icon="back">Do it again</a>
+		<a href="" onclick="setdifftexttodb();delayedclickadduph(1000);" data-role="button" data-icon="action">Submit Results</a>
+		
+		
+		
+<!--  html - activity add form -->
 
     	<div data-role="content" hidden="hidden">	
 		<form>
@@ -397,25 +432,36 @@ No input is received. If you received this message while refreshing the page, pl
 		<%
 		
 		String addResultsDb = request.getParameter("addresultsdb");
+		String addLessonIdDb = session.getAttribute(StaticReferences.ssnActivityID).toString();
 		String addUserIdDb = session.getAttribute(StaticReferences.ssnUserid).toString();
-
+		String lessonTypeDb = "Activity";
+		String lessonScoreDb = score;
 		
 		if (addResultsDb == null) {
 			// myText is null when the page is first requested, 
 			// so do nothing
 		} else { 
-	
-// 		Add user stuttered speech record to the stutteredspeech table
-		if(!repeatedWordsAndCount.isEmpty()){
-			StutteredSpeechDAO stspDao = new StutteredSpeechDAO();
-			stspDao.insertStutteredSpeechHashMap(addUserIdDb, repeatedWordsAndCount);
-		}
+
+		UPHistoryDAO uphDao = new UPHistoryDAO();
+		UPHistory uph = new UPHistory();
 		
+// 		Add user profile history record to the uph table
+		uph.setPhUserID(addUserIdDb);
+		uph.setPhLessonID(addLessonIdDb);
+		uph.setPhLessonType(lessonTypeDb);
+		uph.setPhScore(lessonScoreDb);
+		uph.setPhResults(addResultsDb);
+		uphDao.addUPHistory(uph);
+		
+		session.setAttribute("uphObj", uph);  
 		session.setAttribute(StaticReferences.ssnRedirectPage, "success.jsp"); 
 // 		response.setHeader("refresh", "1");
 		response.sendRedirect("redirect.jsp");   		
 		}
 		%>				
+		
+		
+		
 		
 			</div>
 		</div>	
@@ -440,9 +486,18 @@ No input is received. If you received this message while refreshing the page, pl
 		</div>
 	</div>		
 	
+	<div data-role="page" data-dialog="true" id="dialog-resultssaved" data-theme="b">
+		<div data-role="header">
+			<h1>Results Saved</h1>
+		</div>
+		<div data-role="content" data-theme="a">
+			<h6>Results saved successfully. Do you want to perform another lesson?"</h6>
+			<a href="#dialog-1" class="ui-btn ui-corner-all" data-rel="back">OK</a>
+		</div>
+	</div>			
+	
 </body>
 </html> 
- 
 <%
     }
 %>

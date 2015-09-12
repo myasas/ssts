@@ -91,7 +91,7 @@ public class StutteredSpeechController {
                  int countOfCurrentWord = stutteredWordsnCountsHashMap.get(currentWord);
                 stutteredWordsnCountsHashMap.put(currentWord.toLowerCase(), countOfCurrentWord+1);              
                }else{
-                stutteredWordsnCountsHashMap.put(currentWord.toLowerCase(), 1);                 
+                stutteredWordsnCountsHashMap.put(currentWord.toLowerCase(), 1);
                }
                repeatedWordsArray.remove(0);
             }

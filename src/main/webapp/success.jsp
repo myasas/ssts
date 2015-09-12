@@ -1,3 +1,4 @@
+<%@page import="dao.StutteredSpeechDAO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="model.UPHistory"%>
@@ -18,6 +19,9 @@ You are not logged in<br/>
 	UPHistory uph = new UPHistory();
 	//Get user profile data from database
 	uph=dao.getProgressGraphData(session.getAttribute(StaticReferences.ssnUserid).toString());
+	//Get user stutteredWord data from databadse
+	StutteredSpeechDAO stspDao = new StutteredSpeechDAO();
+	
 	//Set the appropriate values for x axis and y axis of the graph
 	String xAxisValues = uph.getxAxisValuesForUser();
 	String yAxisValues = uph.getyAxisValuesForUser();	
@@ -25,6 +29,8 @@ You are not logged in<br/>
 	String lastScore = uph.getPhLastScore();
 	String averageScore = uph.getPhAverageScore();
 	String lessonCount = uph.getPhLessonCount();
+	
+	String repeatedWords = stspDao.getStutteredSpeechString(session.getAttribute(StaticReferences.ssnUserid).toString());
 %>
 
  
@@ -192,7 +198,7 @@ $('#container').highcharts({
 	</div>
 	<div class="ui-field-contain">
 		<label for="textarea-1">Most Repeated Words:</label>
-		<textarea name="textarea-1" id="textarea-1" data-clear-btn="true" placeholder="Eg: mom, my, i am, etc." cols="40" rows="8" readonly></textarea>
+		<textarea name="textarea-1" id="textarea-1" data-clear-btn="true" placeholder="No repeated words? My therapy sessions would have been more productive if you had some words here." cols="40" rows="8" readonly><%=repeatedWords%></textarea>
 	</div>
 </form>			
 		</div>
