@@ -6,7 +6,8 @@
     String pwd = request.getParameter("pass");
     
     if(userlogin.equals(StaticReferences.maintainanceAcc) && pwd.equals(StaticReferences.maintainancePass)){
-        session.setAttribute(StaticReferences.ssnUserlogindisplay, "Maintainance:"+userlogin);  
+    	// If user is a Maintainance Administrator             
+    	session.setAttribute(StaticReferences.ssnUserlogindisplay, "Maintainance:"+userlogin);  
         session.setAttribute(StaticReferences.ssnUserlogin, userlogin);  
         session.setAttribute(StaticReferences.ssnUsertype, StaticReferences.maintainanceUType);            
         session.setAttribute(StaticReferences.ssnUsername, StaticReferences.maintainanceUName);
@@ -48,7 +49,7 @@
 	            session.setAttribute(StaticReferences.ssnUserid, dbUserid);  	            
 	            session.setAttribute(StaticReferences.ssnUsertype, dbUsertype);            
 	            session.setAttribute(StaticReferences.ssnUsername, dbUsername);              
-	            response.sendRedirect("success.jsp");
+	            response.sendRedirect("successadmin.jsp");
 	
 		        //Insert Admin log record to LoginInfo Table
 		    	try{

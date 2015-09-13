@@ -1,3 +1,5 @@
+<%@page import="model.StutteredSpeech"%>
+<%@page import="dao.StutteredSpeechDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="model.Activity"%>
@@ -224,6 +226,7 @@ document.getElementById('addresultsdb').value = difftext;
 		<p><strong>Please click the black color button and read out following paragraph loud and slow :</strong></p>
 
 			<textarea rows="4" cols="50" name="paratoread" readonly><%=actSession %></textarea>
+			<input type="button" value="Generate New Sentence !" onclick="location.href='x.html'" />			
 			<br>
 			<table border="0">
             <tr>
@@ -327,6 +330,7 @@ response.sendRedirect("redirect.jsp");%>
 	String speechOutput=null;  	
 	String html = null;
 	String score =null;
+	HashMap<String , Integer> repeatedWordsAndCount = new HashMap<String , Integer>();
     if ((session.getAttribute("spout") == null) || (session.getAttribute("spout") == "")) {
 	%>
 No input is received. If you received this message while refreshing the page, please go back and retry.<br/>
@@ -340,7 +344,6 @@ No input is received. If you received this message while refreshing the page, pl
 	ssc = ssc.analyzeRecognizedVoiceInput(speechOutput);
 	ssc.calculateSttuteredWordsAndCount(ssc.getRepeatedWordsArrayOut());
 
-	HashMap<String , Integer> repeatedWordsAndCount = new HashMap<>();
 	repeatedWordsAndCount = ssc.calculateSttuteredWordsAndCount(ssc.getRepeatedWordsArrayOut());
 	
 	//Calculate Score
@@ -418,7 +421,7 @@ $(window).load(function(){
 		
 		
 		
-<!--  html - activity add form -->
+<!--  html - result add form -->
 
     	<div data-role="content" hidden="hidden">	
 		<form>
@@ -434,7 +437,7 @@ $(window).load(function(){
 		String addResultsDb = request.getParameter("addresultsdb");
 		String addLessonIdDb = session.getAttribute(StaticReferences.ssnActivityID).toString();
 		String addUserIdDb = session.getAttribute(StaticReferences.ssnUserid).toString();
-		String lessonTypeDb = "Activity";
+		String lessonTypeDb = "MyTherapy";
 		String lessonScoreDb = score;
 		
 		if (addResultsDb == null) {
@@ -452,6 +455,12 @@ $(window).load(function(){
 		uph.setPhScore(lessonScoreDb);
 		uph.setPhResults(addResultsDb);
 		uphDao.addUPHistory(uph);
+		
+// 		Add user stuttered speech record to the stutteredspeech table
+		if(!repeatedWordsAndCount.isEmpty()){
+			StutteredSpeechDAO stspDao = new StutteredSpeechDAO();
+			stspDao.insertStutteredSpeechHashMap(addUserIdDb, repeatedWordsAndCount);
+		}
 		
 		session.setAttribute("uphObj", uph);  
 		session.setAttribute(StaticReferences.ssnRedirectPage, "success.jsp"); 
