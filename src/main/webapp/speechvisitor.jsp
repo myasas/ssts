@@ -184,7 +184,7 @@ draw();
 		<div data-role="content">		
 		<form >		
 
-	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Smart Therapy</h4>		
+	<h4 id="heading-1" class="ui-bar ui-bar-a ui-corner-all" align="left">Speech Activities</h4>		
 		<div data-role="content"  class="ui-body ui-body-a ui-corner-all" >
 		<p><em>(This exercise is DAF enabled. It is advised to choose a calm environment or to wearing headsets while performing this exercise.)</em></p>
 		<p><strong>Please click the black color button and read out following paragraph loud and slow :</strong></p>

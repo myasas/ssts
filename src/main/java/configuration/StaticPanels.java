@@ -6,7 +6,7 @@ package configuration;
  */
 public class StaticPanels {
 	
-//	User Homepage - Member
+//	User Homepage - Visitor
 	public static final String homePanelVisitor="<div data-role=\"panel\" id=\"panel-userhome\" data-theme=\"b\">\n" +
 			"		<ul data-role=\"listview\" id=\"listview-1\">\n" +
 			"			<li><a href=\"\" onclick=\"location.href='index.html'\">SSTS Home</a></li>\n" +
@@ -32,7 +32,7 @@ public class StaticPanels {
 //	User Homepage - Administrator
 	public static final String homePanelAdmin="<div data-role=\"panel\" id=\"panel-userhome\" data-theme=\"b\">\n" +
 			"		<ul data-role=\"listview\" id=\"listview-1\">\n" +
-			"			<li><a href=\"\" onclick=\"location.href='success.jsp'\">My Profile</a></li>\n" +
+			"			<li><a href=\"\" onclick=\"location.href='successadmin.jsp'\">My Profile</a></li>\n" +
 			"			<li><a href=\"\" onclick=\"location.href='lessonmanagementactivity.jsp'\">Activity Management</a></li>\n" +
 			"			<li><a href=\"\" onclick=\"location.href='lessonmanagementpractice.jsp'\">Practice Management</a></li>\n" +
 			"			<li><a href=\"\" onclick=\"location.href='lessonmanagementagl.jsp'\">AGL Management</a></li>\n" +	
